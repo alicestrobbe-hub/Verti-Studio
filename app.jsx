@@ -398,15 +398,16 @@ function Nav({ scrollY, setLang }) {
   );
 }
 
-// Sfondo fisso: immagine + overlay. Target del GSAP zoom. Nessun testo qui.
+// Sfondo fisso: video in loop + overlay.
 function Hero() {
   return (
     <div id="bg-layer">
       <div className="hero-bg" id="hero-bg">
-        <img src="assets/sfondo1.jpg" alt="" className="hero-bg-img" fetchpriority="high" decoding="async" />
+        <video className="hero-bg-img" autoPlay muted loop playsInline>
+          <source src="assets/homepageWP.mp4" type="video/mp4" />
+        </video>
       </div>
       <div className="hero-overlay"></div>
-      <div className="hero-overlay-dark" id="hero-overlay-dark"></div>
     </div>
   );
 }
@@ -1156,72 +1157,27 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // ─── Zoom + scroll del foglio contenuto ────────────────────────────────────
+  // ─── Scroll del foglio contenuto ────────────────────────────────────────────
   React.useEffect(() => {
     const gsap = window.gsap;
-    const ScrollTrigger = window.ScrollTrigger;
-    if (!gsap || !ScrollTrigger) return;
-
-    gsap.registerPlugin(ScrollTrigger);
-
-    // ═══════════════════════════════════════════════════════════════════════════
-    // COORDINATE ZOOM — seconda vetta da sinistra
-    //   X: 0% = bordo sinistro   →   100% = bordo destro
-    //   Y: 0% = cima immagine    →   100% = fondo immagine
-    const PEAK_X = '28%';  // ← regola X
-    const PEAK_Y = '36%';  // ← regola Y
-    // ═══════════════════════════════════════════════════════════════════════════
-
-    // Pixel di scroll dedicati alla fase zoom (prima che il foglio inizi a muoversi)
-    const ZOOM_PX = window.innerHeight * 2.2;
+    if (!gsap) return;
 
     // ── Altezza scroll-driver ─────────────────────────────────────────────────
-    // Totale = zoom_px + altezza del foglio contenuto
-    // Impostata subito e aggiornata al resize
     const setDriverHeight = () => {
       const contentH = document.getElementById('content-inner').offsetHeight;
-      document.getElementById('scroll-driver').style.height =
-        `${ZOOM_PX + contentH}px`;
+      document.getElementById('scroll-driver').style.height = `${contentH}px`;
     };
     setDriverHeight();
     window.addEventListener('resize', setDriverHeight);
 
     // ── Scroll handler: traduce #content-inner in Y ───────────────────────────
-    // scrollY 0 → ZOOM_PX  : contenuto fermo (translateY = 0)
-    // scrollY > ZOOM_PX    : contenuto sale 1:1 con lo scroll
     const onScroll = () => {
-      const dy = Math.max(0, window.scrollY - ZOOM_PX);
-      gsap.set('#content-inner', { y: -dy });
+      gsap.set('#content-inner', { y: -window.scrollY });
     };
     window.addEventListener('scroll', onScroll, { passive: true });
     onScroll(); // stato iniziale
 
-    // ── Zoom GSAP (trigger sul scroll-driver) ────────────────────────────────
-    gsap.set('#hero-bg', { transformOrigin: `${PEAK_X} ${PEAK_Y}`, scale: 1 });
-    gsap.set('#hero-overlay-dark', { opacity: 0 });
-
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: '#scroll-driver',
-        start: 'top top',          // scrollY = 0 → zoom parte
-        end: `+=${ZOOM_PX}`,      // scrollY = ZOOM_PX → zoom finito, sfondo nero
-        scrub: 1.5,
-        // Navbar trasparente durante lo zoom
-        onEnter:     () => document.body.classList.add('hero-zooming'),
-        onLeave:     () => document.body.classList.remove('hero-zooming'),
-        onEnterBack: () => document.body.classList.add('hero-zooming'),
-        onLeaveBack: () => document.body.classList.remove('hero-zooming'),
-      }
-    });
-
-    // Immagine zooma sulla vetta per tutta la durata dello scroll zoom
-    tl.to('#hero-bg', { scale: 10, ease: 'power1.in', duration: 1 }, 0);
-
-    // Overlay nero: parte al 30%, completo al 100% dello scroll zoom
-    tl.to('#hero-overlay-dark', { opacity: 1, ease: 'power2.in', duration: 0.7 }, 0.3);
-
     return () => {
-      ScrollTrigger.getAll().forEach(st => st.kill());
       window.removeEventListener('scroll', onScroll);
       window.removeEventListener('resize', setDriverHeight);
     };
@@ -1299,7 +1255,7 @@ function App() {
       <SplashScreen visible={splashVisible} />
       <CustomCursor enabled={t.showCursor && t.animLevel === 'full'} />
       <Nav scrollY={scrollY} setLang={setLang} />
-      {/* Layer 1: sfondo fisso, zoom target GSAP */}
+      {/* Layer 1: sfondo fisso — video in loop */}
       <Hero />
 
       {/* Layer 2: foglio contenuto — fermo durante zoom, poi tradotto in Y da JS
@@ -1318,8 +1274,7 @@ function App() {
         </div>
       </div>
 
-      {/* Layer 3: scroll driver — div trasparente, altezza impostata da JS
-          crea lo spazio di scroll totale (zoom + contenuto) */}
+      {/* Layer 3: scroll driver — div trasparente, altezza = contenuto */}
       <div id="scroll-driver" aria-hidden="true"></div>
     </LangCtx.Provider>
   );

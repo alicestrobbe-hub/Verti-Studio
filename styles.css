@@ -376,7 +376,7 @@ body.hero-zooming .nav.scrolled {
 
 /* ───────── Hero ───────── */
 
-/* Layer 1 — sfondo fisso: immagine che zooma + overlay che diventa nero.
+/* Layer 1 — sfondo fisso: video in loop + overlay.
    Sempre dietro tutto (z-index 0). Il contenuto scorre davanti. */
 #bg-layer {
   position: fixed;
@@ -423,11 +423,9 @@ body.hero-zooming .nav.scrolled {
 
 .hero-bg {
   position: absolute;
-  inset: -10%;
+  inset: 0;
   z-index: 0;
   filter: grayscale(100%) brightness(0.55) contrast(1.05);
-  will-change: transform;
-  transform-origin: center 40%;
 }
 
 .hero-overlay {
@@ -443,16 +441,6 @@ body.hero-zooming .nav.scrolled {
   pointer-events: none;
 }
 
-.hero-overlay-dark {
-  position: absolute;
-  inset: 0;
-  /* z-index: 4 → sopra hero-content (3) e hero-meta (3): copre il testo quando diventa nero */
-  z-index: 4;
-  background: var(--abisso);
-  opacity: 0;
-  /* GSAP anima questo da 0 → 1 durante lo zoom */
-  pointer-events: none;
-}
 
 .hero-content {
   position: relative;

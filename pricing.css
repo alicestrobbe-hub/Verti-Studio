@@ -1284,15 +1284,11 @@
 }
 
 /* ═══════════════════════════════════════
-   TEDESCO — titolo hero compatto
-   "entsteht aus einem" è più lungo delle
-   righe in IT/EN: font ridotto per stare
-   su 3 righe senza wrapping e senza
-   invadere la navbar.
+   TEDESCO — titolo hero
+   Stessa dimensione della versione IT.
+   Le 3 righe sono garantite dalla struttura
+   a div separati (LineReveal).
 ═══════════════════════════════════════ */
-.pr-hero-title--de {
-  font-size: clamp(32px, 5vw, 72px);
-}
 
 @media (max-width: 640px) {
   .pr-hero-title--de {
