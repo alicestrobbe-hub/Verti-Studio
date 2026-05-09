@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(impeccable)",
+      "Skill(impeccable:*)",
+      "Read(//Users/alicestrobbe/.claude/skills/impeccable/reference/**)",
+      "Read(//Users/alicestrobbe/.agents/skills/impeccable/reference/**)"
+    ]
+  }
+}

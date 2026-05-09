@@ -1,0 +1,289 @@
+VERTI STUDIO
+Brand &amp; Website Guide
+────────────────────
+Documento di riferimento interno
+Versione 1.0  ·  2025
+Questo documento raccoglie tutte le decisioni fondanti del progetto Verti Studio: il nome, il posizionamento, la palette colori, il sistema tipografico e la struttura del sito web. Serve come guida operativa per la costruzione e come riferimento per mantenere coerenza nel tempo.
+SEZIONE 01
+Nome e posizionamento
+Il nome
+Verti Studio
+Origine
+Dal latino vertex — la cima, il punto più alto raggiungibile.
+Significato
+Evoca ascesa, direzione, ambizione verticale. Non contiene riferimenti espliciti alle montagne, ma li richiama per associazione.
+Con Studio
+Studio aggiunge concretezza e professionalità. Trasmette un luogo di lavoro serio, non una corporation anonima.
+Internazionale
+Funziona in italiano e in inglese. Facile da pronunciare e da ricordare in entrambe le lingue.
+Radici
+Fondato tra le Alpi — Bolzano, Alto Adige. La geografia non è un dettaglio: è parte dell'identità.
+Posizionamento
+Verti Studio non è presentato come attività personale o freelance, ma come realtà digitale strutturata — una micro-entità organizzata con metodo, processo e identità chiara.
+Target
+Aziende e professionisti con siti web inefficaci che perdono clienti senza rendersene conto.
+Proposta di valore
+Analisi reale del problema, poi soluzione concreta. Non template. Non generalità.
+Differenziazione
+Il design stesso è la prova del prodotto. Se il sito di Verti Studio non è superiore a quello del prospect, la conversazione finisce prima di iniziare.
+Tono
+Diretto, asciutto, sicuro. Come una guida alpina: non vende, porta in cima.
+Principio fondante: il sito è il prodotto. Prima ancora delle parole, il design dimostra cosa sai fare. Non esistono compromessi su questo punto.
+SEZIONE 02
+Palette colori
+Filosofia cromatica
+Dark, desaturato, alpino. Il nero non è mai nero puro — è quasi-nero, profondo come la roccia in quota. Il bianco non è bianco puro — è crema, come la neve compattata. Ogni colore ha una ragione geografica ed emotiva precisa.
+Famiglia scura — sfondi
+Abisso
+#0a0a0a
+Notte
+#141414
+Granito
+#1e1e1e
+Ardesia
+#2c2c2c
+Pietra
+#3a3a3a
+Abisso #0a0a0a
+Sfondo principale. Non nero puro — evita la piattezza.
+Notte #141414
+Sfondo secondario. Card, sezioni alternate.
+Granito #1e1e1e
+Bordi sottili, separatori, superfici elevate.
+Ardesia #2c2c2c
+Hover states, elementi interattivi.
+Pietra #3a3a3a
+Testi muti, placeholder, dettagli secondari.
+Famiglia chiara — testi e accenti
+Neve
+#e8e4dc
+Ghiaccio
+#c8c4bc
+Ambra
+#c8b89a
+Alpino
+#3d5a3d
+Abete
+#2d4a2d
+Neve #e8e4dc
+Testo principale su sfondo scuro. Mai bianco puro: troppo duro, meno sofisticato.
+Ghiaccio #c8c4bc
+Testo secondario, sottotitoli, descrizioni.
+Ambra #c8b89a
+Accento primario. Usato con estrema parsimonia: linee sottili, dettagli del logo, un elemento per sezione al massimo.
+Alpino #3d5a3d
+Verde scuro alpino. Bordi verticali nelle citazioni, piccoli accenti nei titoli di sezione.
+Abete #2d4a2d
+Variante più scura del verde. Sfondo di elementi enfatizzati.
+Il verde non va mai usato come sfondo principale. È un colore di dettaglio e firma — bordi, linee, piccoli accenti. Troppo e perde il valore.
+L'ambra va usato ancora meno del verde. Una linea sottile, un dettaglio nel logo, mai un colore di sfondo. Crea quella sensazione premium senza essere vistoso.
+Fotografia
+L'immagine delle Alpi è l'elemento visivo più importante del sito. Regole precise:
+Bianco e nero con saturazione vicina allo zero — non una foto turistica.
+Bassissimo contrasto sulle vette, quasi sovraeposte — si dissolve nello sfondo.
+Contrasto maggiore alle basi delle montagne, per creare profondità.
+Posizionata come sfondo nella hero section, non come elemento decorativo separato.
+Mai filtri Instagram, mai effetti vintage, mai cornici.
+SEZIONE 03
+Sistema tipografico
+Filosofia tipografica
+La tipografia è un elemento grafico, non solo di comunicazione. I contrasti di scala tra titoli enormi e testi minuscoli sono intenzionali — creano ritmo visivo e trasmettono autorevolezza. La gerarchia si legge prima di leggere le parole.
+Font consigliati
+Titoli display
+Cormorant Garamond Light o Playfair Display Light — serif eleganti, peso 300. Danno calore e profondità storica.
+Corpo e navigazione
+Inter ExtraLight (200) o Helvetica Neue UltraLight — sans-serif modernissimi, peso 200-300. Spazio e aria.
+Eyebrow / label
+Helvetica Neue o Inter, tutto maiuscolo, letter-spacing molto ampio (0.2em+), dimensione minima 9-10px.
+Citazioni
+Serif in corsivo, colore ambra o verde alpino, bordo verticale sinistro 1px.
+Regole d'oro
+Mai bold oltre weight 500. Il peso pesante contraddice l'estetica premium.
+Mai corsivo enfatico tranne nelle citazioni. Il corsivo decorativo sembra amatoriale.
+Mai tutte maiuscole per testi lunghi — solo per eyebrow e label brevissimi.
+Gerarchia per dimensione, non per colore. I colori sono rari e significativi.
+Letter-spacing ampio sui testi piccoli, stretto o negativo sui titoli grandi.
+Scala tipografica
+Display hero
+48-64px, weight 300, serif, letter-spacing -0.02em
+Titolo sezione
+28-36px, weight 300, serif, letter-spacing -0.01em
+Sottotitolo
+14-18px, weight 300, serif, corsivo, letter-spacing 0.04em
+Eyebrow
+9-11px, weight 400, sans, maiuscolo, letter-spacing 0.2em, colore verde
+Corpo testo
+14-16px, weight 300, sans, letter-spacing 0.04em, line-height 1.8
+Label / nav
+9-11px, weight 200, sans, maiuscolo, letter-spacing 0.14em
+Contrasto dimensionale intenzionale: un numero da 52px accanto a un testo da 11px in corsivo crea quella sensazione di design editoriale premium che distingue un sito fatto bene da un template.
+SEZIONE 04
+Effetti visivi e texture
+Gli effetti devono sembrare naturali, mai applicati. La regola è: se noti l'effetto, è troppo.
+Effetti permessi
+Luce radiale ambra
+Bagliore caldo sottilissimo in cima a card o sezioni chiave. Simula la luce radente sulle cime al tramonto. Opacità massima: 8-12%.
+Luce radiale verde
+Variante fredda per sezioni secondarie. Richiama la foresta alpina. Stessa opacità.
+Bordo verticale verde
+1px solido colore #3d5a3d a sinistra delle citazioni. Elegante e riconoscibile.
+Linea ambra orizzontale
+0.5px sotto i titoli di sezione o sopra elementi CTA. Mai più spessa.
+Testo stratificato
+Titolo grande in grigio scurissimo (#1a1a1a) con sottotitolo piccolo in ambra corsivo sotto. Effetto profondità senza immagini.
+Montagna SVG
+Silhouette vettoriale delle Alpi in sfondo a sezioni specifiche. Opacità 10-20%. Non in ogni sezione.
+Effetti vietati
+Gradienti visibili — zero gradienti come elemento decorativo.
+Drop shadow su elementi di testo.
+Glow neon o colori fluorescenti.
+Animazioni complesse o parallax pesante.
+Slider o caroselli nella hero.
+Video in autoplay.
+Emoji o icone decorative.
+Pattern o texture di sfondo.
+Regola pratica: ogni effetto deve avere una ragione geografica o emotiva precisa. La luce ambra esiste perché esiste la luce alpina al tramonto. Il verde esiste perché esistono le foreste di abeti. Se non hai una ragione, non usare l'effetto.
+SEZIONE 05
+Struttura del sito web
+Il sito di Verti Studio ha una funzione precisa: convertire un visitatore scettico in un prospect interessato. Ogni sezione ha uno scopo specifico. Niente è decorativo.
+Principio fondante
+Il sito è il prodotto. Prima ancora delle parole, il design dimostra cosa sai fare. Se il sito di Verti Studio non è visivamente superiore a quello dei tuoi prospect, la conversazione finisce prima di iniziare.
+PAGINA PRINCIPALE — SEZIONE 01
+Hero — i primi 3 secondi
+Un visitatore decide se restare in meno di 3 secondi. La hero deve rispondere immediatamente a: cosa fate, per chi, perché scegliervi.
+Headline unica e diretta — non descrivere il servizio, comunicare la trasformazione. Es: &quot;Il tuo sito attuale ti sta costando clienti.&quot; oppure &quot;Presenza digitale costruita per durare.&quot;
+Immagine delle Alpi in bianco e nero a bassissima saturazione come sfondo che si dissolve — non illustrazione turistica.
+Una sola CTA above the fold — &quot;Prenota una call gratuita&quot; o &quot;Analizza il mio sito&quot;. Una sola. Mai due.
+Nessuna distrazione: no slider, no animazioni complesse, no video in autoplay.
+Logo + navigazione minimale in alto: Servizi, Lavori, Contatti.
+Test dei 3 secondi: mostra la hero a qualcuno che non conosce il progetto. Dopo 3 secondi togli lo schermo e chiedi: cosa fa questo studio, per chi, perché dovrei sceglierlo? Se non risponde correttamente, la headline va riscritta.
+PAGINA PRINCIPALE — SEZIONE 02
+Il problema — specchio per il cliente
+Questa sezione è spesso assente nei siti di agenzie ed è la più persuasiva in assoluto. Prima di dire chi sei e cosa fai, dimostri che capisci esattamente il problema del cliente. Chi si riconosce nei sintomi resta a leggere.
+Lista breve di sintomi riconoscibili — tre o quattro punti massimo.
+Esempio: &quot;Il tuo sito non converte visitatori in clienti. Non sai perché.&quot; oppure &quot;Hai investito nel sito, ma i clienti arrivano ancora dal passaparola.&quot;
+Tono diagnostico, non commerciale. Il cliente deve sentirsi capito, non giudicato.
+Niente elenchi infiniti. Qualità sulla quantità.
+Questa sezione posiziona Verti Studio come chi ha la diagnosi, non come chi ha un servizio da vendere. È la differenza tra essere percepiti come un fornitore e come un consulente.
+PAGINA PRINCIPALE — SEZIONE 03
+Il metodo — processo in trasparenza
+Riduce l'ansia del cliente. Spiega cosa succede dopo il primo contatto. Un processo visibile e chiaro abbassa la percezione di rischio.
+01
+Analisi
+02
+Proposta
+03
+Sviluppo
+04
+Lancio
+Quattro step massimo — ognuno con titolo secco e due righe di spiegazione concreta.
+Linguaggio concreto — non &quot;ci prendiamo cura del tuo progetto&quot; ma &quot;analizziamo il sito esistente entro 48 ore e inviamo un report dettagliato.&quot;
+Tempistiche indicative quando possibile — aumentano la credibilità.
+PAGINA PRINCIPALE — SEZIONE 04
+Servizi — pagine dedicate
+La homepage introduce i servizi. Ogni servizio ha la propria pagina dedicata — migliora il SEO e permette di inviare link specifici nei follow-up ai prospect.
+Analisi sito
+Report approfondito su UX, comunicazione e conversione. Vendibile anche come servizio standalone — abbassa la barriera di ingresso.
+Web design
+Redesign o nuovo sito. Dalla strategia al lancio. Risultato misurabile, non solo estetico.
+Automazione
+Flussi, CRM, email automatiche. Posizionato come servizio premium in espansione.
+Marketing digitale
+Comunicazione, posizionamento, acquisizione clienti. Offerta futura, introdotta già ora.
+PAGINA PRINCIPALE — SEZIONE 05
+Portfolio — la prova più forte
+Il portfolio è lo strumento di vendita principale. Non una galleria estetica — una sequenza di prove di competenza.
+Prima e dopo visivo — accostamento diretto tra il vecchio sito e il nuovo. Impatto immediato e immediamente comprensibile.
+Ogni caso con: settore, problema iniziale, soluzione applicata, risultato (anche qualitativo nelle prime fasi).
+Demo e mockup valgono quanto i lavori reali — costruisci 3 casi solidi e realistici prima del lancio.
+Filtrabile per settore quando il portfolio cresce — il prospect trova subito qualcosa che lo riguarda.
+Strategia iniziale: offri il servizio di analisi gratuita o a costo ridotto a 2-3 business locali in cambio di una testimonianza scritta e il permesso di usare il caso nel portfolio. Una testimonianza reale vale più di tre vaghe.
+PAGINA PRINCIPALE — SEZIONE 06
+Testimonianze — prova sociale
+Non in fondo alla pagina come elemento decorativo. Sparse dove servono — vicino ai punti di massima esitazione del visitatore.
+Posizionate vicino alle CTA — il momento in cui il visitatore sta decidendo.
+Citazioni brevi e specifiche — non &quot;ottimo lavoro!&quot; ma &quot;il tasso di contatto è raddoppiato in sei settimane.&quot;
+Nome, ruolo e settore del cliente — mai testimonianze anonime.
+All'inizio: anche una sola testimonianza reale vale più di tre inventate o vaghe.
+PAGINA PRINCIPALE — SEZIONE 07
+CTA finale — conversione
+Una sola azione chiara. Nessun attrito. Il cliente deve poter prenotare senza passare per email intermedie.
+Calendly o equivalente integrato direttamente — prenota senza uscire dal sito.
+Call gratuita di 20 minuti come primo step — abbassa la barriera di ingresso al minimo.
+Testo della CTA orientato al beneficio del cliente: &quot;Scopri cosa frena il tuo sito&quot; — non il generico &quot;Contattaci&quot;.
+Non usare form di contatto standard come CTA principale. Ogni campo aggiuntivo riduce le conversioni. Il booking diretto via Calendly è sempre superiore.
+SEZIONE 06
+Regole trasversali
+Tecnica
+Mobile first
+Progetta prima per smartphone. Desktop è la versione espansa, non il contrario. Oltre il 60% del traffico viene da mobile.
+Velocità
+Sotto 3 secondi di caricamento. Immagini compresse in formato WebP. Nessun plugin inutile. Hosting veloce.
+SEO base
+Pagina dedicata per ogni servizio con keyword specifiche. Meta title e description curati. Google Business Profile completo.
+Analytics
+Google Analytics installato dal primo giorno. Monitorare dove si perdono i visitatori, non solo il traffico totale.
+Comunicazione
+Zero jargon
+Niente &quot;soluzioni sinergiche&quot; o &quot;approccio olistico&quot;. Parole semplici, concetti chiari, frasi brevi.
+Cliente al centro
+Il cliente è il protagonista. Verti Studio è la guida. Mai il contrario.
+Tono coerente
+Diretto, asciutto, sicuro. Formale ma non freddo. Come uno studio di architettura, non come un'agenzia pubblicitaria.
+Niente emoji
+Mai nel sito, mai nelle comunicazioni ufficiali. Contraddicono il posizionamento premium.
+Cosa evitare assolutamente
+Form di contatto lunghi come unica CTA.
+Stock photo generiche di persone che si stringono la mano o guardano schermi.
+Animazioni che rallentano il caricamento.
+Testi in prima persona plurale esagerato — &quot;noi crediamo, noi pensiamo, noi siamo&quot; ogni tre righe.
+Pagina About con autobiografia invece di posizionamento.
+Prezzi nascosti o vaghi — crea diffidenza.
+Portfolio con solo screenshot estetici senza contesto né risultati.
+VERTI STUDIO  ·  Brand &amp; Website Guide  ·  v1.0
+Documento interno — non distribuire
+SEZIONE 07
+Animazioni e interazioni
+Le animazioni non sono decorazione. Sono la dimostrazione più diretta di ciò che Verti Studio sa fare. Un visitatore che vede un sito animato con eleganza e precisione capisce immediatamente il livello del servizio. Ogni animazione ha una ragione funzionale: guidare l’attenzione, ridurre l’attrito cognitivo, comunicare qualità.
+Principio guida
+Le animazioni devono sembrare naturali, mai applicate. La regola pratica: se noti l’effetto come effetto, è troppo. Il risultato giusto è quando il visitatore sente che il sito è “vivo” senza riuscire a spiegare esattamente perché. Eleganza, non esibizione. Ogni animazione deve avere timing preciso, easing morbido e una ragione narrativa.
+Hero — scroll cinematografico
+È l’animazione principale e la più importante. La pagina si apre sulla foto delle Alpi a tutto schermo. Mentre il visitatore scorre verso il basso, accadono tre cose in parallelo: la foto fa uno zoom lentissimo verso l’interno (da scala 1.0 a 1.25), un overlay scuro si addensa progressivamente sopra l’immagine (da opacità 0 a 0.96), e il titolo “Verti Studio” sfuma verso l’alto e scompare. Quando lo zoom raggiunge il massimo, la foto è quasi completamente coperta e il contenuto principale emerge naturalmente sotto. La transizione è cinematografica, non un semplice scroll.
+Dettagli tecnici
+Tecnica: position sticky sul contenitore hero, scroll tracking via JavaScript con window.scrollY. Nessuna libreria esterna necessaria.
+Track height: 300vh. Lo scroll copre tre viewport prima di rivelare il contenuto successivo. Questo garantisce che la transizione sia lenta e leggibile anche su schermi piccoli.
+Zoom: transform scale da 1.0 a 1.25. La foto parte con margini negativi (-10%) per nascondere i bordi durante lo zoom. will-change: transform per performance GPU.
+Foto: in bianco e nero, bassa saturazione. CSS: filter: grayscale(100%) brightness(0.7) contrast(0.9). Posizionamento: center 40% per valorizzare le cime.
+In React/Next.js: usare Framer Motion con useScroll e useTransform per gestire lo stesso effetto in modo dichiarativo e più controllabile.
+Entrata hero — load animation
+Al caricamento della pagina, gli elementi della hero appaiono in sequenza con timing sfalsato. L’eyebrow (“Bolzano · Alto Adige”) entra per primo con fade + slide dal basso (0.3s delay). Il titolo principale segue con movimento più ampio (0.6s delay). Il sottotitolo arriva dopo (1.0s delay). La linea verticale ambra si estende verso il basso (1.3s delay). L’hint di scroll appare per ultimo (2.0s delay). L’effetto complessivo è di una rivelazione progressiva, come una scena che si illumina gradualmente.
+Testo che si rivela a linee
+I titoli delle sezioni non appaiono tutti insieme. Ogni riga emerge dal basso singolarmente, con un ritardo di 120ms tra una e l’altra. La tecnica usa overflow: hidden sul contenitore e transform: translateY(100%) su ogni riga, che poi transiziona a translateY(0) quando la sezione entra nel viewport. Effetto: le parole sembrano essere scolpite una alla volta, come incise nella pietra. Funziona con IntersectionObserver — nessun calcolo di scroll necessario.
+Linea ambra che si disegna
+I separatori orizzontali color ambra non sono statici. Quando entrano nel viewport, si tracciano da sinistra a destra in 1.2 secondi. Tecnica: width parte da 0 e transiziona a 48px (o alla larghezza desiderata). Lo stesso effetto si usa per le linee decorative sopra le step card del metodo, dove la linea verde in cima ad ogni card si disegna orizzontalmente con un delay basato sull’indice della card.
+Cursore personalizzato
+Il cursore di sistema viene nascosto (cursor: none sul body) e sostituito da due elementi: un punto ambra solido da 10px che segue il mouse in tempo reale, e un cerchio sottilissimo da 36px con bordo ambra semitrasparente che segue con un ritardo morbido (lerp al 12% per frame). Quando il cursore passa su un elemento cliccabile, il punto si restringe a 6px e il cerchio si espande a 56px. L’effetto è percepito come premium e artigianale. Implementato con requestAnimationFrame per fluidità a 60fps.
+Attenzione: disabilitare su mobile e tablet (pointer: coarse). Il cursore custom è solo per dispositivi con mouse.
+Aggiungere la classe “hovering” al body via JavaScript su mouseenter/mouseleave di ogni elemento interattivo.
+Contatori numerici animati
+Le statistiche chiave (es: 3 secondi per decidere, 60% traffico mobile, 2x conversioni) partono da zero e salgono fino al valore finale quando la sezione entra nel viewport. Durata: 1800ms con easing cubico ease-out (1 - (1-t)^3) per un rallentamento naturale verso la fine. L’animazione si attiva una volta sola tramite IntersectionObserver con threshold 0.4 — la sezione deve essere visibile per il 40% prima che i contatori partano. Questo evita che si attivino troppo presto con uno scroll rapido.
+Tilt 3D sulle card
+Le card del metodo e del portfolio reagiscono al movimento del mouse con un leggero tilt prospettico. Tecnica: al mousemove, calcolare la posizione relativa del cursore nella card (da -0.5 a +0.5 su entrambi gli assi), moltiplicare per il grado di rotazione massimo (4 gradi), e applicare con CSS transform perspective(600px) rotateX() rotateY() translateZ(4px). Al mouseleave, reset del transform. L’effetto trasmette profondità e reattività senza essere eccessivo.
+CTA con fill animato
+Il bottone principale non ha un hover con cambio colore generico. Al hover, un fill ambra avanza da sinistra a destra coprendo il bottone in 400ms con easing cubic-bezier(0.16,1,0.3,1). Il testo cambia da neve ad abyss simultaneamente. Tecnica: pseudo-elemento ::before con transform scaleX da 0 a 1, transform-origin: left. Questo crea la sensazione di un liquido che riempie un contenitore — raffinato e non banale.
+Indicatore di scroll pulsante
+In basso alla hero, una linea verticale di 40px color ambra con label “scorri” pulsa con un’animazione CSS infinita. La linea si scala verso il basso (transform-origin: top) e varia in opacità, simulando il movimento verso il basso. Scompare man mano che il visitatore inizia a scorrere, sincronizzato con il fade-out del contenuto hero. Sottile ma efficace nel guidare l’azione senza essere invasivo.
+Animazioni future — da aggiungere con il portfolio
+Prima/dopo portfolio: al hover su un caso, l’immagine “prima” si dissolve nella “dopo” con cross-fade fluido. Oppure una barra verticale trascinabile che rivela il dopo man mano che si sposta.
+Parallax leggero sulle card: elementi a velocità diverse durante lo scroll creano profondità percepita. Le immagini si muovono più lentamente del testo che le sovrasta (parallax rate 0.3-0.5).
+Transizione tra pagine: fade-out della pagina corrente e fade-in della successiva (300ms ciascuno) invece del cambio istantaneo predefinito del browser. In Next.js gestibile con Framer Motion AnimatePresence.
+Testo in marquee orizzontale: una striscia con tag di settori serviti (Ristorazione · Professioni · Artigianato · Retail · ...) che scorre in loop lento, separata da un punto ambra. Crea movimento senza attirare l’attenzione su nulla di specifico.
+Regole assolute sulle animazioni
+Easing: mai linear, mai ease predefinito. Usare cubic-bezier(0.16,1,0.3,1) per movimenti in uscita (expo out), cubic-bezier(0.4,0,0.2,1) per movimenti bidirezionali. Il timing preciso è la differenza tra animazione premium e animazione generica.
+Performance: animare solo transform e opacity. Mai animare width, height, top, left, margin, padding — causano reflow e drop di frame. Usare will-change: transform solo sugli elementi che animano via scroll, non su tutto.
+Accessibilità: rispettare prefers-reduced-motion. Wrappare tutte le animazioni non essenziali in @media (prefers-reduced-motion: no-preference) { }. Chi ha impostato questa preferenza (spesso per epilessia o disturbi vestibolari) deve poter usare il sito senza animazioni.
+Densità: mai più di un’animazione complessa per sezione. Lo scroll hero è la più elaborata — tutto il resto deve essere più contenuto. Troppo movimento è peggio di nessun movimento.
+Stack consigliato: HTML/CSS/JS vanilla per il prototipo. React + Framer Motion per la versione finale — gestione dichiarativa, AnimatePresence per transizioni tra pagine, useScroll e useTransform per lo scroll hero.
+────────────────────
+VERTI STUDIO  ·  Brand &amp; Website Guide  ·  v1.1
+Documento interno — non distribuire

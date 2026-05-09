@@ -1,0 +1,143 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-07T00:00:00Z",
+  "title": "Design System: Verti Studio",
+  "extensions": {
+    "colorMeta": {
+      "abisso":   { "role": "neutral", "displayName": "Abisso",   "canonical": "oklch(8% 0.004 80)",   "tonalRamp": ["oklch(8% 0.004 80)", "oklch(14% 0.005 80)", "oklch(20% 0.006 80)", "oklch(28% 0.007 80)", "oklch(36% 0.008 80)", "oklch(50% 0.010 80)", "oklch(65% 0.010 80)", "oklch(80% 0.008 80)"] },
+      "notte":    { "role": "neutral", "displayName": "Notte",    "canonical": "oklch(11% 0.004 80)",  "tonalRamp": ["oklch(8% 0.004 80)", "oklch(11% 0.004 80)", "oklch(16% 0.005 80)", "oklch(24% 0.006 80)", "oklch(34% 0.008 80)", "oklch(48% 0.010 80)", "oklch(64% 0.010 80)", "oklch(80% 0.008 80)"] },
+      "granito":  { "role": "neutral", "displayName": "Granito",  "canonical": "oklch(14% 0.004 80)",  "tonalRamp": ["oklch(8% 0.004 80)", "oklch(14% 0.004 80)", "oklch(22% 0.005 80)", "oklch(32% 0.007 80)", "oklch(44% 0.009 80)", "oklch(58% 0.010 80)", "oklch(72% 0.009 80)", "oklch(85% 0.007 80)"] },
+      "neve":     { "role": "neutral", "displayName": "Neve",     "canonical": "oklch(91% 0.008 80)",  "tonalRamp": ["oklch(30% 0.010 80)", "oklch(42% 0.010 80)", "oklch(54% 0.010 80)", "oklch(65% 0.010 80)", "oklch(74% 0.009 80)", "oklch(82% 0.009 80)", "oklch(88% 0.008 80)", "oklch(91% 0.008 80)"] },
+      "ghiaccio": { "role": "neutral", "displayName": "Ghiaccio", "canonical": "oklch(80% 0.007 80)",  "tonalRamp": ["oklch(28% 0.008 80)", "oklch(38% 0.008 80)", "oklch(50% 0.008 80)", "oklch(60% 0.008 80)", "oklch(68% 0.008 80)", "oklch(74% 0.008 80)", "oklch(80% 0.007 80)", "oklch(88% 0.006 80)"] },
+      "ambra":    { "role": "primary", "displayName": "Ambra",    "canonical": "oklch(72% 0.060 80)",  "tonalRamp": ["oklch(20% 0.040 80)", "oklch(32% 0.050 80)", "oklch(44% 0.060 80)", "oklch(55% 0.065 80)", "oklch(64% 0.065 80)", "oklch(72% 0.060 80)", "oklch(82% 0.045 80)", "oklch(92% 0.025 80)"] },
+      "alpino":   { "role": "tertiary","displayName": "Alpino (splash only)", "canonical": "oklch(36% 0.070 148)", "tonalRamp": ["oklch(15% 0.050 148)", "oklch(24% 0.065 148)", "oklch(33% 0.070 148)", "oklch(42% 0.070 148)", "oklch(52% 0.065 148)", "oklch(63% 0.058 148)", "oklch(75% 0.045 148)", "oklch(88% 0.025 148)"] }
+    },
+    "typographyMeta": {
+      "display":  { "displayName": "Display",  "purpose": "Hero titles e titoli CTA finali. Sempre in corsivo. Font: Cormorant Garamond italic 300." },
+      "headline": { "displayName": "Headline", "purpose": "Intestazioni di sezione. Playfair Display 300, tondo." },
+      "title":    { "displayName": "Title",    "purpose": "Titoli card e nomi servizi. Cormorant Garamond 300." },
+      "body":     { "displayName": "Body",     "purpose": "Testo descrittivo. Cormorant Garamond 300. Min 16px. max-width 60–65ch." },
+      "label":    { "displayName": "Label",    "purpose": "Numerazione sezione, coordinate, metadata. JetBrains Mono 300, uppercase, tracking 0.09em." }
+    },
+    "shadows": [
+      {
+        "name": "ambra-glow",
+        "value": "radial-gradient(ellipse 65% 35% at 50% 0%, oklch(72% 0.08 80 / 0.14) 0%, transparent 70%)",
+        "purpose": "Alone ambra usato solo sulla Evolution Plan card per simulare luce dall'alto. Non è una box-shadow ma un pseudo-element background."
+      }
+    ],
+    "motion": [
+      { "name": "ease-expo-out",  "value": "cubic-bezier(0.16, 1, 0.3, 1)",  "purpose": "Easing primario per entrate e rivelazioni. FadeUp, line-reveal, bento card." },
+      { "name": "ease-quart-out", "value": "cubic-bezier(0.25, 1, 0.5, 1)",  "purpose": "Transizioni di stato. FAQ accordion, hover secondari." },
+      { "name": "ease-bidir",     "value": "cubic-bezier(0.4, 0, 0.2, 1)",   "purpose": "Animazioni bidirezionali. GSAP scroll sync." },
+      { "name": "line-reveal",    "value": "1100ms cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Rivelazione righe di titolo via clip-path dal basso." },
+      { "name": "fade-up",        "value": "opacity + translateY(20px), 800ms ease-expo-out", "purpose": "Entrata generica per blocchi di contenuto." }
+    ],
+    "breakpoints": [
+      { "name": "mobile",  "value": "640px",  "note": "Bento 1 col, step 1 col, CTA bottoni full-width" },
+      { "name": "tablet",  "value": "900px",  "note": "Bento 2 col, FAQ 1 col, Evolution 1 col" },
+      { "name": "desktop", "value": "1024px", "note": "Layout completo, step 4 col, FAQ 2 col sticky" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary CTA Button",
+      "kind": "button",
+      "refersTo": "btn-primary",
+      "description": "Bottone principale per azioni di conversione (preventivo, consulenza). Bordo ambra, fill su hover.",
+      "html": "<a class=\"ds-btn-primary\" href=\"#\"><span class=\"ds-btn-label\">Hai un progetto in mente?</span><span class=\"ds-btn-main\">Richiedi un Preventivo Sartoriale</span></a>",
+      "css": ".ds-btn-primary { display: flex; flex-direction: column; padding: 20px 40px; border: 1px solid #c8b89a; color: #c8b89a; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; text-decoration: none; cursor: pointer; transition: background 320ms ease, color 320ms ease; } .ds-btn-primary:hover { background: #c8b89a; color: #0a0a0a; } .ds-btn-primary:active { transform: scale(0.975); } .ds-btn-primary:focus-visible { outline: 2px solid oklch(72% 0.060 80 / 0.80); outline-offset: 3px; } .ds-btn-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; opacity: 0.5; margin-bottom: 6px; font-weight: 300; } .ds-btn-main { font-size: 19px; letter-spacing: 0.015em; line-height: 1.25; }"
+    },
+    {
+      "name": "Secondary Button",
+      "kind": "button",
+      "refersTo": "btn-secondary",
+      "description": "Bottone secondario per azioni alternative. Bordo neutro, fill scuro su hover.",
+      "html": "<a class=\"ds-btn-secondary\" href=\"#\"><span class=\"ds-btn-label\">Non sai da dove partire?</span><span class=\"ds-btn-main\">Prenota una Consulenza Strategica</span></a>",
+      "css": ".ds-btn-secondary { display: flex; flex-direction: column; padding: 20px 40px; border: 1px solid oklch(48% 0.008 250 / 0.50); color: #c8c4bc; font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; text-decoration: none; cursor: pointer; transition: background 320ms ease, color 320ms ease, border-color 320ms ease; } .ds-btn-secondary:hover { border-color: oklch(60% 0.012 250 / 0.65); background: oklch(22% 0.006 250 / 0.35); color: #e8e4dc; } .ds-btn-secondary:active { transform: scale(0.975); } .ds-btn-label { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; opacity: 0.5; margin-bottom: 6px; font-weight: 300; } .ds-btn-main { font-size: 19px; letter-spacing: 0.015em; line-height: 1.25; }"
+    },
+    {
+      "name": "Bento Card",
+      "kind": "card",
+      "refersTo": "bento-card",
+      "description": "Card servizio nella griglia bento. Superficie solida, nessun blur, spigoli vivi.",
+      "html": "<div class=\"ds-bento-card\"><span class=\"ds-bento-num\">01</span><h3 class=\"ds-bento-title\">Web Design & Sviluppo</h3><p class=\"ds-bento-desc\">Siti su misura: architettura dell'informazione, visual design, codice preciso.</p></div>",
+      "css": ".ds-bento-card { background: oklch(13% 0.006 250); border: 1px solid oklch(35% 0.010 250 / 0.35); padding: 40px; position: relative; overflow: hidden; } .ds-bento-card:hover { border-color: oklch(50% 0.03 80 / 0.50); } .ds-bento-num { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #c8b89a; opacity: 0.5; margin-bottom: 28px; font-weight: 300; } .ds-bento-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 300; font-size: 24px; line-height: 1.2; color: #e8e4dc; margin-bottom: 14px; } .ds-bento-desc { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 17px; line-height: 1.72; color: #c8c4bc; opacity: 0.85; overflow-wrap: break-word; hyphens: auto; }"
+    },
+    {
+      "name": "Bento Card — Featured",
+      "kind": "card",
+      "refersTo": "bento-card-featured",
+      "description": "Card principale (Web Design): tinta calda, bordo ambra. Occupa grid-area 'web'.",
+      "html": "<div class=\"ds-bento-featured\"><span class=\"ds-bento-num\">01</span><h3 class=\"ds-bento-title\">Web Design & Sviluppo</h3><p class=\"ds-bento-desc\">Siti su misura: architettura dell'informazione, visual design, codice preciso. Ogni scelta ha una ragione, ogni pagina una funzione.</p></div>",
+      "css": ".ds-bento-featured { background: oklch(14% 0.010 80); border: 1px solid oklch(55% 0.040 80 / 0.28); padding: 40px; position: relative; overflow: hidden; } .ds-bento-featured:hover { border-color: oklch(62% 0.06 80 / 0.55); } .ds-bento-num { display: block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #c8b89a; opacity: 0.5; margin-bottom: 28px; font-weight: 300; } .ds-bento-title { font-family: 'Playfair Display', Georgia, serif; font-weight: 300; font-size: 24px; line-height: 1.2; color: #e8e4dc; margin-bottom: 14px; } .ds-bento-desc { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 17px; line-height: 1.72; color: #c8c4bc; opacity: 0.85; overflow-wrap: break-word; hyphens: auto; }"
+    },
+    {
+      "name": "Section Label (Mono)",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Etichetta di sezione numerata in JetBrains Mono. Pattern: NNN / NOME SEZIONE.",
+      "html": "<span class=\"ds-section-label\">002 / COSA COSTRUIAMO</span>",
+      "css": ".ds-section-label { display: block; font-family: 'JetBrains Mono', monospace; font-weight: 300; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #c8b89a; opacity: 0.75; margin-bottom: 32px; }"
+    },
+    {
+      "name": "Navigation Bar",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Navbar trasparente di default, sfondo blur su scroll > 60px. Logo a sinistra, link + CTA a destra.",
+      "html": "<nav class=\"ds-nav ds-nav--scrolled\"><a class=\"ds-nav-logo\" href=\"#\"><span style=\"color:#c8b89a\">V</span>erti Studio</a><ul class=\"ds-nav-links\"><li><a class=\"ds-nav-link\" href=\"#\">Home</a></li><li><a class=\"ds-nav-link ds-nav-link--active\" href=\"#\">Investimento</a></li><li><a class=\"ds-nav-cta\" href=\"#\">Inizia ora</a></li></ul></nav>",
+      "css": ".ds-nav { display: flex; align-items: center; justify-content: space-between; padding: 0 32px; height: 64px; position: fixed; top: 0; left: 0; right: 0; z-index: 100; transition: background 400ms ease, backdrop-filter 400ms ease; } .ds-nav--scrolled { background: rgba(10,10,10,0.85); backdrop-filter: blur(16px); } .ds-nav-logo { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 18px; color: #e8e4dc; text-decoration: none; letter-spacing: 0.05em; } .ds-nav-links { display: flex; align-items: center; gap: 32px; list-style: none; padding: 0; margin: 0; } .ds-nav-link { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 15px; color: #c8c4bc; text-decoration: none; opacity: 0.7; transition: opacity 280ms ease, color 280ms ease; } .ds-nav-link:hover, .ds-nav-link--active { opacity: 1; color: #c8b89a; } .ds-nav-cta { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 14px; color: #c8b89a; border: 1px solid rgba(200,184,154,0.4); padding: 7px 18px; text-decoration: none; transition: border-color 280ms ease; } .ds-nav-cta:hover { border-color: rgba(200,184,154,0.8); }"
+    },
+    {
+      "name": "FAQ Accordion Item",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Singola voce FAQ: trigger button + corpo collassabile. Separatore linea, nessuna card.",
+      "html": "<div class=\"ds-faq-item ds-faq-item--open\"><button class=\"ds-faq-trigger\" aria-expanded=\"true\"><span class=\"ds-faq-num\">01</span><span class=\"ds-faq-question\">Quanto costa un sito web?</span><span class=\"ds-faq-icon\"></span></button><div class=\"ds-faq-body\"><p class=\"ds-faq-answer\">Dipende dalla complessità del progetto. Un sito vetrina ha un costo molto diverso da un portale con integrazioni personalizzate. Per questo il primo passo è sempre una conversazione.</p></div></div>",
+      "css": ".ds-faq-item { border-bottom: 1px solid oklch(32% 0.008 250 / 0.40); } .ds-faq-trigger { display: flex; align-items: center; gap: 18px; width: 100%; min-height: 56px; padding: 20px 0; background: none; border: none; cursor: pointer; color: #e8e4dc; text-align: left; transition: color 280ms ease; } .ds-faq-trigger:hover { color: #c8b89a; } .ds-faq-num { font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.09em; text-transform: uppercase; color: #c8b89a; opacity: 0.45; width: 2ch; flex-shrink: 0; } .ds-faq-question { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 19px; flex: 1; line-height: 1.35; } .ds-faq-icon { width: 14px; height: 14px; position: relative; flex-shrink: 0; opacity: 0.55; } .ds-faq-icon::before, .ds-faq-icon::after { content: ''; position: absolute; background: #c8b89a; border-radius: 1px; } .ds-faq-icon::before { width: 14px; height: 1px; top: 6px; left: 0; } .ds-faq-icon::after { width: 1px; height: 14px; top: 0; left: 6px; transition: transform 380ms cubic-bezier(0.16, 1, 0.3, 1), opacity 280ms ease; } .ds-faq-item--open .ds-faq-icon { transform: rotate(45deg); opacity: 0.8; } .ds-faq-item--open .ds-faq-icon::after { transform: rotate(90deg); opacity: 0; } .ds-faq-body { overflow: hidden; } .ds-faq-answer { font-family: 'Cormorant Garamond', Georgia, serif; font-weight: 300; font-size: 17px; line-height: 1.82; color: #c8c4bc; opacity: 0.82; padding-bottom: 24px; padding-left: 32px; overflow-wrap: break-word; hyphens: auto; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "La Precisione Alpina",
+    "overview": "Verti Studio si trova a Bolzano, dove la rigorosità nordeuropea incontra il senso estetico italiano. Il sistema di design esprime questa dualità senza folklorismo: scuro come le notti in quota, caldo come il larice, preciso come le carte topografiche svizzere. Ogni elemento guadagna il suo posto sulla pagina — niente è decorativo per definizione.\n\nLa paletta è quasi monocromatica, con un solo accento cromatico (l'ambra) usato con parsimonia: nei numeri, nelle etichette, nei bordi. Il calore non arriva dal colore saturo, ma dalla tintatura calda dei neutri e dalla texture del serif. Il silenzio tra gli elementi è trattato come materiale di design, non come spazio residuo.",
+    "keyCharacteristics": [
+      "Sfondo quasi-nero con tintatura neutra calda, non puro nero",
+      "Un solo accento — ambra (#c8b89a) — usato su meno del 15% di ogni schermata",
+      "Tipografia esclusivamente serif + mono, mai sans-serif di sistema per il corpo",
+      "Margini fluidi via clamp(), mai fissi in px",
+      "Animazioni di entrata orchestrate, non applicate a ogni elemento",
+      "Spigoli vivi: border-radius 0 o al massimo 1px"
+    ],
+    "rules": [
+      { "name": "La Regola dell'Unica Voce", "body": "L'ambra è il solo accento cromatico. Non aggiungere blu, verde, viola, o rosso al mix. Se serve enfasi aggiuntiva, usare scala, peso, o spazio — non un altro colore.", "section": "colors" },
+      { "name": "La Regola del Neutro Tintato", "body": "Nessun grigio puro. Ogni neutro ha una tintatura verso il marrone caldo (hue ~60–80 in OKLCH). Non usare #000, #111, #888, #fff.", "section": "colors" },
+      { "name": "La Regola del Corsivo Parlante", "body": "L'italico in display type è la voce di Verti Studio. Ogni titolo hero ha almeno una riga in corsivo. Il corsivo non è enfasi generica: è il tono che distingue la promessa dal dato.", "section": "typography" },
+      { "name": "La Regola del Mono come Codice Visivo", "body": "JetBrains Mono non è usato per 'sembrare tecnico'. È usato quando l'informazione è strutturata, numerica, o geografica. Mai come font di corpo.", "section": "typography" },
+      { "name": "La Regola Piatta per Default", "body": "Nessuna card ha box-shadow. L'elevazione si legge dalla differenza di luminosità tra la superficie e il suo contesto.", "section": "elevation" },
+      { "name": "La Regola del Glass Singolo", "body": "Il glassmorphism esiste in un solo posto: l'Evolution Plan card. Aggiunto altrove, diventa decorazione.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do usare clamp() per ogni valore tipografico e spaziale",
+      "Do alternare surface-0 (freddo) e surface-1 (caldo) tra sezioni consecutive",
+      "Do usare il corsivo di Cormorant Garamond per la voce del brand nei titoli hero",
+      "Do tenere l'ambra sotto il 15% della superficie visiva",
+      "Do usare border-radius: 0 o 1px su tutti i componenti interattivi",
+      "Do applicare overflow-wrap: break-word e hyphens: auto a ogni blocco descrittivo",
+      "Do rispettare prefers-reduced-motion in ogni animazione",
+      "Do usare contain: layout style su sezioni con backdrop-filter"
+    ],
+    "donts": [
+      "Don't usare Inter, Roboto, DM Sans o qualsiasi sans-serif di sistema come font di corpo",
+      "Don't aggiungere glassmorphism a elementi diversi dall'Evolution Plan card",
+      "Don't usare border-left o border-right > 1px come stripe colorato decorativo",
+      "Don't usare gradiente sul testo (background-clip: text)",
+      "Don't mettere testo grigio su sfondi colorati",
+      "Don't usare #000000 o #ffffff puri — usare abisso e neve",
+      "Don't aggiungere un secondo colore accento oltre all'ambra",
+      "Don't usare border-radius sopra 2px su componenti interattivi",
+      "Don't animare proprietà di layout (width, height, top, left, margini)",
+      "Don't usare easing elastic o bounce",
+      "Don't imitare: SaaS cream generici, hero video con font bold arancione, mockup su MacBook flottanti"
+    ]
+  }
+}

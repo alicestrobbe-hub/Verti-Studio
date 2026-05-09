@@ -1,0 +1,1033 @@
+/* Verti Studio — About page */
+
+/* ═══════════════════════════════════════════
+   LINE REVEAL — animazione clip-path per il titolo hero
+   Ogni riga del titolo parte nascosta (clip dal basso) e sale su.
+═══════════════════════════════════════════ */
+
+.ah-line-reveal {
+  overflow: hidden;
+  display: block;
+}
+
+.ah-line-reveal > span {
+  display: block;
+  transform: translateY(108%);
+  transition: transform 1100ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-line-reveal.in > span {
+  transform: translateY(0);
+}
+
+/* ═══════════════════════════════════════════
+   HERO
+   Sfondo: alps-hero.jpg (B&W, panoramica)
+   Animazione img: Ken Burns slow pan (derive left + dezoom)
+   Parallax: translateY gestito via JS (sulla ah-hero-img-outer)
+═══════════════════════════════════════════ */
+
+.ah-hero {
+  position: relative;
+  height: 100vh;
+  min-height: 640px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Wrapper parallax: JS imposta translateY su questo elemento */
+.ah-hero-img-outer {
+  position: absolute;
+  inset: -20%;
+  will-change: transform;
+}
+
+/* L'immagine stessa fa il Ken Burns CSS */
+.ah-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 45%;
+  /* alps-hero.jpg è già B&W — no grayscale filter necessario */
+  filter: brightness(0.52) contrast(1.08);
+  animation: ahKenBurns 20s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+  transform-origin: center center;
+}
+
+/* Ken Burns: lenta deriva da destra a sinistra con leggero dezoom.
+   Cinematografico, elegante, molto diverso dallo zoom dell'homepage. */
+@keyframes ahKenBurns {
+  0%   { transform: scale(1.12) translateX(2.5%); }
+  100% { transform: scale(1.0)  translateX(-1%); }
+}
+
+/* Gradienti: fonde i 4 lati nel nero */
+.ah-hero-gradient {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(10,10,10,0.08) 0%,
+      rgba(10,10,10,0.3)  40%,
+      rgba(10,10,10,0.82) 75%,
+      #0a0a0a             100%
+    ),
+    linear-gradient(
+      to right,
+      rgba(10,10,10,0.45) 0%,
+      transparent 50%
+    );
+}
+
+/* Contenuto testo */
+.ah-hero-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  padding-bottom: clamp(52px, 8vh, 96px);
+  gap: 48px;
+}
+
+.ah-hero-eyebrow {
+  margin-bottom: 20px;
+  opacity: 0;
+  animation: ahFadeIn 700ms var(--ease-expo-out) 350ms both;
+}
+
+.ah-hero-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(56px, 9vw, 128px);
+  line-height: 0.94;
+  letter-spacing: -0.034em;
+  color: var(--neve);
+  margin: 0;
+  font-kerning: normal;
+}
+
+.ah-hero-em {
+  font-style: italic;
+  color: var(--ambra);
+}
+
+/* Riga di fondo: meta + scroll hint */
+.ah-hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  opacity: 0;
+  animation: ahFadeIn 700ms var(--ease-expo-out) 1100ms both;
+}
+
+.ah-hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pietra);
+}
+
+.ah-hero-scroll {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.ah-scroll-label {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--pietra);
+}
+
+.ah-scroll-line {
+  width: 1px;
+  height: 40px;
+  background: var(--ambra);
+  opacity: 0.6;
+  animation: ahScrollPulse 2400ms ease-in-out infinite;
+  transform-origin: top;
+}
+
+@keyframes ahScrollPulse {
+  0%, 100% { transform: scaleY(0.3); opacity: 0.2; }
+  50%       { transform: scaleY(1);   opacity: 0.7; }
+}
+
+@keyframes ahFadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════════════════
+   STATEMENT
+   Zona di transizione tra hero e sezioni.
+   NESSUN bordo box. Geometria mediante:
+   1. Angolo ambra top-left (pseudo-element ⌐)
+   2. Watermark "ALTO ADIGE" in ghost text (opacity ~3%)
+   3. Coordinate verticali right side
+═══════════════════════════════════════════ */
+
+.ah-statement {
+  position: relative;
+  padding: clamp(80px, 14vh, 160px) 0 clamp(80px, 14vh, 160px);
+  overflow: hidden;
+  /* Nessun border — la geometria è creata dai pseudo-elementi */
+}
+
+/* Watermark ghost: "ALTO ADIGE" in gigante, quasi invisibile */
+.ah-statement-watermark {
+  position: absolute;
+  top: 50%;
+  right: -2%;
+  transform: translateY(-50%);
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(100px, 18vw, 240px);
+  letter-spacing: -0.04em;
+  color: var(--neve);
+  opacity: 0.04;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* Angolo ambra geometrico top-left: due segmenti che formano ⌐ */
+.ah-statement-corner {
+  position: absolute;
+  top: clamp(48px, 8vh, 96px);
+  left: var(--gutter);
+  width: 48px;
+  height: 48px;
+  border-top: 1px solid var(--ambra);
+  border-left: 1px solid var(--ambra);
+  opacity: 0.6;
+}
+
+/* Coordinate verticali: testo ruotato sul lato destro */
+.ah-statement-coords {
+  position: absolute;
+  top: 50%;
+  right: var(--gutter);
+  transform: translateY(-50%) rotate(90deg);
+  transform-origin: center center;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.26em;
+  text-transform: uppercase;
+  color: var(--pietra);
+  opacity: 0.5;
+  white-space: nowrap;
+  pointer-events: none;
+  user-select: none;
+}
+
+.ah-statement-text {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(38px, 6.8vw, 108px);
+  line-height: 1.02;
+  letter-spacing: -0.028em;
+  color: var(--neve);
+  max-width: 18ch;
+}
+
+.ah-statement-text em {
+  font-style: italic;
+  color: var(--ambra);
+}
+
+/* ═══════════════════════════════════════════
+   SISTEMA SEZIONI
+═══════════════════════════════════════════ */
+
+.ah-section   { background: var(--abisso); }
+.ah-dark      { background: var(--notte); }
+
+/* Section rhythm — vary vertical cadence per section weight */
+#origine.section  { padding-top: clamp(56px, 8vh, 112px); }
+#filosofia.section { padding-top: clamp(96px, 14vh, 192px); padding-bottom: clamp(96px, 14vh, 192px); }
+#servizi-about.section { padding-top: clamp(96px, 14vh, 200px); padding-bottom: clamp(96px, 14vh, 200px); }
+#territorio.section {
+  padding-bottom: clamp(96px, 13vh, 176px);
+  position: relative;
+}
+/* Soffio verde alpino: segnale cromatico del legame con il territorio */
+#territorio.section::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at 0% 60%,
+    oklch(28% 0.048 145 / 0.14) 0%,
+    transparent 55%
+  );
+  pointer-events: none;
+}
+
+/* 2 colonne: label sticky + testo */
+.ah-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1.65fr;
+  gap: clamp(40px, 7vw, 112px);
+  align-items: start;
+}
+
+.ah-two-col--reversed {
+  grid-template-columns: 1fr 1.9fr;
+}
+
+.ah-col-label {
+  position: sticky;
+  top: 112px;
+}
+
+.ah-section-title { margin-top: 20px; }
+
+.ah-lead {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(18px, 1.75vw, 23px);
+  line-height: 1.55;
+  letter-spacing: -0.01em;
+  color: var(--neve);
+  margin-bottom: 32px;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+.ah-body-gap { margin-bottom: 24px; }
+
+/* ═══════════════════════════════════════════
+   ORIGINE — blocco immagine composito
+═══════════════════════════════════════════ */
+
+/* Blocco: pull-quote sinistra + vert1.jpg destra */
+.ah-img-text-block {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(40px, 6vw, 96px);
+  align-items: center;
+  margin-top: clamp(72px, 12vh, 140px);
+  padding-top: clamp(72px, 12vh, 140px);
+  border-top: 1px solid var(--granito);
+}
+
+.ah-img-text-left {
+  display: flex;
+  flex-direction: column;
+}
+
+.ah-pull-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(28px, 3.4vw, 50px);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  color: var(--neve);
+}
+
+/* Frame immagine verticale */
+.ah-img-frame {
+  position: relative;
+  overflow: hidden;
+}
+
+.ah-img-frame::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 55%, rgba(10,10,10,0.65) 100%);
+  z-index: 1;
+  pointer-events: none;
+}
+
+.ah-img-vertical {
+  width: 100%;
+  height: clamp(480px, 68vh, 720px);
+  object-fit: cover;
+  object-position: center 25%;
+  filter: grayscale(18%) brightness(0.9) contrast(1.06);
+  display: block;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-img-frame:hover .ah-img-vertical { transform: scale(1.04); }
+
+.ah-img-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ghiaccio);
+  opacity: 0.7;
+}
+
+/* Striscia orizzontale secondaria (orizz3 — Bolzano Duomo) */
+.ah-img-wide-wrap {
+  position: relative;
+  margin-top: clamp(56px, 9vh, 100px);
+  overflow: hidden;
+}
+
+.ah-img-wide-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(10,10,10,0.5) 100%);
+  pointer-events: none;
+}
+
+.ah-img-wide {
+  width: 100%;
+  height: clamp(280px, 42vh, 520px);
+  object-fit: cover;
+  object-position: center 40%;
+  filter: grayscale(22%) brightness(0.85) contrast(1.06);
+  display: block;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-img-wide-wrap:hover .ah-img-wide { transform: scale(1.03); }
+
+.ah-img-wide-caption {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  z-index: 2;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ghiaccio);
+  opacity: 0.65;
+}
+
+/* ═══════════════════════════════════════════
+   FILOSOFIA — layout con colonna immagine laterale
+═══════════════════════════════════════════ */
+
+.ah-filosofia-layout {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: clamp(48px, 6vw, 96px);
+  /* stretch: la colonna immagine cresce fino all'altezza del testo */
+  align-items: stretch;
+}
+
+.ah-filosofia-main { flex: 1; }
+
+.ah-section-header {
+  margin-bottom: clamp(52px, 8vh, 88px);
+}
+
+.ah-filosofia-img-col {
+  /* Non sticky: deve seguire l'altezza della colonna testo */
+  position: relative;
+}
+
+/* Il frame occupa tutta l'altezza della cella grid */
+.ah-img-frame--tall {
+  height: 100%;
+  min-height: 480px;
+}
+
+.ah-img-frame--tall .ah-img-tall {
+  width: 100%;
+  height: 100%;   /* si estende al 100% del frame, che è il 100% della cella grid */
+  object-fit: cover;
+  object-position: center 20%;
+  filter: grayscale(25%) brightness(0.85) contrast(1.08);
+  display: block;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-img-frame--tall:hover .ah-img-tall { transform: scale(1.04); }
+
+/* Lista editoriale orizzontale: num | titolo | testo */
+.ah-pilastri { border-top: 1px solid var(--granito); }
+
+.ah-pilastro {
+  display: grid;
+  grid-template-columns: 52px 1fr 1.5fr;
+  gap: 0 44px;
+  padding: 36px 0;
+  border-bottom: 1px solid var(--granito);
+  align-items: baseline;
+  transition: transform 360ms var(--ease-expo-out);
+  cursor: default;
+}
+
+.ah-pilastro:hover { transform: translateX(14px); }
+
+.ah-pilastro-num {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 21px;
+  font-weight: 300;
+  color: var(--ambra);
+  opacity: 0.85;
+}
+
+.ah-pilastro-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(19px, 1.9vw, 26px);
+  line-height: 1.25;
+  letter-spacing: -0.015em;
+  color: var(--neve);
+  font-kerning: normal;
+}
+
+.ah-pilastro-body {
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 300;
+  color: var(--ghiaccio);
+  line-height: 1.78;
+  letter-spacing: 0.02em;
+  overflow-wrap: break-word;
+  hyphens: auto;
+  min-width: 0;
+}
+
+/* ═══════════════════════════════════════════
+   PHOTO STRIP
+   Tre immagini in striscia orizzontale, reveal staggered.
+   Crea un momento puramente visivo tra Filosofia e Servizi.
+═══════════════════════════════════════════ */
+
+.ah-photo-strip {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  height: clamp(320px, 50vh, 560px);
+  overflow: hidden;
+}
+
+.ah-strip-item-wrap {
+  height: 100%;
+}
+
+.ah-strip-item {
+  position: relative;
+  height: 100%;
+  overflow: hidden;
+}
+
+.ah-strip-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: rgba(10,10,10,0.22);
+  transition: background 500ms var(--ease-expo-out);
+  pointer-events: none;
+}
+
+.ah-strip-item:hover::after { background: rgba(10,10,10,0.08); }
+
+.ah-strip-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center center;
+  filter: grayscale(20%) brightness(0.88) contrast(1.06);
+  display: block;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-strip-item:hover .ah-strip-img { transform: scale(1.06); }
+
+.ah-strip-caption {
+  position: absolute;
+  bottom: 16px;
+  left: 18px;
+  z-index: 2;
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--neve);
+  opacity: 0.55;
+}
+
+/* ═══════════════════════════════════════════
+   SERVIZI — griglia 3 colonne
+   Padding UNIFORME 40px su tutti i lati.
+   Il testo non tocca mai un bordo.
+═══════════════════════════════════════════ */
+
+.ah-servizi-intro-row {
+  margin-bottom: clamp(48px, 8vh, 80px);
+}
+
+.ah-servizi-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--granito);
+  border-left: 1px solid var(--granito);
+}
+
+/* Ogni cella ha padding uniforme 40px e bordi right+bottom */
+.ah-servizio {
+  padding: 40px;
+  border-right: 1px solid var(--granito);
+  border-bottom: 1px solid var(--granito);
+  position: relative;
+  transition: background 360ms var(--ease-expo-out);
+  overflow: hidden;
+  min-width: 0;
+}
+
+/* Sottile linea ambra che cresce dall'alto sull'hover */
+.ah-servizio::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 40px;
+  right: 40px;
+  height: 1px;
+  background: var(--ambra);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 500ms cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0.7;
+}
+
+.ah-servizio:hover::before { transform: scaleX(1); }
+.ah-servizio:hover { background: rgba(200,184,154,0.018); }
+
+.ah-servizio-tag {
+  display: inline-block;
+  font-family: var(--font-mono, 'JetBrains Mono', monospace);
+  font-size: clamp(9px, 0.82vw, 11px);
+  font-weight: 300;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--ambra);
+  opacity: 0.72;
+  margin-bottom: 16px;
+}
+
+.ah-servizio-label {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.2;
+  letter-spacing: -0.01em;
+  color: var(--neve);
+  margin-bottom: 12px;
+}
+
+.ah-servizio-desc {
+  font-size: clamp(13px, 1.15vw, 15px);
+  font-weight: 300;
+  color: var(--ghiaccio);
+  line-height: 1.75;
+  letter-spacing: 0.02em;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* ═══════════════════════════════════════════
+   FULL-BLEED (orizz4.jpeg — orizzontale)
+   Parallax gestito da GSAP in about.jsx.
+   Immagine ORIZZONTALE: nessun problema di zoom/sgranatura.
+═══════════════════════════════════════════ */
+
+.ah-fullbleed {
+  position: relative;
+  height: 85vh;
+  min-height: 480px;
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+}
+
+.ah-fullbleed-img-wrap {
+  position: absolute;
+  inset: -15%;
+  overflow: hidden;
+}
+
+.ah-fullbleed-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 35%;
+  filter: grayscale(12%) brightness(0.72) contrast(1.07);
+  will-change: transform;
+}
+
+.ah-fullbleed-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(
+      to bottom,
+      rgba(10,10,10,0.1)  0%,
+      rgba(10,10,10,0.5)  50%,
+      rgba(10,10,10,0.88) 100%
+    );
+}
+
+.ah-fullbleed-content {
+  position: relative;
+  z-index: 2;
+  padding-bottom: clamp(56px, 8vh, 100px);
+}
+
+.ah-fullbleed-quote {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 300;
+  font-size: clamp(30px, 4.2vw, 60px);
+  line-height: 1.18;
+  letter-spacing: -0.022em;
+  color: var(--neve);
+  max-width: 22ch;
+  margin-bottom: 20px;
+}
+
+.ah-fullbleed-meta {
+  font-size: 9px;
+  font-weight: 300;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--pietra);
+}
+
+/* ═══════════════════════════════════════════
+   TERRITORIO — immagine orizzontale sotto testo
+═══════════════════════════════════════════ */
+
+.ah-territorio-img-wrap {
+  margin-top: 40px;
+  overflow: hidden;
+  position: relative;
+}
+
+.ah-territorio-img-wrap::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, transparent 50%, rgba(10,10,10,0.4) 100%);
+  pointer-events: none;
+}
+
+.ah-territorio-img {
+  width: 100%;
+  height: clamp(200px, 30vh, 340px);
+  object-fit: cover;
+  object-position: center 40%;
+  filter: grayscale(15%) brightness(0.88) contrast(1.05);
+  display: block;
+  transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.ah-territorio-img-wrap:hover .ah-territorio-img { transform: scale(1.03); }
+
+/* ═══════════════════════════════════════════
+   NUMERI
+═══════════════════════════════════════════ */
+
+.ah-numeri {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  border-top: 1px solid var(--granito);
+  border-bottom: 1px solid var(--granito);
+}
+
+.ah-numero {
+  padding: clamp(40px, 7vh, 72px) 40px clamp(40px, 7vh, 72px) 0;
+  border-right: 1px solid var(--granito);
+  min-width: 0;
+}
+
+.ah-numero:not(:first-child) { padding-left: 40px; }
+.ah-numero:last-child { border-right: none; }
+
+.ah-numero-val {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(52px, 6.5vw, 88px);
+  line-height: 0.92;
+  letter-spacing: -0.03em;
+  color: var(--ambra);
+  margin-bottom: 18px;
+}
+
+.ah-numero-label {
+  font-size: clamp(13px, 1.1vw, 15px);
+  font-weight: 300;
+  color: var(--ghiaccio);
+  line-height: 1.65;
+  max-width: 22ch;
+  letter-spacing: 0.03em;
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* ═══════════════════════════════════════════
+   CTA FINALE
+═══════════════════════════════════════════ */
+
+.ah-cta-finale {
+  padding: clamp(80px, 14vh, 160px) 0;
+  background: var(--abisso);
+  border-top: 1px solid var(--granito);
+}
+
+.ah-cta-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(32px, 5vw, 72px);
+  line-height: 1.1;
+  letter-spacing: -0.022em;
+  color: var(--neve);
+  margin: 24px 0 44px;
+  max-width: 22ch;
+  text-wrap: balance;
+}
+
+.ah-cta-title em { font-style: italic; color: var(--ambra); }
+
+/* ═══════════════════════════════════════════
+   FOOTER
+═══════════════════════════════════════════ */
+
+.ah-footer {
+  background: var(--notte);
+  border-top: 1px solid var(--granito);
+  padding: clamp(40px, 7vh, 72px) 0 clamp(24px, 4vh, 40px);
+}
+
+.ah-footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--granito);
+  margin-bottom: 24px;
+}
+
+.ah-footer-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: 17px;
+  color: var(--neve);
+}
+
+.ah-footer-desc {
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: var(--pietra);
+  text-align: right;
+  line-height: 1.6;
+}
+
+.ah-footer-bottom {
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  font-weight: 300;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--pietra);
+}
+
+.ah-footer-bottom a {
+  color: var(--pietra);
+  text-decoration: none;
+  transition: color 300ms var(--ease-expo-out);
+}
+
+.ah-footer-bottom a:hover { color: var(--neve); }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE
+═══════════════════════════════════════════ */
+
+@media (max-width: 1024px) {
+  .ah-filosofia-layout {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .ah-filosofia-img-col {
+    position: static;
+    order: -1; /* immagine sopra il testo su tablet */
+  }
+
+  .ah-img-frame--tall {
+    min-height: clamp(280px, 40vw, 400px);
+  }
+
+  .ah-img-frame--tall .ah-img-tall {
+    object-position: center 30%;
+  }
+}
+
+@media (max-width: 960px) {
+  .ah-two-col,
+  .ah-two-col--reversed {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
+
+  .ah-col-label { position: static; }
+
+  .ah-img-text-block {
+    grid-template-columns: 1fr;
+    gap: 56px;
+  }
+
+  .ah-pilastro {
+    grid-template-columns: 48px 1fr;
+  }
+
+  .ah-pilastro-body {
+    grid-column: 2;
+    grid-row: 2;
+    margin-top: 10px;
+  }
+
+  .ah-servizi-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .ah-photo-strip {
+    grid-template-columns: repeat(3, 1fr);
+    height: clamp(200px, 36vw, 360px);
+  }
+
+  .ah-numeri {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .ah-numero:last-child {
+    border-top: 1px solid var(--granito);
+    border-right: none;
+    grid-column: 1 / -1;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .ah-hero-title {
+    font-size: clamp(48px, 13vw, 80px);
+  }
+
+  .ah-hero-bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 24px;
+  }
+
+  .ah-statement-text {
+    font-size: clamp(28px, 8vw, 48px);
+  }
+
+  .ah-statement-watermark {
+    font-size: clamp(72px, 22vw, 140px);
+  }
+
+  .ah-servizi-grid {
+    grid-template-columns: 1fr;
+    border-left: none;
+  }
+
+  .ah-servizio {
+    border-right: none;
+    border-left: 1px solid var(--granito);
+  }
+
+  .ah-photo-strip {
+    grid-template-columns: 1fr;
+    height: auto;
+  }
+
+  .ah-strip-item { height: 56vw; }
+
+  .ah-numeri {
+    grid-template-columns: 1fr;
+  }
+
+  .ah-numero {
+    border-right: none;
+    border-bottom: 1px solid var(--granito);
+    padding: clamp(32px, 5vh, 48px) 0;
+  }
+
+  .ah-numero:not(:first-child) { padding-left: 0; }
+  .ah-numero:last-child { border-bottom: none; }
+
+  .ah-pilastro {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .ah-pilastro-num { display: none; }
+  .ah-pilastro-body { grid-column: 1; grid-row: auto; }
+
+  .ah-footer-top {
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  .ah-footer-desc { text-align: left; }
+}
+
+/* ═══════════════════════════════════════════
+   PERFORMANCE — content-visibility sulle sezioni below-fold
+═══════════════════════════════════════════ */
+
+#territorio  { content-visibility: auto; contain-intrinsic-size: 0 600px; }
+.ah-numeri   { contain: layout style; }
+.ah-cta-finale { content-visibility: auto; contain-intrinsic-size: 0 320px; }
+.ah-footer   { content-visibility: auto; contain-intrinsic-size: 0 160px; }
+.ah-photo-strip { contain: layout style paint; }
+
+/* ═══════════════════════════════════════════
+   PREFERS-REDUCED-MOTION
+═══════════════════════════════════════════ */
+
+@media (prefers-reduced-motion: reduce) {
+  .ah-hero-img,
+  .ah-scroll-line {
+    animation: none !important;
+  }
+  .ah-line-reveal > span {
+    transform: none !important;
+  }
+  .ah-line-reveal.in > span {
+    transform: none !important;
+  }
+  .ah-img-vertical,
+  .ah-img-wide,
+  .ah-img-tall,
+  .ah-strip-img {
+    transition: none !important;
+  }
+}

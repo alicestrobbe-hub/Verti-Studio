@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<title>Verti Studio — Logo Kit Preview</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400&family=Inter:wght@200;300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --abisso:#0a0a0a; --neve:#e8e4dc; --ambra:#c8b89a; --pietra:#3a3a3a; --ghiaccio:#c8c4bc;
+    --serif:'Cormorant Garamond', Georgia, serif;
+    --sans:'Inter', system-ui, sans-serif;
+  }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--abisso); color:var(--neve); font-family:var(--sans); font-weight:300; padding:64px 48px 96px; }
+  header.kit-head { max-width:1080px; margin: 0 auto 56px; }
+  .kicker { font-size:9px; letter-spacing:.32em; text-transform:uppercase; color:var(--ambra); margin-bottom:18px; }
+  h1 { font-family:var(--serif); font-weight:300; font-size:42px; letter-spacing:-.02em; line-height:1; margin-bottom:14px; }
+  .lead { font-size:13px; line-height:1.65; color:var(--ghiaccio); max-width:600px; }
+  .lead em { font-style:italic; color:var(--ambra); }
+
+  .grid { max-width:1080px; margin:0 auto; display:grid; grid-template-columns: repeat(2, 1fr); gap:24px; }
+  .grid.three { grid-template-columns: repeat(3, 1fr); }
+  .grid.full { grid-template-columns: 1fr; }
+
+  .card { background:#141414; border:1px solid #1e1e1e; padding:32px; display:flex; flex-direction:column; gap:18px; min-height: 220px; position:relative; }
+  .card.light { background:var(--neve); color:var(--abisso); border-color:#d8d4cc; }
+  .card.amber { background:var(--ambra); color:var(--abisso); }
+  .card .label { font-size:9px; letter-spacing:.22em; text-transform:uppercase; color:#7a7468; }
+  .card.light .label { color:#9a9489; }
+  .card .filename { font-family: ui-monospace, monospace; font-size:10px; color:#5a5a5a; margin-top:auto; }
+  .card.light .filename { color:#7a7468; }
+  .card .stage { flex:1; display:flex; align-items:center; justify-content:center; padding:22px 0; min-height: 120px; }
+
+  .section-title { grid-column: 1 / -1; font-family:var(--serif); font-style:italic; font-weight:300; font-size:22px; color:var(--ghiaccio); margin-top:32px; margin-bottom:-8px; padding-bottom:14px; border-bottom:1px solid #1e1e1e; }
+
+  /* favicon test row */
+  .favtest { display:flex; align-items:center; gap:24px; }
+  .favtest .pip { display:flex; flex-direction:column; align-items:center; gap:8px; }
+  .favtest .pip span { font-size:8px; letter-spacing:.18em; text-transform:uppercase; color:#7a7468; }
+
+  .browser-bar { background:#1e1e1e; border-radius:6px 6px 0 0; padding:8px 12px; display:flex; align-items:center; gap:8px; }
+  .browser-bar .dots { display:flex; gap:5px; }
+  .browser-bar .dot { width:9px; height:9px; border-radius:50%; background:#3a3a3a; }
+  .browser-bar .tab { background:#0a0a0a; padding:5px 12px; border-radius:4px; display:flex; align-items:center; gap:8px; font-size:10px; color:var(--ghiaccio); }
+
+  .footer-demo { background:var(--abisso); padding:40px 24px; text-align:center; border-top:1px solid #1e1e1e; }
+  .footer-demo .mark-row { display:inline-flex; align-items:center; gap:14px; color:var(--neve); }
+  .footer-demo .pillar { width:1px; height:32px; background:var(--ambra); }
+  .footer-demo .name { display:flex; flex-direction:column; align-items:flex-start; gap:2px; }
+  .footer-demo .name-serif { font-family:var(--serif); font-size:22px; line-height:1; }
+  .footer-demo .name-caps { font-size:9px; letter-spacing:.32em; text-transform:uppercase; color:var(--ghiaccio); }
+  .footer-demo .coord { margin-top:14px; font-size:10px; letter-spacing:.2em; text-transform:uppercase; color:#7a7468; }
+
+  /* download */
+  .download { max-width:1080px; margin:64px auto 0; padding:32px; border:1px dashed var(--ambra); display:flex; flex-direction:column; gap:14px; }
+  .download h3 { font-family:var(--serif); font-weight:300; font-size:18px; color:var(--neve); }
+  .download ul { list-style:none; display:grid; grid-template-columns: repeat(3, 1fr); gap:8px 24px; }
+  .download li { font-size:11px; }
+  .download a { color:var(--ambra); text-decoration:none; font-family: ui-monospace, monospace; }
+  .download a:hover { text-decoration:underline; }
+
+  @media (max-width: 720px) {
+    .grid, .grid.three { grid-template-columns: 1fr; }
+    .download ul { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="kit-head">
+  <div class="kicker">Logo Kit · pronto all'integrazione</div>
+  <h1>Verti Studio</h1>
+  <p class="lead">Tutti i file sono in <em>/assets/logo/</em>. Le istruzioni complete per Claude Code sono in <em>LOGO-HANDOFF.md</em>: header, splash con animazione, footer, favicon, OG, meta tag.</p>
+</header>
+
+<main class="grid">
+
+  <div class="section-title">Mark — il simbolo, da solo</div>
+
+  <div class="card">
+    <div class="label">mark · su scuro</div>
+    <div class="stage">
+      <svg viewBox="0 0 64 64" width="100" height="100" style="color: var(--neve)">
+        <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/>
+        <path d="M40 18 L42 22" stroke="#c8b89a" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filename">mark.svg · usa currentColor</div>
+  </div>
+
+  <div class="card light">
+    <div class="label">mark · su chiaro</div>
+    <div class="stage">
+      <svg viewBox="0 0 64 64" width="100" height="100" style="color: var(--abisso)">
+        <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+        <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/>
+        <path d="M40 18 L42 22" stroke="#c8b89a" stroke-width="1.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="filename">mark.svg</div>
+  </div>
+
+  <div class="section-title">Logo compatto — header, firma, footer</div>
+
+  <div class="card">
+    <div class="label">logo-compact · header dark</div>
+    <div class="stage">
+      <svg viewBox="0 0 280 64" width="280" height="64" style="color: var(--neve)">
+        <g transform="translate(2 14) scale(0.56)">
+          <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/>
+          <path d="M40 18 L42 22" stroke="#c8b89a" stroke-width="2.8" stroke-linecap="round"/>
+        </g>
+        <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" stroke-width="1"/>
+        <text x="58" y="44" font-family="Cormorant Garamond, Georgia, serif" font-weight="300" font-size="34" fill="currentColor" letter-spacing="-0.4">Verti</text>
+        <text x="158" y="40" font-family="Inter, sans-serif" font-weight="300" font-size="11" fill="currentColor" letter-spacing="3.4" opacity="0.78">STUDIO</text>
+      </svg>
+    </div>
+    <div class="filename">logo-compact.svg · 280×64</div>
+  </div>
+
+  <div class="card light">
+    <div class="label">logo-compact · header light</div>
+    <div class="stage">
+      <svg viewBox="0 0 280 64" width="280" height="64" style="color: var(--abisso)">
+        <g transform="translate(2 14) scale(0.56)">
+          <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/>
+          <path d="M40 18 L42 22" stroke="#c8b89a" stroke-width="2.8" stroke-linecap="round"/>
+        </g>
+        <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" stroke-width="1"/>
+        <text x="58" y="44" font-family="Cormorant Garamond, Georgia, serif" font-weight="300" font-size="34" fill="currentColor" letter-spacing="-0.4">Verti</text>
+        <text x="158" y="40" font-family="Inter, sans-serif" font-weight="300" font-size="11" fill="currentColor" letter-spacing="3.4" opacity="0.78">STUDIO</text>
+      </svg>
+    </div>
+    <div class="filename">logo-compact.svg</div>
+  </div>
+
+  <div class="section-title">Logo primario — splash, hero, copertine</div>
+
+  <div class="card" style="grid-column: 1 / -1; min-height: 320px;">
+    <div class="label">logo-primary · splash / hero</div>
+    <div class="stage" style="padding: 32px 0">
+      <svg viewBox="0 0 480 200" width="480" height="200" style="color: var(--neve)">
+        <g transform="translate(20 56) scale(1.35)">
+          <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" stroke-width="1" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/>
+          <path d="M40 18 L42 22" stroke="#c8b89a" stroke-width="1.4" stroke-linecap="round"/>
+        </g>
+        <line x1="138" y1="46" x2="138" y2="154" stroke="#c8b89a" stroke-width="1"/>
+        <text x="160" y="118" font-family="Cormorant Garamond, Georgia, serif" font-weight="300" font-size="78" fill="currentColor" letter-spacing="-1">Verti</text>
+        <text x="160" y="142" font-family="Inter, sans-serif" font-weight="300" font-size="13" fill="currentColor" letter-spacing="4.2" opacity="0.78">STUDIO</text>
+        <text x="160" y="166" font-family="Inter, sans-serif" font-weight="300" font-size="10" fill="currentColor" letter-spacing="2.8" opacity="0.55">46.4983° N · 11.3548° E</text>
+      </svg>
+    </div>
+    <div class="filename">logo-primary.svg · 480×200</div>
+  </div>
+
+  <div class="section-title">Favicon · app icon · iOS home</div>
+
+  <div class="card">
+    <div class="label">favicon · su scuro</div>
+    <div class="stage favtest">
+      <div class="pip">
+        <svg viewBox="0 0 64 64" width="16" height="16"><rect width="64" height="64" fill="#0a0a0a"/><path d="M6 50 L20 26 L28 36 L42 18 L58 50" fill="none" stroke="#e8e4dc" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M42 18 L44 22" stroke="#c8b89a" stroke-width="3.4" stroke-linecap="round"/></svg>
+        <span>16</span>
+      </div>
+      <div class="pip">
+        <svg viewBox="0 0 64 64" width="32" height="32"><rect width="64" height="64" fill="#0a0a0a"/><path d="M6 50 L20 26 L28 36 L42 18 L58 50" fill="none" stroke="#e8e4dc" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M42 18 L44 22" stroke="#c8b89a" stroke-width="3.4" stroke-linecap="round"/></svg>
+        <span>32</span>
+      </div>
+      <div class="pip">
+        <svg viewBox="0 0 64 64" width="64" height="64"><rect width="64" height="64" fill="#0a0a0a"/><path d="M6 50 L20 26 L28 36 L42 18 L58 50" fill="none" stroke="#e8e4dc" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M42 18 L44 22" stroke="#c8b89a" stroke-width="3.4" stroke-linecap="round"/></svg>
+        <span>64</span>
+      </div>
+    </div>
+    <div class="filename">favicon.svg</div>
+  </div>
+
+  <div class="card amber">
+    <div class="label" style="color:#5a4d35">app-icon · ambra</div>
+    <div class="stage">
+      <svg viewBox="0 0 180 180" width="120" height="120">
+        <rect width="180" height="180" fill="#c8b89a"/>
+        <g transform="translate(28 28) scale(1.95)">
+          <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="#0a0a0a" stroke-width="1.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="#0a0a0a" stroke-width="1.2" stroke-linejoin="round" stroke-linecap="round" opacity="0.5"/>
+        </g>
+      </svg>
+    </div>
+    <div class="filename" style="color:#5a4d35">app-icon-amber.svg · 180×180</div>
+  </div>
+
+  <div class="section-title">Anteprima nel contesto</div>
+
+  <div class="card" style="grid-column: 1 / -1; padding: 0; overflow:hidden;">
+    <div class="browser-bar">
+      <div class="dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+      <div class="tab">
+        <svg viewBox="0 0 64 64" width="12" height="12"><rect width="64" height="64" fill="#0a0a0a"/><path d="M6 50 L20 26 L28 36 L42 18 L58 50" fill="none" stroke="#e8e4dc" stroke-width="3.4" stroke-linejoin="round" stroke-linecap="round"/><path d="M42 18 L44 22" stroke="#c8b89a" stroke-width="3.4" stroke-linecap="round"/></svg>
+        Verti Studio
+      </div>
+    </div>
+    <div style="background:#fff; padding: 24px 32px; display:flex; align-items:center; justify-content:space-between; border-bottom: 1px solid #ece8df;">
+      <svg viewBox="0 0 280 64" width="200" height="46" style="color: var(--abisso)">
+        <g transform="translate(2 14) scale(0.56)">
+          <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/>
+          <path d="M40 18 L42 22" stroke="#c8b89a" stroke-width="2.8" stroke-linecap="round"/>
+        </g>
+        <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" stroke-width="1"/>
+        <text x="58" y="44" font-family="Cormorant Garamond, Georgia, serif" font-weight="300" font-size="34" fill="currentColor" letter-spacing="-0.4">Verti</text>
+        <text x="158" y="40" font-family="Inter, sans-serif" font-weight="300" font-size="11" fill="currentColor" letter-spacing="3.4" opacity="0.78">STUDIO</text>
+      </svg>
+      <div style="display:flex; gap:24px; font-size:10px; letter-spacing:.16em; text-transform:uppercase; color: var(--pietra); font-weight: 300;">
+        <div>Progetti</div><div>Studio</div><div>Diario</div><div>Contatto</div>
+      </div>
+    </div>
+    <div style="background:#fff; padding: 80px 32px; min-height: 200px; color: var(--abisso);">
+      <div style="font-family: var(--serif); font-style: italic; font-size: 28px; line-height: 1.1; max-width: 480px; font-weight: 300;">Architettura<br/>delle quote.</div>
+    </div>
+    <div class="footer-demo">
+      <div class="mark-row">
+        <svg viewBox="0 0 64 64" width="32" height="32" style="color: var(--neve)">
+          <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round" stroke-linecap="round"/>
+          <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" stroke-width="1.05" stroke-linejoin="round" stroke-linecap="round" opacity="0.55"/>
+          <path d="M40 18 L42 22" stroke="#c8b89a" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        <span class="pillar"></span>
+        <span class="name">
+          <span class="name-serif">Verti</span>
+          <span class="name-caps">Studio</span>
+        </span>
+      </div>
+      <div class="coord">46.4983° N · 11.3548° E · Bolzano</div>
+    </div>
+    <div class="filename" style="padding: 14px 24px; background: #141414;">anteprima header + footer · sito reale</div>
+  </div>
+
+</main>
+
+<section class="download">
+  <h3>File pronti in <code style="color:#c8b89a">/assets/logo/</code></h3>
+  <ul>
+    <li><a href="assets/logo/mark.svg" target="_blank">mark.svg</a></li>
+    <li><a href="assets/logo/mark-mono.svg" target="_blank">mark-mono.svg</a></li>
+    <li><a href="assets/logo/logo-compact.svg" target="_blank">logo-compact.svg</a></li>
+    <li><a href="assets/logo/logo-primary.svg" target="_blank">logo-primary.svg</a></li>
+    <li><a href="assets/logo/favicon.svg" target="_blank">favicon.svg</a></li>
+    <li><a href="assets/logo/favicon-light.svg" target="_blank">favicon-light.svg</a></li>
+    <li><a href="assets/logo/apple-touch-icon.svg" target="_blank">apple-touch-icon.svg</a></li>
+    <li><a href="assets/logo/app-icon-amber.svg" target="_blank">app-icon-amber.svg</a></li>
+    <li><a href="assets/logo/og-image.svg" target="_blank">og-image.svg</a></li>
+    <li style="grid-column: 1 / -1; margin-top: 12px;"><a href="assets/logo/LOGO-HANDOFF.md" target="_blank" style="color:#e8e4dc">📄 LOGO-HANDOFF.md — istruzioni complete per Claude Code</a></li>
+  </ul>
+</section>
+
+</body>
+</html>
