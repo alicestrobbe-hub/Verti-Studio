@@ -29,6 +29,9 @@ window.VERTI_LANG = {
       scrollHint: 'scorri',
       facts: {
         eyebrow: 'Perché il design conta',
+        sectionLabel: 'I Dati',
+        titleParts: { before: 'Perché il ', italic: 'design', after: ' conta' },
+        sourceLabel: 'Fonte',
         quote: '"Le persone non comprano da chi non si fidano. E si fidano in tre secondi."',
         items: [
           { rank: '01', big: 94, small: '%', title: 'I primi tre secondi decidono tutto.', body: "Il 94% delle prime impressioni di un sito è legato al design. Non al testo, non all'offerta. Al modo in cui appare nei primi istanti.", source: 'Stanford Web Credibility' },
@@ -91,6 +94,7 @@ window.VERTI_LANG = {
         title: 'Un sito non è un prodotto.\nÈ un asset.',
         lead: "Il giorno del lancio non è la fine. È il primo. Per i nostri clienti il primo periodo di manutenzione è incluso, perché un sito abbandonato è un investimento che si dissolve in silenzio.",
         subEyebrow: 'Perché il tuo sito ha bisogno di un partner costante',
+        subTitleParts: { before: 'Perché il tuo sito ha bisogno di un ', italic: 'partner costante' },
         breaks: [
           { num: '20', unit: '–30%', label: 'Freshness Factor', body: "L'algoritmo di Google penalizza i siti non aggiornati da sei mesi con una perdita di traffico organico fino al 30%. Ogni mese di silenzio è un cliente che trova un altro." },
           { num: '30k', label: 'Sicurezza', body: "Trentamila siti violati ogni giorno per plugin e CMS obsoleti. Una breccia non è un'eccezione: è una statistica che attende il tuo turno." },
@@ -240,6 +244,9 @@ window.VERTI_LANG = {
       scrollHint: 'scrollen',
       facts: {
         eyebrow: 'Warum Design zählt',
+        sectionLabel: 'Die Daten',
+        titleParts: { before: 'Warum ', italic: 'Design', after: ' zählt' },
+        sourceLabel: 'Quelle',
         quote: '"Menschen kaufen nicht von jemandem, dem sie nicht vertrauen. Und sie vertrauen in drei Sekunden."',
         items: [
           { rank: '01', big: 94, small: '%', title: 'Die ersten drei Sekunden entscheiden alles.', body: '94% der ersten Eindrücke einer Website hängen vom Design ab. Nicht vom Text, nicht vom Angebot. Davon, wie sie in den ersten Augenblicken erscheint.', source: 'Stanford Web Credibility' },
@@ -302,6 +309,7 @@ window.VERTI_LANG = {
         title: 'Eine Website ist kein Produkt.\nSie ist ein Asset.',
         lead: 'Der Launch-Tag ist nicht das Ende. Es ist der erste. Für unsere Kunden ist die erste Wartungsphase inklusive, weil eine verlassene Website eine Investition ist, die sich still auflöst.',
         subEyebrow: 'Warum deine Website einen ständigen Partner braucht',
+        subTitleParts: { before: 'Warum deine Website einen ', italic: 'ständigen Partner', after: ' braucht' },
         breaks: [
           { num: '20', unit: '–30%', label: 'Freshness Factor', body: 'Der Google-Algorithmus bestraft Websites, die seit sechs Monaten nicht aktualisiert wurden, mit bis zu 30% weniger organischem Traffic. Jeder Monat der Stille ist ein Kunde, der woanders findet.' },
           { num: '30k', label: 'Sicherheit', body: 'Dreißigtausend Websites werden täglich durch veraltete Plugins und CMS gehackt. Eine Sicherheitslücke ist keine Ausnahme: Es ist eine Statistik, die auf deinen Moment wartet.' },
@@ -451,6 +459,9 @@ window.VERTI_LANG = {
       scrollHint: 'scroll',
       facts: {
         eyebrow: 'Why design matters',
+        sectionLabel: 'The Data',
+        titleParts: { before: 'Why ', italic: 'design', after: ' matters' },
+        sourceLabel: 'Source',
         quote: '"People don\'t buy from those they don\'t trust. And they decide in three seconds."',
         items: [
           { rank: '01', big: 94, small: '%', title: 'The first three seconds decide everything.', body: '94% of first impressions of a website are design-related. Not the copy, not the offer. How it appears in the first moments.', source: 'Stanford Web Credibility' },
@@ -513,6 +524,7 @@ window.VERTI_LANG = {
         title: "A website isn't a product.\nIt's an asset.",
         lead: "Launch day isn't the end. It's the first day. For our clients the first maintenance period is included, because an abandoned website is an investment that dissolves in silence.",
         subEyebrow: 'Why your website needs a constant partner',
+        subTitleParts: { before: 'Why your website needs a ', italic: 'constant partner' },
         breaks: [
           { num: '20', unit: '–30%', label: 'Freshness Factor', body: "Google's algorithm penalises websites not updated for six months with up to 30% less organic traffic. Every month of silence is a client who finds someone else." },
           { num: '30k', label: 'Security', body: 'Thirty thousand websites are hacked daily through outdated plugins and CMS. A breach is not an exception: it is a statistic waiting for your turn.' },

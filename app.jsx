@@ -149,7 +149,7 @@ function SpotlightEffect() {
     let px = window.innerWidth / 2;
     let py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(700px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.065) 0%, rgba(200, 184, 154, 0.02) 40%, transparent 65%)`;
+      el.style.background = `radial-gradient(700px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.15) 0%, rgba(200, 184, 154, 0.06) 40%, transparent 65%)`;
       raf = 0;
     };
     const onMove = (e) => {
@@ -498,7 +498,7 @@ function HeroText({ headline }) {
 }
 
 // ── MagneticStat: requires window.Motion — only rendered when available ──
-function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inView }) {
+function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inView, sourceLabel }) {
   const { motion, AnimatePresence, useMotionValue, useSpring } = window.Motion;
   const xMv = useMotionValue(0);
   const yMv = useMotionValue(0);
@@ -545,7 +545,7 @@ function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inVi
           >
             <h3 className="fact-mag-title">{data.title}</h3>
             <p className="fact-mag-body">{data.body}</p>
-            <span className="fact-mag-source">Fonte · {data.source}</span>
+            <span className="fact-mag-source">{sourceLabel || 'Fonte'} · {data.source}</span>
           </motion.div>
         )}
       </AnimatePresence>
@@ -589,55 +589,70 @@ function Facts() {
     return () => { mqWide.removeEventListener('change', check); mqFine.removeEventListener('change', check); };
   }, []);
 
+  const tp = Tf.titleParts || {};
+  const srcLabel = Tf.sourceLabel;
+
   return (
     <section className="section facts" id="facts" ref={sectionRef}>
       <div className="container">
-        <div className="facts-header">
-          <FadeUp><span className="eyebrow">{Tf.eyebrow || 'Perché il design conta'}</span></FadeUp>
-          <FadeUp delay={120}>
-            <p className="facts-quote">{Tf.quote || '"Le persone non comprano da chi non si fidano. E si fidano in tre secondi."'}</p>
-          </FadeUp>
-        </div>
+        <div className="facts-split">
 
-        {showCanvas ? (
-          // ── Desktop: Asymmetric Magnetic Canvas ──
-          <div className="facts-canvas">
-            <div
-              className="facts-canvas-dim"
-              aria-hidden="true"
-              style={{ opacity: hoveredIdx !== null ? 1 : 0 }}
-            />
-            {items.map((f, i) => (
-              <MagneticStat
-                key={f.rank}
-                data={f}
-                idx={i}
-                isHovered={hoveredIdx === i}
-                anyHovered={hoveredIdx !== null}
-                onHover={() => setHoveredIdx(i)}
-                onLeave={() => setHoveredIdx(null)}
-                inView={inView}
+          {/* ── Left: Sticky Intro Column ── */}
+          <div className="facts-split-intro">
+            <FadeUp>
+              <span className="eyebrow">{Tf.sectionLabel || Tf.eyebrow}</span>
+            </FadeUp>
+            <FadeUp delay={100}>
+              <h2 className="facts-split-title">
+                {tp.before || ''}<em>{tp.italic || ''}</em>{tp.after || (!tp.before && (Tf.eyebrow || ''))}
+              </h2>
+            </FadeUp>
+            <FadeUp delay={200}>
+              <p className="facts-split-body">{Tf.quote}</p>
+            </FadeUp>
+          </div>
+
+          {/* ── Right: Asymmetric Canvas or Mobile Stack ── */}
+          {showCanvas ? (
+            <div className="facts-canvas">
+              <div
+                className="facts-canvas-dim"
+                aria-hidden="true"
+                style={{ opacity: hoveredIdx !== null ? 1 : 0 }}
               />
-            ))}
-          </div>
-        ) : (
-          // ── Mobile / no-motion fallback: clean vertical stack ──
-          <div className="facts-mobile-stack">
-            {items.map((f, i) => (
-              <div key={f.rank} className="fact-mobile-item">
-                <span className="fact-mob-rank">— {f.rank}</span>
-                <div className="fact-mob-num">
-                  {inView && <Counter to={f.big} />}<em>{f.small}</em>
+              {items.map((f, i) => (
+                <MagneticStat
+                  key={f.rank}
+                  data={f}
+                  idx={i}
+                  isHovered={hoveredIdx === i}
+                  anyHovered={hoveredIdx !== null}
+                  onHover={() => setHoveredIdx(i)}
+                  onLeave={() => setHoveredIdx(null)}
+                  inView={inView}
+                  sourceLabel={srcLabel}
+                />
+              ))}
+            </div>
+          ) : (
+            // ── Mobile / no-motion fallback: clean vertical stack ──
+            <div className="facts-mobile-stack">
+              {items.map((f, i) => (
+                <div key={f.rank} className="fact-mobile-item">
+                  <span className="fact-mob-rank">— {f.rank}</span>
+                  <div className="fact-mob-num">
+                    {inView && <Counter to={f.big} />}<em>{f.small}</em>
+                  </div>
+                  <div className="fact-mob-content">
+                    <h3 className="fact-mob-title">{f.title}</h3>
+                    <p className="fact-mob-body">{f.body}</p>
+                    <span className="fact-mob-source">{srcLabel || 'Fonte'} · {f.source}</span>
+                  </div>
                 </div>
-                <div className="fact-mob-content">
-                  <h3 className="fact-mob-title">{f.title}</h3>
-                  <p className="fact-mob-body">{f.body}</p>
-                  <span className="fact-mob-source">Fonte · {f.source}</span>
-                </div>
-              </div>
-            ))}
-          </div>
-        )}
+              ))}
+            </div>
+          )}
+        </div>
       </div>
     </section>
   );
@@ -1044,100 +1059,88 @@ function CaseCard({ data, labelBefore = 'Prima', labelAfter = 'Dopo', index = 0 
   );
 }
 
-// ── CuraAccordion: Fluid Typographic Accordion (Framer Motion) ──
+// ── CuraAccordion: Fluid Typographic Accordion — horizontal panels (desktop) / vertical stack (mobile) ──
 function CuraAccordion({ breaks }) {
-  const M = window.Motion || {};
-  const motionComp = M.motion;
-  const AnimatePresence = M.AnimatePresence;
-  const LayoutGroup = M.LayoutGroup || React.Fragment;
   const [hovered, setHovered] = React.useState(null);
+  const [showPanels, setShowPanels] = React.useState(false);
   const isTouchRef = React.useRef(window.matchMedia('(pointer: coarse)').matches);
 
-  if (!motionComp || !AnimatePresence) {
-    // Fallback: old editorial layout
+  React.useEffect(() => {
+    const mqWide = window.matchMedia('(min-width: 769px)');
+    const mqFine = window.matchMedia('(pointer: fine)');
+    const check = () => setShowPanels(
+      !!(window.Motion && window.Motion.motion && window.Motion.AnimatePresence) && mqWide.matches && mqFine.matches
+    );
+    check();
+    mqWide.addEventListener('change', check);
+    mqFine.addEventListener('change', check);
+    return () => { mqWide.removeEventListener('change', check); mqFine.removeEventListener('change', check); };
+  }, []);
+
+  if (!showPanels) {
+    // Mobile / no-Motion: clean vertical stack
     return (
-      <div className="silent-breaks-editorial">
+      <div className="cura-panels cura-panels--stack">
         {breaks.map((b, i) => (
-          <div key={i} className="break-editorial">
-            <div className="break-editorial-inner">
-              <div className="break-editorial-num-col">
-                <span className="break-editorial-num">{b.num}{b.unit && <small>{b.unit}</small>}</span>
-              </div>
-              <div className="break-editorial-label-col">
-                <span className="break-editorial-label">{b.label}</span>
-                <p className="break-editorial-body">{b.body}</p>
-              </div>
+          <div key={i} className="cura-panel-fallback">
+            <span className="cura-panel-label">{b.label}</span>
+            <div className="cura-panel-stat">
+              {b.num}<em className="cura-panel-unit">{b.unit || ''}</em>
             </div>
+            <p className="cura-panel-body-fallback">{b.body}</p>
           </div>
         ))}
       </div>
     );
   }
 
+  const M = window.Motion;
+  const motionComp = M.motion;
+  const AnimatePresence = M.AnimatePresence;
+  const LayoutGroup = M.LayoutGroup || React.Fragment;
+
   return (
     <LayoutGroup>
-      <div className="cura-accordion" role="list">
+      <div className="cura-panels" role="list">
         {breaks.map((b, i) => {
           const isActive = hovered === i;
           return (
             <motionComp.div
               key={i}
               layout
-              className={`cura-row${isActive ? ' cura-row--active' : ''}`}
+              className={`cura-panel${isActive ? ' cura-panel--active' : ''}`}
+              style={{ flex: isActive ? '3 3 0%' : '1 1 0%' }}
+              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               onHoverStart={() => !isTouchRef.current && setHovered(i)}
               onHoverEnd={() => setHovered(null)}
               onClick={() => isTouchRef.current && setHovered(isActive ? null : i)}
               role="listitem"
             >
-              <motionComp.div layout className="cura-row-inner">
-                <div className="cura-num-wrap">
-                  <motionComp.span
-                    className="cura-num"
-                    animate={{ color: isActive ? '#c8b89a' : '#e8e4dc', textShadow: isActive ? '0 0 40px rgba(200,184,154,0.22)' : '0 0 0px rgba(0,0,0,0)' }}
-                    transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    {b.num}<em className="cura-unit">{b.unit || ''}</em>
-                  </motionComp.span>
-                </div>
-                <div className="cura-content-col">
-                  <div className="cura-header-row">
-                    <span className="cura-rank">— 0{i + 1}</span>
-                    <motionComp.span
-                      className="cura-label"
-                      animate={{ x: isActive ? 8 : 0, color: isActive ? '#c8b89a' : '#c8c4bc' }}
-                      transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
-                    >
-                      {b.label}
-                    </motionComp.span>
-                  </div>
-                  <AnimatePresence initial={false}>
-                    {isActive && (
-                      <motionComp.p
-                        key="body"
-                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
-                        animate={{ opacity: 1, height: 'auto', marginTop: 18 }}
-                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
-                        transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
-                        style={{ overflow: 'hidden' }}
-                        className="cura-body"
-                      >
-                        {b.body}
-                      </motionComp.p>
-                    )}
-                  </AnimatePresence>
-                </div>
-                <motionComp.div
-                  className="cura-toggle"
-                  animate={{ rotate: isActive ? 45 : 0, color: isActive ? '#c8b89a' : '#3a3a3a' }}
-                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
-                  aria-hidden="true"
-                >
-                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
-                    <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" strokeWidth="1.2"/>
-                    <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" strokeWidth="1.2"/>
-                  </svg>
-                </motionComp.div>
+              <span className="cura-panel-label">{b.label}</span>
+              <motionComp.div
+                className="cura-panel-stat"
+                animate={{
+                  color: isActive ? '#c8b89a' : '#e8e4dc',
+                  textShadow: isActive ? '0 0 40px rgba(200,184,154,0.22)' : '0 0 0px rgba(0,0,0,0)',
+                }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {b.num}<em className="cura-panel-unit">{b.unit || ''}</em>
               </motionComp.div>
+              <AnimatePresence>
+                {isActive && (
+                  <motionComp.p
+                    key="body"
+                    className="cura-panel-body"
+                    initial={{ opacity: 0, y: 10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 6 }}
+                    transition={{ duration: 0.38, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {b.body}
+                  </motionComp.p>
+                )}
+              </AnimatePresence>
             </motionComp.div>
           );
         })}
@@ -1180,10 +1183,14 @@ function Mantenimento() {
           </FadeUp>
         </div>
 
-        <FadeUp>
-          <div style={{ marginBottom: 32 }}>
-            <span className="eyebrow">{Tman.subEyebrow || 'Perché il tuo sito ha bisogno di un partner costante'}</span>
-          </div>
+        <FadeUp delay={120}>
+          <h2 className="mantenimento-sub-title">
+            {Tman.subTitleParts ? (
+              <>{Tman.subTitleParts.before}<em>{Tman.subTitleParts.italic}</em>{Tman.subTitleParts.after || ''}</>
+            ) : (
+              Tman.subEyebrow || ''
+            )}
+          </h2>
         </FadeUp>
 
         <CuraAccordion breaks={breaks} />
