@@ -149,7 +149,7 @@ function SpotlightEffect() {
     let px = window.innerWidth / 2;
     let py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(320px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.22) 0%, rgba(200, 184, 154, 0.09) 50%, transparent 72%)`;
+      el.style.background = `radial-gradient(55px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.52) 0%, rgba(200, 184, 154, 0.16) 55%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => {
@@ -510,10 +510,20 @@ function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inVi
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
-      <span className="fact-mag-rank">— {data.rank}</span>
-      <div className="fact-mag-num">
-        {inView && <Counter to={data.big} />}<em className="fact-mag-small">{data.small}</em>
+      {/* Stable anchor: rank + number — flex-shrink:0 prevents displacement when content reveals */}
+      <div className="fact-mag-anchor">
+        <span className="fact-mag-rank">— {data.rank}</span>
+        <motion.div
+          className="fact-mag-num"
+          animate={{ scale: isHovered ? 1.05 : 1 }}
+          initial={false}
+          transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          style={{ transformOrigin: 'left bottom', display: 'block' }}
+        >
+          {inView && <Counter to={data.big} />}<em className="fact-mag-small">{data.small}</em>
+        </motion.div>
       </div>
+      {/* Description: always in flow BELOW anchor, reveals downward without shifting number */}
       <AnimatePresence>
         {isHovered && (
           <motion.div
@@ -899,63 +909,116 @@ function Servizi() {
   const items = Ts.items || [
     { n: '01', name: 'Analisi sito', desc: 'Diagnosi su UX, comunicazione, conversione. Vendibile come servizio standalone.', tag: 'Standalone' },
     { n: '02', name: 'Web design & sviluppo', desc: 'Redesign o nuovo sito. Dalla strategia al lancio. Risultato misurabile, non solo estetico.', tag: 'Core' },
-    { n: '03', name: 'Mantenimento ed evoluzione', desc: 'Abbonamento mensile. Il sito cresce con la tua azienda: sicuro, aggiornato, performante.', tag: 'Continuativo' },
+    { n: '03', name: 'Mantenimento ed evoluzione', desc: 'Abbonamento mensile. Il sito cresce con te: sicuro, aggiornato, performante.', tag: 'Continuativo' },
     { n: '04', name: 'Data & insight', desc: 'Lettura dei dati raccolti dal sito per capire cosa funziona, cosa no, dove potenziare. Decisioni su numeri, non su intuizione.', tag: 'Strategia' },
     { n: '05', name: 'Automazione', desc: 'Flussi, CRM, email automatiche. Ridurre il lavoro ripetitivo dove la macchina è più affidabile.', tag: 'Premium' },
     { n: '06', name: 'Marketing digitale', desc: 'Posizionamento, comunicazione, acquisizione. Per chi ha già una base solida e vuole scalare.', tag: 'Espansione' },
   ];
 
-  const groups = Ts.groups || [
-    { label: 'Core · Sito che vende' },
-    { label: 'Crescita · Dopo il lancio' },
-    { label: 'Estensioni · Avanzato' },
-  ];
-
-  const rows = [
-    [items[0], items[1]],
-    [items[2], items[3]],
-    [items[4], items[5]],
-  ];
-
   const titleParts = (Ts.title || 'Sei servizi.\nUna sola filosofia.').split('\n');
+  const [hoveredIdx, setHoveredIdx] = React.useState(null);
+  const [showMotion, setShowMotion] = React.useState(false);
+
+  React.useEffect(() => {
+    const mqFine = window.matchMedia('(pointer: fine)');
+    const check = () => setShowMotion(!!(window.Motion && window.Motion.motion) && mqFine.matches);
+    check();
+    mqFine.addEventListener('change', check);
+    return () => mqFine.removeEventListener('change', check);
+  }, []);
+
+  // Shared header markup
+  const headerBlock = (
+    <div className="servizi-ed-header">
+      <FadeUp><span className="eyebrow">{Ts.eyebrow || 'Sezione 03 · Servizi'}</span></FadeUp>
+      <FadeUp delay={100}>
+        <h2 className="h2 servizi-ed-title">
+          {titleParts[0]}
+          <em className="servizi-ed-title-em">{titleParts[1] || 'Una sola filosofia.'}</em>
+        </h2>
+      </FadeUp>
+      <FadeUp delay={200}>
+        <p className="servizi-ed-lead">{Ts.lead || 'Il design è la prova. Ogni servizio risponde a un momento del ciclo: prima del sito, durante, e dopo. Non un catalogo da agenzia — un percorso.'}</p>
+      </FadeUp>
+    </div>
+  );
+
+  if (!showMotion) {
+    // Mobile / no-Motion: all descriptions visible, no dimming
+    return (
+      <section className="section servizi" id="servizi">
+        <div className="container">
+          {headerBlock}
+          <div className="servizi-ed-list servizi-ed-list--static" role="list">
+            {items.map((s) => (
+              <div key={s.n} role="listitem" className="servizi-ed-item servizi-ed-item--open">
+                <div className="servizi-ed-item-row">
+                  <span className="servizi-ed-num">{s.n}</span>
+                  <h3 className="servizi-ed-name">{s.name}</h3>
+                  <span className="servizi-ed-tag">{s.tag}</span>
+                </div>
+                <p className="servizi-ed-desc">{s.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
+
+  const { motion: m } = window.Motion;
 
   return (
     <section className="section servizi" id="servizi">
       <div className="container">
-        <div className="servizi-header">
-          <div>
-            <FadeUp><span className="eyebrow">{Ts.eyebrow || 'Sezione 03 · Servizi'}</span></FadeUp>
-            <div style={{ marginTop: 24 }}>
-              <LineReveal delay={120} tag="h2" className="h2">{titleParts[0]}</LineReveal>
-              <LineReveal delay={240} tag="h2" className="h2 h2--italic">{titleParts[1] || 'Una sola filosofia.'}</LineReveal>
-            </div>
-          </div>
-          <FadeUp delay={180}>
-            <p className="body-text servizi-lead">{Ts.lead || 'Il design è la prova. Ogni servizio risponde a un momento del ciclo: prima del sito, durante, e dopo. Non un catalogo da agenzia — un percorso.'}</p>
-          </FadeUp>
-        </div>
-
-        <div className="servizi-groups">
-          {rows.map((pair, gi) => (
-            <FadeUp key={gi} delay={gi * 80}>
-              <div className="servizi-group">
-                <div className="servizi-group-label">{groups[gi] && groups[gi].label}</div>
-                <div className="servizi-group-cards">
-                  {pair.map((s) => s && (
-                    <a key={s.n} href="#contatti" className="servizio-card">
-                      <div className="servizio-card-top">
-                        <span className="servizio-card-num">— {s.n}</span>
-                        <span className="servizio-card-tag">{s.tag}</span>
-                      </div>
-                      <div className="servizio-card-name">{s.name}</div>
-                      <p className="servizio-card-desc">{s.desc}</p>
-                      <span className="servizio-card-arrow" aria-hidden="true">→</span>
-                    </a>
-                  ))}
+        {headerBlock}
+        <div className="servizi-ed-list" role="list">
+          {items.map((s, i) => {
+            const isActive = hoveredIdx === i;
+            const isDimmed = hoveredIdx !== null && !isActive;
+            return (
+              <m.div
+                key={s.n}
+                role="listitem"
+                className={`servizi-ed-item${isActive ? ' active' : ''}`}
+                animate={{ opacity: isDimmed ? 0.28 : 1 }}
+                initial={false}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                onHoverStart={() => setHoveredIdx(i)}
+                onHoverEnd={() => setHoveredIdx(null)}
+              >
+                <div className="servizi-ed-item-row">
+                  <span className="servizi-ed-num">{s.n}</span>
+                  <m.h3
+                    className="servizi-ed-name"
+                    animate={{
+                      color: isActive ? 'var(--ambra)' : 'var(--neve)',
+                      x: isActive ? 10 : 0,
+                    }}
+                    initial={false}
+                    transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                  >
+                    {s.name}
+                  </m.h3>
+                  <span className="servizi-ed-tag">{s.tag}</span>
                 </div>
-              </div>
-            </FadeUp>
-          ))}
+                <m.div
+                  animate={{
+                    maxHeight: isActive ? 180 : 0,
+                    opacity: isActive ? 1 : 0,
+                  }}
+                  initial={false}
+                  transition={{
+                    maxHeight: { duration: 0.52, ease: [0.16, 1, 0.3, 1] },
+                    opacity: { duration: 0.28, delay: isActive ? 0.16 : 0 },
+                  }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  <p className="servizi-ed-desc">{s.desc}</p>
+                </m.div>
+              </m.div>
+            );
+          })}
         </div>
       </div>
     </section>
@@ -1077,55 +1140,54 @@ function CuraAccordion({ breaks }) {
 
   const M = window.Motion;
   const motionComp = M.motion;
-  const LayoutGroup = M.LayoutGroup || React.Fragment;
 
   return (
-    <LayoutGroup>
-      <div className="cura-panels" role="list">
-        {breaks.map((b, i) => {
-          const isActive = hovered === i;
-          return (
+    <div className="cura-panels" role="list">
+      {breaks.map((b, i) => {
+        const isActive = hovered === i;
+        return (
+          <motionComp.div
+            key={i}
+            className={`cura-panel${isActive ? ' cura-panel--active' : ''}`}
+            animate={{ flexGrow: isActive ? 3 : 1 }}
+            initial={false}
+            transition={{ duration: 0.62, ease: [0.16, 1, 0.3, 1] }}
+            style={{ overflow: 'hidden', flexShrink: 1, flexBasis: 0 }}
+            onHoverStart={() => !isTouchRef.current && setHovered(i)}
+            onHoverEnd={() => setHovered(null)}
+            onClick={() => isTouchRef.current && setHovered(isActive ? null : i)}
+            role="listitem"
+          >
+            <span className="cura-panel-label">{b.label}</span>
             <motionComp.div
-              key={i}
-              layout
-              className={`cura-panel${isActive ? ' cura-panel--active' : ''}`}
-              style={{ flex: isActive ? '3 3 0%' : '1 1 0%', overflow: 'hidden' }}
-              transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              onHoverStart={() => !isTouchRef.current && setHovered(i)}
-              onHoverEnd={() => setHovered(null)}
-              onClick={() => isTouchRef.current && setHovered(isActive ? null : i)}
-              role="listitem"
+              className="cura-panel-stat"
+              animate={{
+                color: isActive ? '#c8b89a' : '#e8e4dc',
+                textShadow: isActive ? '0 0 40px rgba(200,184,154,0.22)' : '0 0 0px rgba(0,0,0,0)',
+              }}
+              initial={false}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="cura-panel-label">{b.label}</span>
-              <motionComp.div
-                className="cura-panel-stat"
-                animate={{
-                  color: isActive ? '#c8b89a' : '#e8e4dc',
-                  textShadow: isActive ? '0 0 40px rgba(200,184,154,0.22)' : '0 0 0px rgba(0,0,0,0)',
-                }}
-                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {b.num}<em className="cura-panel-unit">{b.unit || ''}</em>
-              </motionComp.div>
-              <motionComp.div
-                animate={{
-                  maxHeight: isActive ? 220 : 0,
-                  opacity: isActive ? 1 : 0,
-                }}
-                initial={false}
-                transition={{
-                  maxHeight: { duration: 0.52, ease: [0.16, 1, 0.3, 1] },
-                  opacity: { duration: 0.3, delay: isActive ? 0.18 : 0 },
-                }}
-                style={{ overflow: 'hidden' }}
-              >
-                <p className="cura-panel-body">{b.body}</p>
-              </motionComp.div>
+              {b.num}<em className="cura-panel-unit">{b.unit || ''}</em>
             </motionComp.div>
-          );
-        })}
-      </div>
-    </LayoutGroup>
+            <motionComp.div
+              animate={{
+                maxHeight: isActive ? 220 : 0,
+                opacity: isActive ? 1 : 0,
+              }}
+              initial={false}
+              transition={{
+                maxHeight: { duration: 0.55, ease: [0.16, 1, 0.3, 1] },
+                opacity: { duration: 0.3, delay: isActive ? 0.2 : 0 },
+              }}
+              style={{ overflow: 'hidden' }}
+            >
+              <p className="cura-panel-body">{b.body}</p>
+            </motionComp.div>
+          </motionComp.div>
+        );
+      })}
+    </div>
   );
 }
 

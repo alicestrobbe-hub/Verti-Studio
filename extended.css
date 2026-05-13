@@ -1087,8 +1087,16 @@
   cursor: default;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   gap: 4px;
-  will-change: transform;
+}
+
+/* Stable anchor: rank + number block — never shifts when description reveals */
+.fact-mag-anchor {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 4px;
 }
 
 /* Asymmetric diagonal placement — top-left → mid-right → bottom-center */
@@ -1476,7 +1484,9 @@
 }
 
 .cura-panel {
-  flex: 1 1 0%;
+  /* flex-grow is now animated by Framer Motion via inline style — base values set here */
+  flex-shrink: 1;
+  flex-basis: 0;
   border-right: 1px solid rgba(255,255,255,0.05);
   padding: clamp(28px, 3.5vw, 48px) clamp(18px, 2.2vw, 32px);
   cursor: default;
@@ -1635,4 +1645,124 @@
 
 @media (max-width: 768px) {
   .mantenimento-sub-title { font-size: clamp(24px, 6.5vw, 36px); max-width: none; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   REBUILT: Servizi — Editorial Value List (Homepage §03)
+   ═══════════════════════════════════════════════════════ */
+
+.servizi-ed-header {
+  margin-bottom: clamp(52px, 7.5vh, 96px);
+  max-width: 74ch;
+}
+
+.servizi-ed-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(42px, 6.5vw, 92px);
+  line-height: 1.0;
+  letter-spacing: -0.03em;
+  color: var(--neve);
+  margin-top: clamp(14px, 2vh, 24px);
+  margin-bottom: 0;
+}
+
+.servizi-ed-title-em {
+  display: block;
+  font-style: italic;
+  color: var(--ambra);
+  opacity: calc(0.9 * var(--accent-strength) + 0.1);
+}
+
+.servizi-ed-lead {
+  font-size: clamp(15px, 1.3vw, 18px);
+  font-weight: 300;
+  line-height: 1.8;
+  color: var(--ghiaccio);
+  max-width: 64ch;
+  letter-spacing: 0.018em;
+  margin-top: clamp(22px, 3vh, 36px);
+}
+
+/* List container */
+.servizi-ed-list {
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Individual item row */
+.servizi-ed-item {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  padding: clamp(22px, 3.2vh, 42px) 0;
+  cursor: default;
+}
+
+.servizi-ed-item-row {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(18px, 2.8vw, 44px);
+}
+
+.servizi-ed-num {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--pietra);
+  flex-shrink: 0;
+  min-width: 22px;
+}
+
+.servizi-ed-name {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(30px, 4.6vw, 70px);
+  line-height: 1.0;
+  letter-spacing: -0.028em;
+  color: var(--neve);
+  flex-grow: 1;
+  margin: 0;
+  transition:
+    color 0.38s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.servizi-ed-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--pietra);
+  border: 1px solid var(--granito);
+  padding: 5px 10px;
+  flex-shrink: 0;
+  white-space: nowrap;
+  transition: color 0.35s ease, border-color 0.35s ease;
+}
+
+.servizi-ed-item.active .servizi-ed-tag {
+  color: var(--ambra);
+  border-color: rgba(200, 184, 154, 0.28);
+}
+
+.servizi-ed-desc {
+  font-size: clamp(14px, 1.2vw, 16px);
+  font-weight: 300;
+  line-height: 1.84;
+  color: var(--ghiaccio);
+  letter-spacing: 0.018em;
+  padding-top: 14px;
+  max-width: 70ch;
+  padding-left: calc(22px + clamp(18px, 2.8vw, 44px));
+  overflow-wrap: break-word;
+  hyphens: auto;
+}
+
+/* Mobile: always visible, no dimming, no translate */
+.servizi-ed-list--static .servizi-ed-item { opacity: 1 !important; }
+.servizi-ed-item--open .servizi-ed-name { transform: none !important; }
+.servizi-ed-item--open .servizi-ed-desc { padding-left: 0; }
+
+@media (max-width: 768px) {
+  .servizi-ed-name { font-size: clamp(26px, 6.5vw, 42px); }
+  .servizi-ed-desc { padding-left: 0; }
+  .servizi-ed-tag { display: none; }
 }

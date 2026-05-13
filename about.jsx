@@ -338,8 +338,8 @@ function Filosofia() {
     const tick = (t) => {
       if (!startTime) startTime = t;
       const elapsed = (t - startTime) / 1000;
-      // 10s period, max scale 1.025 — imperceptibly slow "breathing"
-      const scale = 1 + 0.025 * (0.5 - 0.5 * Math.cos(elapsed * Math.PI / 5));
+      // 10s period, max scale 1.05 — imperceptibly slow "breathing"
+      const scale = 1 + 0.05 * (0.5 - 0.5 * Math.cos(elapsed * Math.PI / 5));
       el.style.transform = `scale(${scale.toFixed(5)})`;
       rafId = requestAnimationFrame(tick);
     };
@@ -436,6 +436,7 @@ function Servizi() {
     { tag: 'Analytics', label: 'Dati e decisioni', desc: 'Setup analytics, lettura dei dati, report mensili. Capire cosa funziona e cosa no, con numeri reali.' },
   ];
   const titleParts = (Ts.title || 'Tutto ciò\ndi cui hai bisogno\nonline.').split('\n');
+  const titleEm = Ts.titleEm || 'online.';
   const [activeIdx, setActiveIdx] = React.useState(0);
   const [showSplit, setShowSplit] = React.useState(false);
 
@@ -528,16 +529,23 @@ function Servizi() {
   return (
     <section className="section ah-section" id="servizi-about">
       <div className="container">
-        <div className="ah-two-col ah-servizi-intro-row">
-          <div className="ah-col-label">
-            <FadeUp><span className="eyebrow">{Ts.eyebrow || '03 · Cosa facciamo'}</span></FadeUp>
-            <FadeUp delay={120}><h2 className="h2 ah-section-title">{titleParts.map((l, i) => <React.Fragment key={i}>{l}{i < titleParts.length - 1 && <br />}</React.Fragment>)}</h2></FadeUp>
-          </div>
-          <div className="ah-col-text">
-            <FadeUp delay={60}>
-              <p className="ah-lead">{Ts.lead || "Dalla prima riga di codice all'ultima analisi mensile. Seguiamo ogni aspetto della tua presenza digitale, così puoi concentrarti su quello che sai fare meglio."}</p>
-            </FadeUp>
-          </div>
+        <div className="ah-servizi-header-vflow">
+          <FadeUp><span className="eyebrow">{Ts.eyebrow || '03 · Cosa facciamo'}</span></FadeUp>
+          <FadeUp delay={120}>
+            <h2 className="h2 ah-section-title ah-servizi-title-vflow">
+              {titleParts.map((line, i) => (
+                <React.Fragment key={i}>
+                  {line === titleEm
+                    ? <em className="ah-title-online">{line}</em>
+                    : line}
+                  {i < titleParts.length - 1 && <br />}
+                </React.Fragment>
+              ))}
+            </h2>
+          </FadeUp>
+          <FadeUp delay={220}>
+            <p className="ah-servizi-lead-vflow">{Ts.lead || "Dalla prima riga di codice all'ultima analisi mensile. Seguiamo ogni aspetto della tua presenza digitale, così puoi concentrarti su quello che sai fare meglio."}</p>
+          </FadeUp>
         </div>
         {splitBody}
       </div>

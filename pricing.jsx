@@ -303,19 +303,24 @@ function SartorialitaSection() {
   );
 }
 
-// ─────── Servizi — Editorial Value List ───────
+// ─────── Servizi — Layered Editorial Bands ───────
 
 function Servizi() {
   const lang = React.useContext(LangCtx);
   const Ts = (((window.VERTI_LANG || {})[lang] || {}).pricing || {}).servizi || {};
-  const tItems = Ts.items || [
+  const items = Ts.items || [
     { title: 'Web Design & Sviluppo', desc: "Siti su misura: architettura dell'informazione, visual design, codice preciso. Ogni scelta ha una ragione, ogni pagina una funzione." },
     { title: 'UX / UI', desc: 'Esperienza utente studiata per convertire. Prima i wireframe, poi i pixel.' },
     { title: 'AI & Automazioni', desc: 'Flussi intelligenti che eliminano il lavoro ripetitivo.' },
     { title: 'Marketing Digitale', desc: 'Strategia, contenuti, distribuzione. Visibilità che porta clienti, non sole visite.' },
     { title: 'Analytics & Dati', desc: "Dashboard che raccontano la realtà dell'azienda. Decisioni su evidenze, non intuizioni." },
   ];
-  const [activeIdx, setActiveIdx] = React.useState(null);
+  const groups = Ts.groups || [
+    { num: '01', faseLabel: 'FASE 01', tag: 'FONDAZIONE', title: 'Sito & Esperienza', itemIndices: [0, 1] },
+    { num: '02', faseLabel: 'FASE 02', tag: 'CRESCITA',    title: 'Visibilità & Dati', itemIndices: [3, 4] },
+    { num: '03', faseLabel: 'FASE 03', tag: 'AVANZATO',   title: 'AI & Automazione', itemIndices: [2] },
+  ];
+  const [hoveredItem, setHoveredItem] = React.useState(null);
 
   return (
     <section className="pr-servizi">
@@ -331,24 +336,45 @@ function Servizi() {
         </LineReveal>
       </div>
 
-      <div className="pr-editorial-list" role="list">
-        {tItems.map((item, i) => {
-          const isActive = activeIdx === i;
-          const isDimmed = activeIdx !== null && !isActive;
+      <div className="pr-bands">
+        {groups.map((group, gi) => {
+          const groupItems = (group.itemIndices || []).map(idx => items[idx]).filter(Boolean);
           return (
-            <FadeUp key={i} delay={i * 60}>
-              <div
-                role="listitem"
-                className={`pr-editorial-item${isActive ? ' active' : ''}${isDimmed ? ' dimmed' : ''}`}
-                onMouseEnter={() => setActiveIdx(i)}
-                onMouseLeave={() => setActiveIdx(null)}
-              >
-                <div className="pr-editorial-title-row">
-                  <span className="pr-editorial-num pr-mono">{String(i + 1).padStart(2, '0')}</span>
-                  <h3 className="pr-editorial-title">{item.title}</h3>
+            <FadeUp key={gi} delay={gi * 80}>
+              <div className="pr-band">
+                {/* Monumental background number */}
+                <span className="pr-band-bgnum" aria-hidden="true">{group.num}</span>
+
+                {/* Left column: phase label + category title + tag */}
+                <div className="pr-band-left">
+                  <span className="pr-mono pr-band-fase">{group.faseLabel}</span>
+                  <h3 className="pr-band-title">{group.title}</h3>
+                  <span className="pr-mono pr-band-tag">{group.tag}</span>
                 </div>
-                <div className="pr-editorial-desc-wrap">
-                  <p className="pr-editorial-desc">{item.desc}</p>
+
+                {/* Vertical divider */}
+                <div className="pr-band-vdiv" aria-hidden="true" />
+
+                {/* Right column: service rows */}
+                <div className="pr-band-right">
+                  {groupItems.map((item, ii) => {
+                    const key = `${gi}-${ii}`;
+                    const isActive = hoveredItem === key;
+                    return (
+                      <div
+                        key={ii}
+                        className={`pr-band-item${isActive ? ' active' : ''}`}
+                        onMouseEnter={() => setHoveredItem(key)}
+                        onMouseLeave={() => setHoveredItem(null)}
+                      >
+                        <div className="pr-band-item-row">
+                          <h4 className="pr-band-item-title">{item.title}</h4>
+                          <span className="pr-band-arrow" aria-hidden="true">→</span>
+                        </div>
+                        <p className="pr-band-item-desc">{item.desc}</p>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </FadeUp>
