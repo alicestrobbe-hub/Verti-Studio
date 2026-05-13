@@ -192,40 +192,42 @@ function PricingHero() {
 
       <span className="pr-hero-watermark" aria-hidden="true">{Th.watermark || 'VALORE'}</span>
 
-      <div className="pr-hero-inner">
-        <h1 className={`pr-hero-title${lang === 'de' ? ' pr-hero-title--de' : ''}`}>
-          <LineReveal delay={120}>
-            <span>{Th.titleA || 'Ogni progetto'}</span>
-          </LineReveal>
-          <LineReveal delay={240}>
-            <span><em>{Th.titleEm || 'nasce da una'}</em></span>
-          </LineReveal>
-          <LineReveal delay={360}>
-            <span>{Th.titleB || 'conversazione.'}</span>
-          </LineReveal>
-        </h1>
+      <div style={{ position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'center', textAlign: 'center', paddingTop: 'calc(73px + 40px)', zIndex: 2 }}>
+        <div className="pr-hero-inner" style={{ maxWidth: '960px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <h1 className={`pr-hero-title${lang === 'de' ? ' pr-hero-title--de' : ''}`} style={{ fontSize: 'clamp(64px, 8vw, 96px)', textAlign: 'center' }}>
+            <LineReveal delay={120}>
+              <span>{Th.titleA || 'Ogni progetto'}</span>
+            </LineReveal>
+            <LineReveal delay={240}>
+              <span><em>{Th.titleEm || 'nasce da una'}</em></span>
+            </LineReveal>
+            <LineReveal delay={360}>
+              <span>{Th.titleB || 'conversazione.'}</span>
+            </LineReveal>
+          </h1>
 
-        <FadeUp delay={600} className="pr-hero-sub-wrap">
-          <p className="pr-hero-sub">
-            {(Th.sub || 'Non esistono pacchetti standard perché non esistono aziende standard.\nIl prezzo è il risultato di un dialogo. Non di un listino.').split('\n').map((line, i, arr) => (
-              <React.Fragment key={i}>{line}{i < arr.length - 1 && <br />}</React.Fragment>
-            ))}
-          </p>
-        </FadeUp>
+          <FadeUp delay={600} className="pr-hero-sub-wrap" style={{ maxWidth: '560px' }}>
+            <p className="pr-hero-sub" style={{ textAlign: 'center' }}>
+              {(Th.sub || 'Non esistono pacchetti standard perché non esistono aziende standard.\nIl prezzo è il risultato di un dialogo. Non di un listino.').split('\n').map((line, i, arr) => (
+                <React.Fragment key={i}>{line}{i < arr.length - 1 && <br />}</React.Fragment>
+              ))}
+            </p>
+          </FadeUp>
 
-        <FadeUp delay={760}>
-          <a href="#contatti" className="pr-hero-cta">
-            <span>{Th.ctaLabel || 'Inizia la conversazione'}</span>
-            <span className="pr-hero-cta-arrow" aria-hidden="true">→</span>
-          </a>
-        </FadeUp>
+          <FadeUp delay={760}>
+            <a href="#contatti" className="pr-hero-cta">
+              <span>{Th.ctaLabel || 'Inizia la conversazione'}</span>
+              <span className="pr-hero-cta-arrow" aria-hidden="true">→</span>
+            </a>
+          </FadeUp>
 
-        <FadeUp delay={920}>
-          <div className="pr-hero-scroll-hint" aria-hidden="true">
-            <span className="pr-mono">{Th.scrollHint || 'scopri'}</span>
-            <div className="pr-scroll-line" />
-          </div>
-        </FadeUp>
+          <FadeUp delay={920}>
+            <div className="pr-hero-scroll-hint" aria-hidden="true">
+              <span className="pr-mono">{Th.scrollHint || 'scopri'}</span>
+              <div className="pr-scroll-line" />
+            </div>
+          </FadeUp>
+        </div>
       </div>
 
       <div className="pr-hero-corner" aria-hidden="true" />
@@ -303,83 +305,108 @@ function SartorialitaSection() {
   );
 }
 
+// ─────── ServiziBand — sub-component (hook rules: useInView per band) ───────
+
+function ServiziBand({ group, items, gi }) {
+  const { motion } = window.Motion;
+  const [bandRef, bandInView] = useInView({ threshold: 0.1 });
+  const groupItems = (group.itemIndices || []).map(idx => items[idx]).filter(Boolean);
+
+  return (
+    <div className="pr-band" ref={bandRef}>
+      {/* Monumental ghost number — slow opacity fade */}
+      <motion.span
+        className="pr-band-bgnum"
+        initial={{ opacity: 0 }}
+        animate={bandInView ? { opacity: 0.04 } : { opacity: 0 }}
+        transition={{ duration: 2.4, ease: 'easeOut', delay: 0.4 }}
+        aria-hidden="true"
+      >{group.num}</motion.span>
+
+      {/* Left column: phase identity */}
+      <div className="pr-band-left">
+        <span className="pr-mono pr-band-fase">{group.faseLabel}</span>
+        <motion.h3
+          className="pr-band-phase-title"
+          initial={{ clipPath: 'inset(0 100% 0 0)' }}
+          animate={bandInView ? { clipPath: 'inset(0 0% 0 0)' } : { clipPath: 'inset(0 100% 0 0)' }}
+          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.12 + gi * 0.05 }}
+        >{group.phaseTitle || group.title}</motion.h3>
+        <span className="pr-mono pr-band-phase-meta">{group.phaseMeta || group.tag}</span>
+        {group.phaseDesc && <p className="pr-band-phase-desc">{group.phaseDesc}</p>}
+      </div>
+
+      {/* Vertical divider */}
+      <div className="pr-band-vdiv" aria-hidden="true" />
+
+      {/* Right column: 2-col service grid */}
+      <div className="pr-band-right pr-band-right--grid">
+        {groupItems.map((item, ii) => (
+          <motion.div
+            key={ii}
+            className="pr-band-service"
+            initial={{ opacity: 0, y: 28 }}
+            animate={bandInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.28 + ii * 0.14 }}
+          >
+            <div className="pr-band-service-header">
+              <span className="pr-mono pr-band-service-num">{item.n || String(ii + 1).padStart(2, '0')}</span>
+              <span className="pr-band-service-tag">{item.tag}</span>
+            </div>
+            <h4 className="pr-band-item-title">{item.title}</h4>
+            <p className="pr-band-service-rich">{item.richDesc || item.desc}</p>
+            <span className="pr-band-service-arrow" aria-hidden="true">→</span>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // ─────── Servizi — Layered Editorial Bands ───────
 
 function Servizi() {
   const lang = React.useContext(LangCtx);
   const Ts = (((window.VERTI_LANG || {})[lang] || {}).pricing || {}).servizi || {};
   const items = Ts.items || [
-    { title: 'Web Design & Sviluppo', desc: "Siti su misura: architettura dell'informazione, visual design, codice preciso. Ogni scelta ha una ragione, ogni pagina una funzione." },
-    { title: 'UX / UI', desc: 'Esperienza utente studiata per convertire. Prima i wireframe, poi i pixel.' },
-    { title: 'AI & Automazioni', desc: 'Flussi intelligenti che eliminano il lavoro ripetitivo.' },
-    { title: 'Marketing Digitale', desc: 'Strategia, contenuti, distribuzione. Visibilità che porta clienti, non sole visite.' },
-    { title: 'Analytics & Dati', desc: "Dashboard che raccontano la realtà dell'azienda. Decisioni su evidenze, non intuizioni." },
+    { n: '01', title: 'Analisi sito', desc: 'Diagnosi su UX, comunicazione, conversione.', richDesc: "Prima di costruire, capiamo. Diagnosi completa su UX, frizione, copy e velocità.", tag: 'Standalone' },
+    { n: '02', title: 'Web design & sviluppo', desc: 'Dal concept al lancio.', richDesc: 'Strategia, wireframe, visual design e sviluppo in cicli brevi.', tag: 'Core' },
+    { n: '03', title: 'Mantenimento', desc: 'Abbonamento mensile.', richDesc: 'Sicuro, aggiornato, performante — senza che tu debba pensarci.', tag: 'Continuativo' },
+    { n: '04', title: 'Data & insight', desc: 'Lettura dei dati.', richDesc: 'Dashboard su misura, analisi comportamentale, report interpretato.', tag: 'Strategia' },
+    { n: '05', title: 'Automazione', desc: 'Workflow su misura.', richDesc: "Dall'acquisizione lead alla gestione clienti — meno lavoro manuale.", tag: 'Premium' },
+    { n: '06', title: 'Marketing digitale', desc: 'Posizionamento e acquisizione.', richDesc: 'SEO, contenuto editoriale, ADV misurato sul ritorno.', tag: 'Espansione' },
   ];
   const groups = Ts.groups || [
-    { num: '01', faseLabel: 'FASE 01', tag: 'FONDAZIONE', title: 'Sito & Esperienza', itemIndices: [0, 1] },
-    { num: '02', faseLabel: 'FASE 02', tag: 'CRESCITA',    title: 'Visibilità & Dati', itemIndices: [3, 4] },
-    { num: '03', faseLabel: 'FASE 03', tag: 'AVANZATO',   title: 'AI & Automazione', itemIndices: [2] },
+    { num: '01', faseLabel: 'FASE 01', tag: 'FONDAZIONE', title: 'Sito & Esperienza', itemIndices: [0, 1], phaseTitle: 'Core', phaseMeta: 'SITO CHE VENDE', phaseDesc: 'La base di tutto.' },
+    { num: '02', faseLabel: 'FASE 02', tag: 'CRESCITA', title: 'Dati & Continuità', itemIndices: [2, 3], phaseTitle: 'Crescita', phaseMeta: 'DOPO IL LANCIO', phaseDesc: 'Il sito evolve.' },
+    { num: '03', faseLabel: 'FASE 03', tag: 'AVANZATO', title: 'Automazione & Scala', itemIndices: [4, 5], phaseTitle: 'Estensioni', phaseMeta: 'AVANZATO', phaseDesc: 'Per chi vuole scalare.' },
   ];
-  const [hoveredItem, setHoveredItem] = React.useState(null);
 
   return (
     <section className="pr-servizi">
       <div className="pr-servizi-header">
-        <FadeUp>
-          <span className="pr-mono pr-section-label">{Ts.label || '002 / COSA COSTRUIAMO'}</span>
-        </FadeUp>
-        <LineReveal delay={100} tag="h2" className="pr-section-title">
-          <span>{Ts.titleA || 'Competenze su misura,'}</span>
-        </LineReveal>
-        <LineReveal delay={200} tag="h2" className="pr-section-title pr-section-title--italic">
-          <span><em>{Ts.titleEm || 'nessun pacchetto fisso.'}</em></span>
-        </LineReveal>
+        <div className="pr-servizi-head-title">
+          <FadeUp>
+            <span className="pr-mono pr-section-label">{Ts.label || '002 / COSA COSTRUIAMO'}</span>
+          </FadeUp>
+          <LineReveal delay={100} tag="h2" className="pr-section-title">
+            <span>{Ts.titleA || 'Competenze su misura,'}</span>
+          </LineReveal>
+          <LineReveal delay={200} tag="h2" className="pr-section-title pr-section-title--italic">
+            <span><em>{Ts.titleEm || 'nessun pacchetto fisso.'}</em></span>
+          </LineReveal>
+        </div>
+        {Ts.leadText && (
+          <FadeUp delay={320} className="pr-servizi-head-lead">
+            <p>{Ts.leadText}</p>
+          </FadeUp>
+        )}
       </div>
 
       <div className="pr-bands">
-        {groups.map((group, gi) => {
-          const groupItems = (group.itemIndices || []).map(idx => items[idx]).filter(Boolean);
-          return (
-            <FadeUp key={gi} delay={gi * 80}>
-              <div className="pr-band">
-                {/* Monumental background number */}
-                <span className="pr-band-bgnum" aria-hidden="true">{group.num}</span>
-
-                {/* Left column: phase label + category title + tag */}
-                <div className="pr-band-left">
-                  <span className="pr-mono pr-band-fase">{group.faseLabel}</span>
-                  <h3 className="pr-band-title">{group.title}</h3>
-                  <span className="pr-mono pr-band-tag">{group.tag}</span>
-                </div>
-
-                {/* Vertical divider */}
-                <div className="pr-band-vdiv" aria-hidden="true" />
-
-                {/* Right column: service rows */}
-                <div className="pr-band-right">
-                  {groupItems.map((item, ii) => {
-                    const key = `${gi}-${ii}`;
-                    const isActive = hoveredItem === key;
-                    return (
-                      <div
-                        key={ii}
-                        className={`pr-band-item${isActive ? ' active' : ''}`}
-                        onMouseEnter={() => setHoveredItem(key)}
-                        onMouseLeave={() => setHoveredItem(null)}
-                      >
-                        <div className="pr-band-item-row">
-                          <h4 className="pr-band-item-title">{item.title}</h4>
-                          <span className="pr-band-arrow" aria-hidden="true">→</span>
-                        </div>
-                        <p className="pr-band-item-desc">{item.desc}</p>
-                      </div>
-                    );
-                  })}
-                </div>
-              </div>
-            </FadeUp>
-          );
-        })}
+        {groups.map((group, gi) => (
+          <ServiziBand key={gi} group={group} items={items} gi={gi} />
+        ))}
       </div>
     </section>
   );
@@ -688,7 +715,7 @@ function SpotlightEffect() {
     if (!el) return;
     let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(320px circle at ${px}px ${py}px, rgba(200,184,154,0.20) 0%, rgba(200,184,154,0.08) 50%, transparent 72%)`;
+      el.style.background = `radial-gradient(55px circle at ${px}px ${py}px, rgba(200,184,154,0.52) 0%, rgba(200,184,154,0.16) 55%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };

@@ -364,7 +364,30 @@
 }
 
 .pr-servizi-header {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: clamp(32px, 5vw, 80px);
+  align-items: end;
   margin-bottom: clamp(44px, 6vw, 80px);
+}
+
+.pr-servizi-head-lead {
+  padding-bottom: 6px;
+}
+
+.pr-servizi-head-lead p {
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 1.78;
+  color: var(--ghiaccio);
+  font-weight: 300;
+  letter-spacing: 0.012em;
+  max-width: 44ch;
+}
+
+@media (max-width: 768px) {
+  .pr-servizi-header {
+    grid-template-columns: 1fr;
+  }
 }
 
 /* Named areas: web è il grande a sinistra, doppia altezza */
@@ -1738,6 +1761,105 @@
   margin-top: auto;
 }
 
+/* Phase title (large serif, italic, left col) */
+.pr-band-phase-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-style: italic;
+  font-size: clamp(34px, 3.8vw, 54px);
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--neve);
+  margin: 10px 0 6px;
+  overflow: hidden;
+}
+
+.pr-band-phase-meta {
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--ambra);
+  opacity: 0.72;
+}
+
+.pr-band-phase-desc {
+  font-size: clamp(11px, 0.95vw, 13px);
+  line-height: 1.78;
+  color: var(--ghiaccio);
+  font-weight: 300;
+  letter-spacing: 0.012em;
+  margin-top: 18px;
+  max-width: 28ch;
+}
+
+/* Right column: 2-col service grid */
+.pr-band-right--grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  align-items: start;
+}
+
+/* Each service card */
+.pr-band-service {
+  display: flex;
+  flex-direction: column;
+  padding: clamp(12px, 1.8vh, 20px) clamp(16px, 2.2vw, 32px);
+  border-right: 1px solid var(--ardesia);
+  min-height: 200px;
+}
+
+.pr-band-service:last-child {
+  border-right: none;
+}
+
+.pr-band-service-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.pr-band-service-num {
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--pietra);
+}
+
+.pr-band-service-tag {
+  font-family: var(--font-mono);
+  font-size: 8px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ambra);
+  border: 1px solid rgba(200, 184, 154, 0.28);
+  padding: 3px 7px;
+  border-radius: 2px;
+}
+
+.pr-band-service .pr-band-item-title {
+  flex-grow: 0;
+  margin-bottom: 10px;
+}
+
+.pr-band-service-rich {
+  font-size: clamp(12px, 0.95vw, 14px);
+  line-height: 1.82;
+  color: var(--ghiaccio);
+  font-weight: 300;
+  letter-spacing: 0.012em;
+  flex-grow: 1;
+}
+
+.pr-band-service-arrow {
+  display: block;
+  margin-top: 20px;
+  font-size: 13px;
+  color: var(--ambra);
+  align-self: flex-end;
+  opacity: 0.65;
+}
+
 /* Vertical column divider — 1px thin dark line */
 .pr-band-vdiv {
   background: var(--granito);
@@ -1834,4 +1956,18 @@
     transition: none !important;
   }
   .pr-band-arrow  { display: none; }
+  .pr-band-right--grid {
+    grid-template-columns: 1fr;
+  }
+  .pr-band-service {
+    border-right: none;
+    border-bottom: 1px solid var(--ardesia);
+    min-height: 0;
+  }
+  .pr-band-service:last-child {
+    border-bottom: none;
+  }
+  .pr-band-phase-desc {
+    max-width: none;
+  }
 }

@@ -172,7 +172,7 @@ function AHeroText() {
       <div className="ah-hero-eyebrow">
         <span className="eyebrow">{Th.eyebrow || 'Chi siamo · Verti Studio'}</span>
       </div>
-      <h1 className="ah-hero-title">
+      <h1 className="ah-hero-title" style={{ fontSize: 'clamp(64px, 8vw, 96px)', maxWidth: '960px', textAlign: 'center' }}>
         <LineReveal delay={500}><span>{Th.titleA || 'Nati in'}</span></LineReveal>
         <LineReveal delay={680}><span>{Th.titleB || 'Alto Adige.'}</span></LineReveal>
         <LineReveal delay={860}><span className="ah-hero-em">{Th.titleEm || 'Costruiti per restare.'}</span></LineReveal>
@@ -212,11 +212,11 @@ function AboutHero() {
       {/* Layer 2: gradienti */}
       <div className="ah-hero-gradient" aria-hidden="true" />
       {/* Layer 3: testo */}
-      <div className="ah-hero-content container">
-        <div className="ah-hero-text">
+      <div className="ah-hero-content container" style={{ justifyContent: 'center', paddingBottom: 0 }}>
+        <div className="ah-hero-text" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <AHeroText />
         </div>
-        <div className="ah-hero-bottom">
+        <div className="ah-hero-bottom" style={{ position: 'absolute', bottom: 'clamp(52px, 8vh, 96px)', left: 'var(--gutter)', right: 'var(--gutter)' }}>
           <div className="ah-hero-meta" aria-hidden="true">
             <span>46.4983° N · 11.3548° E</span>
             <span>Bolzano · MMXXVI</span>
@@ -396,26 +396,41 @@ function PhotoStrip() {
     { src: 'assets/vert5.jpeg', alt: 'Alto Adige · paesaggio', label: stripLabels[1] },
     { src: 'assets/orizz2.jpeg', alt: 'Alto Adige · panorama', label: stripLabels[2] },
   ];
+
+  const mq = typeof window !== 'undefined' ? window.matchMedia('(min-width: 641px)') : null;
+  const [isWide, setIsWide] = React.useState(mq ? mq.matches : false);
+  React.useEffect(() => {
+    if (!mq) return;
+    const handler = (e) => setIsWide(e.matches);
+    mq.addEventListener('change', handler);
+    return () => mq.removeEventListener('change', handler);
+  }, []);
+
   return (
-    <div className="ah-photo-strip">
-      {photos.map((p, i) => (
-        <FadeUp key={p.src} delay={i * 120} className="ah-strip-item-wrap">
-          <div className="ah-strip-item">
-            {/* img 0 (vert3): soggetto nella parte bassa → 88%
-                img 1 (vert5): centrale, va bene così → center
-                img 2 (orizz2): soggetto nella parte bassa → 92% */}
-            <img
-              src={p.src}
-              alt={p.alt}
-              className="ah-strip-img"
-              loading="lazy"
-              decoding="async"
-              style={{ objectPosition: i === 0 ? 'center 88%' : i === 2 ? 'center 92%' : 'center center' }}
-            />
-            <div className="ah-strip-caption">{p.label}</div>
-          </div>
-        </FadeUp>
-      ))}
+    <div className="ah-photo-strip" style={isWide ? { overflow: 'visible' } : undefined}>
+      {photos.map((p, i) => {
+        const shouldRaise = isWide && (i === 0 || i === 2);
+        return (
+          <FadeUp key={p.src} delay={i * 120} className="ah-strip-item-wrap">
+            <div style={shouldRaise ? { position: 'relative', top: '-100px' } : undefined}>
+              <div className="ah-strip-item">
+                {/* img 0 (vert3): soggetto nella parte bassa → 88%
+                    img 1 (vert5): centrale, va bene così → center
+                    img 2 (orizz2): soggetto nella parte bassa → 92% */}
+                <img
+                  src={p.src}
+                  alt={p.alt}
+                  className="ah-strip-img"
+                  loading="lazy"
+                  decoding="async"
+                  style={{ objectPosition: i === 0 ? 'center 88%' : i === 2 ? 'center 92%' : 'center center' }}
+                />
+                <div className="ah-strip-caption">{p.label}</div>
+              </div>
+            </div>
+          </FadeUp>
+        );
+      })}
     </div>
   );
 }
@@ -764,7 +779,7 @@ function SpotlightEffect() {
     if (!el) return;
     let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(320px circle at ${px}px ${py}px, rgba(200,184,154,0.20) 0%, rgba(200,184,154,0.08) 50%, transparent 72%)`;
+      el.style.background = `radial-gradient(55px circle at ${px}px ${py}px, rgba(200,184,154,0.52) 0%, rgba(200,184,154,0.16) 55%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };

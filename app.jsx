@@ -457,18 +457,18 @@ function HeroText({ headline }) {
       <div className="hero-founded">
         <span>Founded in the Alps · MMXXVI</span>
       </div>
-      <div className="hero-content">
+      <div className="hero-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
         <FadeUp delay={300} className="hero-eyebrow">
           <span className="eyebrow">{eyebrow}</span>
         </FadeUp>
-        <h1 className={`hero-title${lang === 'de' ? ' hero-title--de' : ''}`}>
+        <h1 className={`hero-title${lang === 'de' ? ' hero-title--de' : ''}`} style={{ fontSize: 'clamp(64px, 8vw, 96px)', maxWidth: '960px' }}>
           <FadeUp delay={600}>{titleA}<em>{titleEm}</em>{titleB}</FadeUp>
         </h1>
-        <FadeUp delay={1000} className="hero-sub">
+        <FadeUp delay={1000} className="hero-sub" style={{ maxWidth: '560px' }}>
           <p className="subtitle">{sub}</p>
         </FadeUp>
         <FadeUp delay={1150}>
-          <div className="hero-services" aria-label="Servizi principali">
+          <div className="hero-services" aria-label="Servizi principali" style={{ justifyContent: 'center' }}>
             {(T.heroServices || ['Web design', 'UX / UI', 'Marketing', 'AI & Automazioni', 'Analytics']).map((s) => (
               <span key={s} className="hero-service-tag">{s}</span>
             ))}
@@ -504,14 +504,14 @@ function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inVi
   return (
     <motion.div
       className={`fact-magnetic fact-magnetic--${idx + 1}${isHovered ? ' active' : ''}${anyHovered && !isHovered ? ' dimmed' : ''}`}
-      initial={{ opacity: 0, y: 60 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+      initial={{ opacity: 0 }}
+      animate={inView ? { opacity: 1 } : { opacity: 0 }}
       transition={{ duration: 1.1, delay: idx * 0.18, ease: [0.16, 1, 0.3, 1] }}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
     >
       {/* Stable anchor: rank + number — flex-shrink:0 prevents displacement when content reveals */}
-      <div className="fact-mag-anchor">
+      <div className="fact-mag-anchor" style={{ position: 'relative' }}>
         <span className="fact-mag-rank">— {data.rank}</span>
         <motion.div
           className="fact-mag-num"
@@ -533,6 +533,7 @@ function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inVi
             exit={{ opacity: 0, y: 6, filter: 'blur(4px)' }}
             transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
             className="fact-mag-content"
+            style={{ position: 'absolute', top: '100%', left: 0, right: 0, paddingTop: '28px', zIndex: 10 }}
           >
             <h3 className="fact-mag-title">{data.title}</h3>
             <p className="fact-mag-body">{data.body}</p>
@@ -1191,6 +1192,25 @@ function CuraAccordion({ breaks }) {
   );
 }
 
+function AnimatedDivider() {
+  const { motion } = window.Motion;
+  const [ref, inView] = useInView({ threshold: 0.5 });
+  return (
+    <div ref={ref} style={{ margin: '80px 0', overflow: 'hidden' }}>
+      <motion.div
+        initial={{ scaleX: 0 }}
+        animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
+        transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+        style={{
+          height: '1px',
+          background: 'var(--ardesia)',
+          transformOrigin: 'left',
+        }}
+      />
+    </div>
+  );
+}
+
 function Mantenimento() {
   const lang = React.useContext(LangCtx);
   const Tman = (((window.VERTI_LANG || {})[lang] || {}).home || {}).mantenimento || {};
@@ -1224,6 +1244,8 @@ function Mantenimento() {
             </p>
           </FadeUp>
         </div>
+
+        <AnimatedDivider />
 
         <FadeUp delay={120}>
           <h2 className="mantenimento-sub-title">
