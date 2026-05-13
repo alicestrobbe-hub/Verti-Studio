@@ -184,6 +184,7 @@ function AHeroText() {
 function AboutHero() {
   const parallaxRef = React.useRef(null);
   const lang = React.useContext(LangCtx);
+  const Th = (((window.VERTI_LANG || {})[lang] || {}).about || {}).hero || {};
   const scrollHint = (((window.VERTI_LANG || {})[lang] || {}).home || {}).scrollHint || 'scorri';
 
   // Parallax leggero: l'immagine scorre più lentamente della pagina (rAF throttled)
@@ -211,21 +212,29 @@ function AboutHero() {
       </div>
       {/* Layer 2: gradienti */}
       <div className="ah-hero-gradient" aria-hidden="true" />
-      {/* Layer 3: testo */}
-      <div className="ah-hero-content container" style={{ justifyContent: 'center', paddingBottom: '128px', paddingTop: '73px' }}>
-        <div className="ah-hero-text" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+      {/* Layer 3: testo centrato — pb lascia spazio visivo per l'HUD sottostante */}
+      <div className="ah-hero-content container" style={{ justifyContent: 'center', paddingBottom: '0', paddingTop: '73px' }}>
+        <div className="ah-hero-text" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', paddingBottom: '96px' }}>
           <AHeroText />
         </div>
-        <div className="ah-hero-bottom" style={{ position: 'absolute', bottom: 'clamp(52px, 8vh, 96px)', left: 'var(--gutter)', right: 'var(--gutter)' }}>
-          <div className="ah-hero-meta" aria-hidden="true">
-            <span>46.4983° N · 11.3548° E</span>
-            <span>Bolzano · MMXXVI</span>
-          </div>
-          <div className="ah-hero-scroll" aria-hidden="true">
-            <span className="ah-scroll-label">{scrollHint}</span>
-            <span className="ah-scroll-line"></span>
-          </div>
-        </div>
+      </div>
+
+      {/* HUD: Angolo in basso a sinistra — Location */}
+      <div className="ah-hud-anchor ah-hud-left" aria-hidden="true">
+        <span className="ah-hud-line" />
+        <span className="ah-hud-text">{Th.location || 'BOLZANO — MMXXVI'}</span>
+      </div>
+
+      {/* HUD: Centro in basso — Scroll indicator */}
+      <div className="ah-hud-scroll" aria-hidden="true">
+        <span className="ah-scroll-label">{scrollHint}</span>
+        <span className="ah-scroll-line" />
+      </div>
+
+      {/* HUD: Angolo in basso a destra — Coordinate (nascosto su mobile) */}
+      <div className="ah-hud-anchor ah-hud-right" aria-hidden="true">
+        <span className="ah-hud-text">{Th.coords || '46.4983° N — 11.3548° E'}</span>
+        <span className="ah-hud-line" />
       </div>
     </section>
   );
@@ -779,7 +788,7 @@ function SpotlightEffect() {
     if (!el) return;
     let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(28px circle at ${px}px ${py}px, rgba(200,184,154,0.72) 0%, rgba(200,184,154,0.12) 65%, transparent 100%)`;
+      el.style.background = `radial-gradient(90px circle at ${px}px ${py}px, rgba(200,184,154,0.09) 0%, rgba(200,184,154,0.04) 55%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };

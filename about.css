@@ -170,6 +170,64 @@
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/* ── Technical HUD — angoli e centro in basso ── */
+
+.ah-hud-anchor,
+.ah-hud-scroll {
+  position: absolute;
+  z-index: 20;
+  bottom: 32px;
+  opacity: 0;
+  animation: ahFadeIn 700ms var(--ease-expo-out) 1100ms both;
+}
+
+/* Bottom-left: Location (BOLZANO — MMXXVI) */
+.ah-hud-left {
+  left: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Bottom-right: Coordinate geografiche */
+.ah-hud-right {
+  right: 48px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Bottom-center: Scroll indicator */
+.ah-hud-scroll {
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Testo HUD: mono, minuscolo, tracciato largo */
+.ah-hud-text {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--ghiaccio);
+  opacity: 0.6;
+  white-space: nowrap;
+}
+
+/* Linea decorativa "blueprint" 1px */
+.ah-hud-line {
+  display: block;
+  width: 32px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
 /* ═══════════════════════════════════════════
    STATEMENT
    Zona di transizione tra hero e sezioni.
@@ -944,6 +1002,11 @@
     align-items: flex-start;
     gap: 24px;
   }
+
+  /* Su mobile: nascondi coordinate destre, riduci padding ancoraggio sinistro */
+  .ah-hud-right { display: none; }
+  .ah-hud-left  { left: 20px; }
+  .ah-hud-scroll { bottom: 24px; }
 
   .ah-statement-text {
     font-size: clamp(28px, 8vw, 48px);

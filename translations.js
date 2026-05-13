@@ -148,7 +148,7 @@ window.VERTI_LANG = {
       },
     },
     about: {
-      hero: { eyebrow: 'Chi siamo · Verti Studio', titleA: 'Nati in', titleB: 'Alto Adige.', titleEm: 'Costruiti per restare.' },
+      hero: { eyebrow: 'Chi siamo · Verti Studio', titleA: 'Nati in', titleB: 'Alto Adige.', titleEm: 'Costruiti per restare.', location: 'BOLZANO — MMXXVI', coords: '46.4983° N — 11.3548° E' },
       statement: { text: 'Un digitale più semplice.', em: 'Più vicino. Su misura.' },
       origine: {
         eyebrow: '01 · Origine', title: 'Da Bolzano,\ncon metodo.',
@@ -381,7 +381,7 @@ window.VERTI_LANG = {
       },
     },
     about: {
-      hero: { eyebrow: 'Über uns · Verti Studio', titleA: 'Geboren in', titleB: 'Südtirol.', titleEm: 'Gebaut um zu bleiben.' },
+      hero: { eyebrow: 'Über uns · Verti Studio', titleA: 'Geboren in', titleB: 'Südtirol.', titleEm: 'Gebaut um zu bleiben.', location: 'BOZEN — MMXXVI', coords: '46.4983° N — 11.3548° E' },
       statement: { text: 'Ein einfacheres Digitales.', em: 'Näher. Maßgeschneidert.' },
       origine: {
         eyebrow: '01 · Ursprünge', title: 'Aus Bozen,\nmit Methode.',
@@ -614,7 +614,7 @@ window.VERTI_LANG = {
       },
     },
     about: {
-      hero: { eyebrow: 'About us · Verti Studio', titleA: 'Born in', titleB: 'South Tyrol.', titleEm: 'Built to stay.' },
+      hero: { eyebrow: 'About us · Verti Studio', titleA: 'Born in', titleB: 'South Tyrol.', titleEm: 'Built to stay.', location: 'BOLZANO — MMXXVI', coords: '46.4983° N — 11.3548° E' },
       statement: { text: 'Digital made simpler.', em: 'Closer. Tailored.' },
       origine: {
         eyebrow: '01 · Origins', title: 'From Bolzano,\nwith method.',

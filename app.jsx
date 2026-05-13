@@ -149,7 +149,7 @@ function SpotlightEffect() {
     let px = window.innerWidth / 2;
     let py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(28px circle at ${px}px ${py}px, rgba(200,184,154,0.72) 0%, rgba(200,184,154,0.12) 65%, transparent 100%)`;
+      el.style.background = `radial-gradient(90px circle at ${px}px ${py}px, rgba(200,184,154,0.09) 0%, rgba(200,184,154,0.04) 55%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => {

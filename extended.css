@@ -1068,7 +1068,7 @@
   position: relative;
   z-index: 2;
   overflow: visible;
-  min-height: clamp(520px, 64vh, 780px);
+  min-height: clamp(720px, 82vh, 1000px);
 }
 
 .facts-canvas-dim {
@@ -1102,7 +1102,7 @@
 /* Asymmetric diagonal placement — top-left → mid-right → bottom-center */
 .fact-magnetic--1 { top: 5%;    left: 0; }
 .fact-magnetic--2 { top: 32%;   right: 0; text-align: right; }
-.fact-magnetic--3 { bottom: 4%; left: 14%; }
+.fact-magnetic--3 { top: 60%; left: 14%; }
 
 /* Keep descriptive text left-aligned even in right-anchored panels */
 .fact-magnetic--2 .fact-mag-content { text-align: left; margin-left: auto; }
