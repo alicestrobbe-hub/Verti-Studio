@@ -48,6 +48,7 @@ window.VERTI_LANG = {
       },
       metodo: {
         eyebrow: 'Sezione 02 · Metodo', title: 'Quattro passi.\nMeno di due settimane.',
+        lead: 'Niente cicli di review infiniti. Un processo chirurgico, calibrato sulle PMI: ogni tappa ha un esito, un tempo, una persona responsabile.',
         steps: [
           { n: '01', t: 'Analisi', d: 'Analisi della situazione di partenza: sito esistente o progetto nuovo. UX, comunicazione, conversione. Report con le priorità concrete da cui iniziare.', time: '24 ore' },
           { n: '02', t: 'Proposta', d: 'Documento di strategia con priorità, perimetro e tempi. Trasparente sui trade-off, mai un preventivo opaco. Tu approvi, noi partiamo.', time: '3 giorni' },
@@ -64,7 +65,8 @@ window.VERTI_LANG = {
       },
       servizi: {
         eyebrow: 'Sezione 03 · Servizi',
-        title: 'Sei servizi. Una sola filosofia: il design è la prova.',
+        title: 'Sei servizi.\nUna sola filosofia.',
+        lead: 'Il design è la prova. Ogni servizio risponde a un momento del ciclo: prima del sito, durante, e dopo. Non un catalogo da agenzia — un percorso.',
         items: [
           { n: '01', name: 'Analisi sito', desc: 'Diagnosi su UX, comunicazione, conversione. Vendibile come servizio standalone.', tag: 'Standalone' },
           { n: '02', name: 'Web design & sviluppo', desc: 'Redesign o nuovo sito. Dalla strategia al lancio. Risultato misurabile, non solo estetico.', tag: 'Core' },
@@ -75,8 +77,8 @@ window.VERTI_LANG = {
         ],
       },
       portfolio: {
-        eyebrow: 'Sezione 04 · Lavori', title: 'Tre casi. Settori diversi. Stessa diagnosi.',
-        lead: "Non una galleria estetica. Per ogni caso: settore, problema iniziale, soluzione, risultato misurabile. Passa il cursore sulle card per vedere il prima e il dopo.",
+        eyebrow: 'Sezione 04 · Lavori', title: 'Tre casi.\nStessa diagnosi.',
+        lead: "Non una galleria estetica. Per ogni caso: settore, problema iniziale, soluzione, risultato misurabile. I numeri citati sono al lordo della stagionalità.",
         labelBefore: 'Prima', labelAfter: 'Dopo',
         cases: [
           { sector: 'Ristorazione · Bolzano', title: 'Da brochure online a strumento di prenotazione.', problem: 'Menù in PDF, nessun contatto sotto i sessanta secondi. Le prenotazioni arrivavano solo per telefono.', result: '+218%', label: 'prenotazioni dirette' },
@@ -257,6 +259,7 @@ window.VERTI_LANG = {
       },
       metodo: {
         eyebrow: 'Abschnitt 02 · Methode', title: 'Vier Schritte.\nWeniger als zwei Wochen.',
+        lead: 'Keine endlosen Review-Zyklen. Ein chirurgischer Prozess, kalibriert für KMU: Jede Phase hat ein Ergebnis, eine Zeit, eine verantwortliche Person.',
         steps: [
           { n: '01', t: 'Analyse', d: 'Analyse der Ausgangssituation: bestehende Website oder neues Projekt. UX, Kommunikation, Conversion. Bericht mit den konkreten Prioritäten, von denen aus wir starten.', time: '24 Stunden' },
           { n: '02', t: 'Angebot', d: 'Strategiedokument mit Prioritäten, Umfang und Zeitplan. Transparent über Trade-offs, nie ein undurchsichtiges Angebot.', time: '3 Tage' },
@@ -273,7 +276,8 @@ window.VERTI_LANG = {
       },
       servizi: {
         eyebrow: 'Abschnitt 03 · Leistungen',
-        title: 'Sechs Leistungen. Eine Philosophie: Design ist der Beweis.',
+        title: 'Sechs Leistungen.\nEine Philosophie.',
+        lead: 'Design ist der Beweis. Jede Leistung beantwortet einen Moment im Zyklus: vor, während und nach der Website.',
         items: [
           { n: '01', name: 'Website-Analyse', desc: 'Diagnose zu UX, Kommunikation, Conversion. Auch als Standalone-Dienst buchbar.', tag: 'Standalone' },
           { n: '02', name: 'Webdesign & Entwicklung', desc: 'Redesign oder neue Website. Von der Strategie bis zum Launch. Messbares Ergebnis.', tag: 'Kern' },
@@ -284,7 +288,7 @@ window.VERTI_LANG = {
         ],
       },
       portfolio: {
-        eyebrow: 'Abschnitt 04 · Referenzen', title: 'Drei Projekte. Verschiedene Branchen. Gleiche Diagnose.',
+        eyebrow: 'Abschnitt 04 · Referenzen', title: 'Drei Projekte.\nGleiche Diagnose.',
         lead: 'Keine ästhetische Galerie. Für jeden Fall: Branche, ursprüngliches Problem, Lösung, messbares Ergebnis.',
         labelBefore: 'Vorher', labelAfter: 'Nachher',
         cases: [
@@ -466,6 +470,7 @@ window.VERTI_LANG = {
       },
       metodo: {
         eyebrow: 'Section 02 · Method', title: 'Four steps.\nLess than two weeks.',
+        lead: 'No endless review cycles. A surgical process, calibrated for SMEs: each phase has an outcome, a timeline, a responsible person.',
         steps: [
           { n: '01', t: 'Analysis', d: 'Analysis of the starting point: existing website or new project. UX, communication, conversion. Report with the concrete priorities to begin with.', time: '24 hours' },
           { n: '02', t: 'Proposal', d: 'Strategy document with priorities, scope and timeline. Transparent on trade-offs, never an opaque quote. You approve, we start.', time: '3 days' },
@@ -482,7 +487,8 @@ window.VERTI_LANG = {
       },
       servizi: {
         eyebrow: 'Section 03 · Services',
-        title: 'Six services. One philosophy: design is the proof.',
+        title: 'Six services.\nOne philosophy.',
+        lead: 'Design is the proof. Each service answers a moment in the cycle: before the site, during, and after. Not an agency catalogue — a path.',
         items: [
           { n: '01', name: 'Website Analysis', desc: 'Diagnosis on UX, communication, conversion. Also available as a standalone service.', tag: 'Standalone' },
           { n: '02', name: 'Web design & development', desc: 'Redesign or new website. From strategy to launch. Measurable result, not just aesthetic.', tag: 'Core' },
@@ -493,8 +499,8 @@ window.VERTI_LANG = {
         ],
       },
       portfolio: {
-        eyebrow: 'Section 04 · Work', title: 'Three cases. Different sectors. Same diagnosis.',
-        lead: "Not an aesthetic gallery. For each case: sector, initial problem, solution, measurable result. Hover over the cards to see before and after.",
+        eyebrow: 'Section 04 · Work', title: 'Three cases.\nSame diagnosis.',
+        lead: "Not an aesthetic gallery. For each case: sector, initial problem, solution, measurable result. Figures are gross of seasonality.",
         labelBefore: 'Before', labelAfter: 'After',
         cases: [
           { sector: 'Restaurant · Bolzano', title: 'From online brochure to booking tool.', problem: 'Menu as PDF, no contact in under sixty seconds. Bookings came by phone only.', result: '+218%', label: 'direct bookings' },

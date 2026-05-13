@@ -155,6 +155,15 @@ svg {
   font-kerning: normal;
 }
 
+.h2--italic {
+  font-style: italic;
+}
+
+.h2--gold {
+  color: var(--ambra);
+  opacity: calc(0.9 * var(--accent-strength) + 0.1);
+}
+
 .subtitle {
   font-family: var(--font-display);
   font-style: italic;
@@ -869,6 +878,17 @@ body.anim-soft .success-state,
 body.anim-soft .calendar-content {
   animation-duration: 0.001ms;
   animation-delay: 0ms;
+}
+
+/* ───────── Spotlight Effect (global mouse flashlight) ───────── */
+
+.spotlight-effect {
+  position: fixed;
+  inset: 0;
+  z-index: 11; /* above content-sheet (z:10), below nav (z:100) */
+  pointer-events: none;
+  mix-blend-mode: screen;
+  will-change: background;
 }
 
 /* ───────── Scroll progress bar ───────── */

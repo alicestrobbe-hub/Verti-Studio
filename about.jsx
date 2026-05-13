@@ -648,6 +648,59 @@ function Footer() {
   );
 }
 
+// ───────── Global UI: Spotlight + Custom Cursor ─────────
+
+function SpotlightEffect() {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
+    const paint = () => {
+      el.style.background = `radial-gradient(700px circle at ${px}px ${py}px, rgba(200,184,154,0.065) 0%, rgba(200,184,154,0.02) 40%, transparent 65%)`;
+      raf = 0;
+    };
+    const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };
+    paint();
+    window.addEventListener('mousemove', onMove);
+    return () => { window.removeEventListener('mousemove', onMove); if (raf) cancelAnimationFrame(raf); };
+  }, []);
+  return <div ref={ref} className="spotlight-effect" aria-hidden="true" />;
+}
+
+function CustomCursor() {
+  React.useEffect(() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    document.body.classList.add('cursor-active');
+    const dot = document.querySelector('.cursor-dot');
+    const ring = document.querySelector('.cursor-ring');
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let rx = mx, ry = my, raf = null;
+    const startLoop = () => { if (raf) return; raf = requestAnimationFrame(tick); };
+    const tick = () => {
+      rx += (mx - rx) * 0.18; ry += (my - ry) * 0.18;
+      if (dot) dot.style.transform = `translate(${mx}px,${my}px) translate(-50%,-50%)`;
+      if (ring) ring.style.transform = `translate(${rx}px,${ry}px) translate(-50%,-50%)`;
+      if ((mx - rx) ** 2 + (my - ry) ** 2 > 0.01) { raf = requestAnimationFrame(tick); } else { raf = null; }
+    };
+    const onMove = (e) => { mx = e.clientX; my = e.clientY; startLoop(); };
+    window.addEventListener('mousemove', onMove);
+    startLoop();
+    const onEnter = () => document.body.classList.add('hovering');
+    const onLeave = () => document.body.classList.remove('hovering');
+    const targets = document.querySelectorAll('a, button');
+    targets.forEach(t => { t.addEventListener('mouseenter', onEnter); t.addEventListener('mouseleave', onLeave); });
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      if (raf) cancelAnimationFrame(raf);
+      targets.forEach(t => { t.removeEventListener('mouseenter', onEnter); t.removeEventListener('mouseleave', onLeave); });
+      document.body.classList.remove('cursor-active', 'hovering');
+    };
+  }, []);
+  return (<><div className="cursor-ring"></div><div className="cursor-dot"></div></>);
+}
+
 // ───────── App ─────────
 
 function AboutApp() {
@@ -678,6 +731,8 @@ function AboutApp() {
 
   return (
     <LangCtx.Provider value={lang}>
+      <CustomCursor />
+      <SpotlightEffect />
       <div className="scroll-progress" aria-hidden="true" />
       <a href="#origine" className="skip-link">Vai al contenuto</a>
       <Nav scrollY={scrollY} setLang={setLang} />

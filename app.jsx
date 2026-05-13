@@ -22,9 +22,9 @@ const HEADLINES = {
 };
 
 const FONT_PAIRS = {
-  "cormorant-inter":   { display: "'Cormorant Garamond', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
-  "playfair-inter":    { display: "'Playfair Display', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
-  "cormorant-helvetica":{ display: "'Cormorant Garamond', Georgia, serif", body: "'Helvetica Neue', system-ui, sans-serif" }
+  "cormorant-inter": { display: "'Cormorant Garamond', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
+  "playfair-inter": { display: "'Playfair Display', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
+  "cormorant-helvetica": { display: "'Cormorant Garamond', Georgia, serif", body: "'Helvetica Neue', system-ui, sans-serif" }
 };
 
 // ───────── i18n ─────────
@@ -137,6 +137,35 @@ function Counter({ to, duration = 1800, suffix = "", prefix = "" }) {
   return <span ref={ref}>{prefix}{val}{suffix}</span>;
 }
 
+// ───────── Spotlight Effect (mouse flashlight) ─────────
+
+function SpotlightEffect() {
+  const ref = React.useRef(null);
+  React.useEffect(() => {
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+    const el = ref.current;
+    if (!el) return;
+    let raf = 0;
+    let px = window.innerWidth / 2;
+    let py = window.innerHeight / 2;
+    const paint = () => {
+      el.style.background = `radial-gradient(700px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.065) 0%, rgba(200, 184, 154, 0.02) 40%, transparent 65%)`;
+      raf = 0;
+    };
+    const onMove = (e) => {
+      px = e.clientX; py = e.clientY;
+      if (!raf) raf = requestAnimationFrame(paint);
+    };
+    paint();
+    window.addEventListener('mousemove', onMove);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      if (raf) cancelAnimationFrame(raf);
+    };
+  }, []);
+  return <div ref={ref} className="spotlight-effect" aria-hidden="true" />;
+}
+
 // ───────── Custom cursor ─────────
 
 function CustomCursor({ enabled }) {
@@ -150,7 +179,7 @@ function CustomCursor({ enabled }) {
 
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
-    let mx = window.innerWidth/2, my = window.innerHeight/2;
+    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
     let rx = mx, ry = my;
     let raf = null;
     let moving = false;
@@ -180,7 +209,7 @@ function CustomCursor({ enabled }) {
 
     const onEnter = () => document.body.classList.add('hovering');
     const onLeave = () => document.body.classList.remove('hovering');
-    const targets = document.querySelectorAll('a, button, .case, .servizio, .metodo-card, .problema-item, .channel, .calendar-day, .calendar-time');
+    const targets = document.querySelectorAll('a, button, .case, .metodo-step, .channel, .calendar-day, .calendar-time');
     targets.forEach(t => {
       t.addEventListener('mouseenter', onEnter);
       t.addEventListener('mouseleave', onLeave);
@@ -258,11 +287,11 @@ function SplashScreen({ visible }) {
     <div className={`splash${visible ? '' : ' splash-out'}`} role="status" aria-label="Caricamento Verti Studio">
       <svg className="splash-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" aria-hidden="true">
         <g transform="translate(20 56) scale(1.35)">
-          <path className="vs-peak vs-peak-1" d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="#e8e4dc" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round"/>
-          <path className="vs-peak vs-peak-2" d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="#e8e4dc" strokeWidth="1.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55"/>
-          <path className="vs-peak-tip" d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.4" strokeLinecap="round"/>
+          <path className="vs-peak vs-peak-1" d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="#e8e4dc" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round" />
+          <path className="vs-peak vs-peak-2" d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="#e8e4dc" strokeWidth="1.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55" />
+          <path className="vs-peak-tip" d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.4" strokeLinecap="round" />
         </g>
-        <line className="vs-asta" x1="138" y1="46" x2="138" y2="154" stroke="#c8b89a" strokeWidth="1"/>
+        <line className="vs-asta" x1="138" y1="46" x2="138" y2="154" stroke="#c8b89a" strokeWidth="1" />
         <text className="vs-splash-verti" x="160" y="118" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight="300" fontSize="78" fill="#e8e4dc" letterSpacing="-1">Verti</text>
         <text className="vs-splash-studio" x="160" y="142" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="13" fill="#e8e4dc" letterSpacing="4.2" opacity="0.78">STUDIO</text>
         <text className="vs-splash-coord" x="160" y="166" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="10" fill="#e8e4dc" letterSpacing="2.8" opacity="0.55">46.4983° N · 11.3548° E</text>
@@ -335,11 +364,11 @@ function Nav({ scrollY, setLang }) {
         <a href="#" className="nav-brand" aria-label="Verti Studio — home">
           <svg className="nav-logo-compact" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" aria-hidden="true">
             <g transform="translate(2 14) scale(0.56)">
-              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round"/>
-              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55"/>
-              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="2.8" strokeLinecap="round"/>
+              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round" />
+              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55" />
+              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="2.8" strokeLinecap="round" />
             </g>
-            <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" strokeWidth="1"/>
+            <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" strokeWidth="1" />
             <text x="58" y="44" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight="300" fontSize="34" fill="currentColor" letterSpacing="-0.4">Verti</text>
             <text x="158" y="40" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="11" fill="currentColor" letterSpacing="3.4" opacity="0.78">STUDIO</text>
           </svg>
@@ -468,37 +497,116 @@ function HeroText({ headline }) {
   );
 }
 
+// ── MagneticStat: requires window.Motion — only rendered when available ──
+function MagneticStat({ data, idx, hoveredIdx, setHoveredIdx, inView }) {
+  const M = window.Motion || {};
+  const motionComp = M.motion;
+  const isHovered = hoveredIdx === idx;
+  const isAnyHovered = hoveredIdx !== null;
+
+  // Posizionamento asimmetrico spaziale per le 3 statistiche
+  const positions = [
+    { top: '5%', left: '5%' },
+    { top: '35%', right: '8%' },
+    { bottom: '5%', left: '30%' }
+  ];
+
+  return (
+    <motionComp.div
+      className="magnetic-stat-wrapper"
+      style={{
+        position: 'absolute',
+        ...positions[idx],
+        zIndex: isHovered ? 10 : 1
+      }}
+      initial={{ opacity: 0, y: 50 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+      transition={{ duration: 0.8, delay: idx * 0.2, ease: [0.16, 1, 0.3, 1] }}
+      onMouseEnter={() => setHoveredIdx(idx)}
+      onMouseLeave={() => setHoveredIdx(null)}
+    >
+      <div className={`magnetic-stat-content ${isHovered ? 'active' : ''} ${isAnyHovered && !isHovered ? 'dimmed' : ''}`}>
+        <span className="mag-rank">— {data.rank}</span>
+
+        <motionComp.h3
+          className="mag-massive-num"
+          animate={{ scale: isHovered ? 1.05 : 1 }}
+          transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        >
+          {inView && <Counter to={data.big} />}<em>{data.small}</em>
+        </motionComp.h3>
+
+        <motionComp.div
+          className="mag-text-reveal"
+          initial={{ opacity: 0, height: 0, filter: 'blur(10px)' }}
+          animate={{
+            opacity: isHovered ? 1 : 0,
+            height: isHovered ? 'auto' : 0,
+            filter: isHovered ? 'blur(0px)' : 'blur(10px)'
+          }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+          <h4>{data.title}</h4>
+          <p>{data.body}</p>
+          <span className="mag-source">Fonte · {data.source}</span>
+        </motionComp.div>
+      </div>
+    </motionComp.div>
+  );
+}
+
 function Facts() {
   const lang = React.useContext(LangCtx);
   const Tf = (((window.VERTI_LANG || {})[lang] || {}).home || {}).facts || {};
-  const items = Tf.items || [
-    { rank: '01', big: 94, small: '%', title: 'I primi tre secondi decidono tutto.', body: "Il 94% delle prime impressioni di un sito è legato al design. Non al testo, non all'offerta. Al modo in cui appare nei primi istanti.", source: 'Stanford Web Credibility' },
-    { rank: '02', big: 3, small: 'su 4', title: 'Il design è il tuo primo commerciale.', body: "Tre clienti su quattro giudicano la credibilità di un'azienda guardando solo il sito. Prima ancora di sapere chi sei, hanno deciso se fidarsi.", source: 'Studio Northumbria University' },
-    { rank: '03', big: 9900, small: '%', title: 'Cento euro per ogni euro investito in UX.', body: "Ogni euro speso in user experience ne restituisce cento. Non è marketing: è la matematica che separa chi cresce da chi paga advertising per compensare un sito che non converte.", source: 'Forrester Research' },
-  ];
+  const items = Tf.items || [];
+  const sectionRef = React.useRef(null);
+  const [hoveredIdx, setHoveredIdx] = React.useState(null);
+  const [inView, setInView] = React.useState(false);
+
+  React.useEffect(() => {
+    const el = sectionRef.current;
+    if (!el) return;
+    const obs = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) setInView(true);
+    }, { threshold: 0.2 });
+    obs.observe(el);
+    return () => obs.disconnect();
+  }, []);
+
   return (
-    <section className="section facts" id="facts">
+    <section className="section facts" id="facts" ref={sectionRef}>
       <div className="container">
-        <div className="facts-header">
+        <div className="facts-header text-center relative z-10">
           <FadeUp><span className="eyebrow">{Tf.eyebrow || 'Perché il design conta'}</span></FadeUp>
           <FadeUp delay={120}>
-            <p className="facts-quote">{Tf.quote || '"Le persone non comprano da chi non si fidano. E si fidano in tre secondi."'}</p>
+            <p className="facts-quote mt-8">{Tf.quote}</p>
           </FadeUp>
         </div>
-        <div className="facts-grid">
+
+        {/* Desktop Canvas */}
+        <div className="facts-canvas-area hidden md:block">
           {items.map((f, i) => (
-            <FadeUp key={f.rank} delay={i * 120}>
-              <div className="fact">
-                <span className="fact-rank">— {f.rank}</span>
-                <span className="fact-num">
-                  <Counter to={f.big} />
-                  <em>{f.small}</em>
-                </span>
-                <h3 className="fact-title">{f.title}</h3>
-                <p className="fact-body">{f.body}</p>
-                <span className="fact-source">Fonte · {f.source}</span>
-              </div>
-            </FadeUp>
+            <MagneticStat
+              key={f.rank}
+              data={f}
+              idx={i}
+              hoveredIdx={hoveredIdx}
+              setHoveredIdx={setHoveredIdx}
+              inView={inView}
+            />
+          ))}
+        </div>
+
+        {/* Mobile Stack Fallback */}
+        <div className="facts-mobile-stack md:hidden mt-16">
+          {items.map((f, i) => (
+            <div key={f.rank} className="py-8 border-t border-white/10">
+              <span className="text-white/40 font-mono text-[10px] tracking-widest uppercase block mb-4">— {f.rank}</span>
+              <h3 className="text-6xl font-serif italic text-[#c8b89a] mb-6">{f.big}{f.small}</h3>
+              <h4 className="text-xl text-white mb-2">{f.title}</h4>
+              <p className="text-white/60 text-sm mb-4">{f.body}</p>
+              <span className="text-white/30 font-mono text-[9px] uppercase tracking-widest">Fonte · {f.source}</span>
+            </div>
           ))}
         </div>
       </div>
@@ -515,34 +623,94 @@ function Problema() {
     { n: '03', display: 'Lo guardi e ti sembra datato.', body: 'Senti che non rappresenta più il livello del tuo lavoro. Ma non sai cosa cambiare, né a chi affidarti senza spendere male.' },
     { n: '04', display: 'Hai investito. Il ritorno non si misura.', body: "Hai pagato un sito anni fa. Funziona? Converte? Senza dati non c'è risposta. Solo il sospetto che qualcosa non torni." },
   ];
+
+  const footerMessages = Tp.footerMessages || [
+    "Nessuno per ora. Buon segno — ma vale la pena una verifica.",
+    "Una corrispondenza. Una diagnosi mirata è il punto di partenza.",
+    "Più di un punto in comune. È il momento di un audit completo.",
+    "Più di un punto in comune. È il momento di un audit completo.",
+    "Quattro su quattro. Iniziamo subito — 20 minuti, gratis.",
+  ];
+
+  const [selected, setSelected] = React.useState(new Set());
+  const [animKey, setAnimKey] = React.useState(0);
+
+  const toggle = (n) => {
+    setSelected(prev => {
+      const next = new Set(prev);
+      if (next.has(n)) next.delete(n); else next.add(n);
+      return next;
+    });
+    setAnimKey(k => k + 1);
+  };
+
+  const count = selected.size;
   const titleParts = (Tp.title || 'Quattro sintomi.\nRiconoscine uno.').split('\n');
+
   return (
     <section className="section problema" id="problema">
       <div className="container">
-        <div className="problema-grid">
+        <div className="problema-layout">
           <div className="problema-intro">
-            <FadeUp><span className="eyebrow">{Tp.eyebrow || 'Sezione 01 · Diagnosi'}</span></FadeUp>
-            <LineReveal delay={120} tag="h2" className="h2">{titleParts[0]}</LineReveal>
-            <LineReveal delay={240} tag="h2" className="h2">{titleParts[1]}</LineReveal>
-            <div style={{ marginTop: 28, maxWidth: '32ch' }}>
+            <div className="problema-intro-titles">
+              <FadeUp><span className="eyebrow">{Tp.eyebrow || 'Sezione 01 · Diagnosi'}</span></FadeUp>
+              <LineReveal delay={120} tag="h2" className="h2">{titleParts[0]}</LineReveal>
+              <LineReveal delay={240} tag="h2" className="h2 h2--italic">{titleParts[1]}</LineReveal>
+            </div>
+            <div className="problema-intro-lead">
               <FadeUp delay={240}>
-                <p className="body-text">{Tp.lead || 'Prima di proporre una soluzione, identifichiamo il problema. La maggior parte dei siti non converte per ragioni precise e ricorrenti. Riconoscersi in uno o due punti significa che la diagnosi può iniziare.'}</p>
+                <p className="body-text">{Tp.lead || 'Prima di proporre una soluzione, identifichiamo il problema. La maggior parte dei siti non converte per ragioni precise e ricorrenti. Tocca quelli che ti somigliano — il risultato cambia.'}</p>
               </FadeUp>
             </div>
           </div>
-          <ul className="problema-list">
-            {items.map((it, i) => (
-              <FadeUp key={it.n} delay={i * 100}>
-                <li className="problema-item">
-                  <span className="problema-num">{it.n}</span>
-                  <div>
-                    <div className="problema-text-display">{it.display}</div>
-                    <div className="problema-text-body">{it.body}</div>
-                  </div>
-                </li>
-              </FadeUp>
-            ))}
-          </ul>
+
+          <div className="problema-cards-wrap">
+            <p className="problema-hint">
+              <span className="problema-hint-box" aria-hidden="true" />
+              {Tp.hintText || 'Seleziona i sintomi in cui ti riconosci'}
+            </p>
+            <div className="problema-cards">
+              {items.map((it, i) => {
+                const isSelected = selected.has(it.n);
+                return (
+                  <FadeUp key={it.n} delay={i * 80}>
+                    <button
+                      className={`problema-card${isSelected ? ' selected' : ''}`}
+                      onClick={() => toggle(it.n)}
+                      aria-pressed={isSelected}
+                    >
+                      <div className="problema-card-top">
+                        <span className="problema-card-num">— {it.n}</span>
+                        <span className={`problema-card-check${isSelected ? ' visible' : ''}`} aria-hidden="true">
+                          <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
+                            <path d="M1 5L4.5 8.5L11 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                          </svg>
+                        </span>
+                      </div>
+                      <div className="problema-card-title">{it.display}</div>
+                      <p className="problema-card-body">{it.body}</p>
+                    </button>
+                  </FadeUp>
+                );
+              })}
+            </div>
+
+            <div className="problema-footer">
+              <div className="problema-footer-count">
+                <span className="problema-footer-num" key={`n-${animKey}`}>{count}</span>
+                <span className="problema-footer-total">/ 4 {Tp.footerLabel || 'sintomi'}</span>
+              </div>
+              <div className="problema-footer-msg">
+                <span className="problema-footer-text" key={`m-${animKey}`}>
+                  {footerMessages[count]}
+                </span>
+              </div>
+              <a href="#contatti" className="btn problema-footer-cta">
+                <span>{Tp.footerCta || 'Prenota audit'}</span>
+                <span className="btn-arrow" aria-hidden="true">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -553,43 +721,141 @@ function Metodo() {
   const lang = React.useContext(LangCtx);
   const Tm = (((window.VERTI_LANG || {})[lang] || {}).home || {}).metodo || {};
   const steps = Tm.steps || [
-    { n: '01', t: 'Analisi', d: 'Audit completo del sito esistente: UX, comunicazione, conversione. Report dettagliato con i tre punti che ti stanno costando di più.', time: '24 ore' },
-    { n: '02', t: 'Proposta', d: 'Documento di strategia con priorità, perimetro e tempi. Trasparente sui trade-off, mai un preventivo opaco. Tu approvi, noi partiamo.', time: '3 giorni' },
-    { n: '03', t: 'Sviluppo', d: 'Design e build in iterazioni con feedback continuo. Vedi il sito crescere ogni settimana: il tuo input guida le decisioni, non un mockup statico.', time: '1 settimana' },
-    { n: '04', t: 'Lancio', d: "Pubblicazione, monitoraggio analytics, affiancamento iniziale. Il sito esce in meno di due settimane dall'avvio reale.", time: '< 14 giorni totali' },
+    { n: '01', t: 'Analisi', d: 'Audit completo del sito esistente: UX, comunicazione, conversione. Report dettagliato con i tre punti che ti stanno costando di più.', time: '24 ORE' },
+    { n: '02', t: 'Proposta', d: 'Documento di strategia con priorità, perimetro e tempi. Trasparente sui trade-off, mai un preventivo opaco.', time: '3 GIORNI' },
+    { n: '03', t: 'Sviluppo', d: 'Design e build in iterazioni con feedback continuo. Il tuo input guida le decisioni, non un mockup statico.', time: '1 SETTIMANA' },
+    { n: '04', t: 'Lancio', d: "Pubblicazione, monitoraggio analytics, affiancamento iniziale. Online in meno di due settimane.", time: '< 14 GIORNI' },
   ];
+
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [hasInteracted, setHasInteracted] = React.useState(false);
+  const timelineRef = React.useRef(null);
+
+  const getStepFromX = React.useCallback((clientX) => {
+    const el = timelineRef.current;
+    if (!el) return 0;
+    const rect = el.getBoundingClientRect();
+    const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
+    return Math.min(steps.length - 1, Math.max(0, Math.round((x / rect.width) * (steps.length - 1))));
+  }, [steps.length]);
+
+  React.useEffect(() => {
+    if (!isDragging) return;
+    const onMove = (e) => {
+      const cx = e.touches ? e.touches[0].clientX : e.clientX;
+      setActiveStep(getStepFromX(cx));
+    };
+    const onUp = () => setIsDragging(false);
+    window.addEventListener('mousemove', onMove);
+    window.addEventListener('mouseup', onUp);
+    window.addEventListener('touchmove', onMove, { passive: true });
+    window.addEventListener('touchend', onUp);
+    return () => {
+      window.removeEventListener('mousemove', onMove);
+      window.removeEventListener('mouseup', onUp);
+      window.removeEventListener('touchmove', onMove);
+      window.removeEventListener('touchend', onUp);
+    };
+  }, [isDragging, getStepFromX]);
+
+  const progressPct = steps.length > 1 ? (activeStep / (steps.length - 1)) * 100 : 0;
   const titleParts = (Tm.title || 'Quattro passi.\nMeno di due settimane.').split('\n');
+
   return (
     <section className="section metodo" id="metodo">
       <div className="container">
         <div className="metodo-header">
-          <div>
+          <div className="metodo-header-left">
             <FadeUp><span className="eyebrow">{Tm.eyebrow || 'Sezione 02 · Metodo'}</span></FadeUp>
             <div style={{ marginTop: 24 }}>
               <LineReveal delay={120} tag="h2" className="h2">{titleParts[0]}</LineReveal>
-              <LineReveal delay={240} tag="h2" className="h2">{titleParts[1]}</LineReveal>
+              <LineReveal delay={240} tag="h2" className="h2 h2--italic">{titleParts[1]}</LineReveal>
             </div>
           </div>
-          <div className="metodo-ticker">
-            {(Tm.tickerItems || [
-              { num: 24, unit: 'h', label: 'audit' },
-              { num: 3, unit: 'gg', label: 'proposta' },
-              { num: 14, unit: 'gg', label: 'lancio' },
-            ]).map((item, i, arr) => (
-              <React.Fragment key={i}>
-                <span className="metodo-ticker-item">
-                  <span className="metodo-ticker-num"><Counter to={item.num} />{item.unit}</span>
-                  <span className="metodo-ticker-label">{item.label}</span>
-                </span>
-                {i < arr.length - 1 && <span className="metodo-ticker-sep" aria-hidden="true">·</span>}
-              </React.Fragment>
-            ))}
-          </div>
+          <FadeUp delay={180} className="metodo-header-right">
+            <p className="body-text">{Tm.lead || 'Niente cicli di review infiniti. Un processo chirurgico, calibrato sulle PMI: ogni tappa ha un esito, un tempo, una persona responsabile.'}</p>
+          </FadeUp>
         </div>
 
-        <div className="metodo-grid">
-          {steps.map((s, i) => <MetodoCard key={s.n} step={s} index={i} />)}
+        <div className="metodo-ticker">
+          {(Tm.tickerItems || [
+            { num: 24, unit: 'h', label: 'audit' },
+            { num: 3, unit: 'gg', label: 'proposta' },
+            { num: 14, unit: 'gg', label: 'lancio' },
+          ]).map((item, i, arr) => (
+            <React.Fragment key={i}>
+              <span className="metodo-ticker-item">
+                <span className="metodo-ticker-num"><Counter to={item.num} />{item.unit}</span>
+                <span className="metodo-ticker-label">{item.label}</span>
+              </span>
+              {i < arr.length - 1 && <span className="metodo-ticker-sep" aria-hidden="true">·</span>}
+            </React.Fragment>
+          ))}
         </div>
+
+        <FadeUp delay={300}>
+          <div className="metodo-timeline-wrap">
+            {!hasInteracted && (
+              <div className="metodo-drag-hint" aria-hidden="true">
+                <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
+                  <path d="M1 6H27M1 6L5 2.5M1 6L5 9.5M27 6L23 2.5M27 6L23 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                </svg>
+                <span>trascina</span>
+              </div>
+            )}
+            <div
+              className={`metodo-timeline-rail${isDragging ? ' dragging' : ''}`}
+              ref={timelineRef}
+              onClick={(e) => { if (!hasInteracted) setHasInteracted(true); setActiveStep(getStepFromX(e.clientX)); }}
+              onMouseDown={(e) => { if (!hasInteracted) setHasInteracted(true); setIsDragging(true); setActiveStep(getStepFromX(e.clientX)); }}
+              onTouchStart={(e) => { if (!hasInteracted) setHasInteracted(true); setIsDragging(true); setActiveStep(getStepFromX(e.touches[0].clientX)); }}
+              role="slider"
+              aria-label="Seleziona fase del processo"
+              aria-valuemin={0}
+              aria-valuemax={steps.length - 1}
+              aria-valuenow={activeStep}
+            >
+              <div className="metodo-timeline-fill" style={{ width: `${progressPct}%` }} />
+              {steps.map((s, i) => {
+                const pct = (i / (steps.length - 1)) * 100;
+                return (
+                  <button
+                    key={s.n}
+                    className={`metodo-timeline-dot${activeStep === i ? ' active' : ''}`}
+                    style={{ left: `${pct}%` }}
+                    onClick={(e) => { e.stopPropagation(); setActiveStep(i); }}
+                    aria-label={`Passo ${s.n}: ${s.t}`}
+                  >
+                    <svg width="10" height="10" viewBox="0 0 10 10" className="metodo-diamond">
+                      <path d="M5 0L10 5L5 10L0 5Z" fill="currentColor" />
+                    </svg>
+                  </button>
+                );
+              })}
+              <div
+                className={`metodo-timeline-cursor${isDragging ? ' dragging' : ''}`}
+                style={{ left: `${progressPct}%` }}
+                aria-hidden="true"
+              />
+            </div>
+
+            <div className="metodo-steps">
+              {steps.map((s, i) => (
+                <div
+                  key={s.n}
+                  className={`metodo-step${activeStep === i ? ' active' : ''}`}
+                  onClick={() => setActiveStep(i)}
+                >
+                  <span className="metodo-step-num">PASSO {s.n}</span>
+                  <div className="metodo-step-title">{s.t}</div>
+                  <p className="metodo-step-desc">{s.d}</p>
+                  <span className="metodo-step-time">{s.time}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </FadeUp>
 
         <div className="testimonial-inline" style={{ marginTop: 80 }}>
           <FadeUp>
@@ -599,21 +865,6 @@ function Metodo() {
         </div>
       </div>
     </section>
-  );
-}
-
-function MetodoCard({ step, index }) {
-  const [ref, inView] = useInView({ threshold: 0.3 });
-  const tiltRef = useTilt(3);
-  const setRefs = (el) => { ref.current = el; tiltRef.current = el; };
-  return (
-    <div ref={setRefs} className={`metodo-card ${inView ? 'in' : ''}`}>
-      <div className="metodo-card-line" style={{ transitionDelay: `${index * 120}ms` }}></div>
-      <span className="metodo-num">— {step.n}</span>
-      <div className="metodo-title">{step.t}</div>
-      <div className="metodo-desc">{step.d}</div>
-      <div className="metodo-time">{step.time}</div>
-    </div>
   );
 }
 
@@ -628,27 +879,56 @@ function Servizi() {
     { n: '05', name: 'Automazione', desc: 'Flussi, CRM, email automatiche. Ridurre il lavoro ripetitivo dove la macchina è più affidabile.', tag: 'Premium' },
     { n: '06', name: 'Marketing digitale', desc: 'Posizionamento, comunicazione, acquisizione. Per chi ha già una base solida e vuole scalare.', tag: 'Espansione' },
   ];
+
+  const groups = Ts.groups || [
+    { label: 'Core · Sito che vende' },
+    { label: 'Crescita · Dopo il lancio' },
+    { label: 'Estensioni · Avanzato' },
+  ];
+
+  const rows = [
+    [items[0], items[1]],
+    [items[2], items[3]],
+    [items[4], items[5]],
+  ];
+
+  const titleParts = (Ts.title || 'Sei servizi.\nUna sola filosofia.').split('\n');
+
   return (
     <section className="section servizi" id="servizi">
       <div className="container">
         <div className="servizi-header">
-          <FadeUp><span className="eyebrow">{Ts.eyebrow || 'Sezione 03 · Servizi'}</span></FadeUp>
-          <div style={{ marginTop: 24 }}>
-            <LineReveal delay={120} tag="h2" className="h2">{Ts.title || 'Sei servizi. Una sola filosofia: il design è la prova.'}</LineReveal>
+          <div>
+            <FadeUp><span className="eyebrow">{Ts.eyebrow || 'Sezione 03 · Servizi'}</span></FadeUp>
+            <div style={{ marginTop: 24 }}>
+              <LineReveal delay={120} tag="h2" className="h2">{titleParts[0]}</LineReveal>
+              <LineReveal delay={240} tag="h2" className="h2 h2--italic">{titleParts[1] || 'Una sola filosofia.'}</LineReveal>
+            </div>
           </div>
+          <FadeUp delay={180}>
+            <p className="body-text servizi-lead">{Ts.lead || 'Il design è la prova. Ogni servizio risponde a un momento del ciclo: prima del sito, durante, e dopo. Non un catalogo da agenzia — un percorso.'}</p>
+          </FadeUp>
         </div>
-        <div className="servizi-list">
-          {items.map((s, i) => (
-            <FadeUp key={s.n} delay={i * 80}>
-              <a href="#" className="servizio">
-                <span className="servizio-num">— {s.n}</span>
-                <div>
-                  <span className="servizio-name">{s.name}</span>
-                  <span className="servizio-tag">{s.tag}</span>
+
+        <div className="servizi-groups">
+          {rows.map((pair, gi) => (
+            <FadeUp key={gi} delay={gi * 80}>
+              <div className="servizi-group">
+                <div className="servizi-group-label">{groups[gi] && groups[gi].label}</div>
+                <div className="servizi-group-cards">
+                  {pair.map((s) => s && (
+                    <a key={s.n} href="#contatti" className="servizio-card">
+                      <div className="servizio-card-top">
+                        <span className="servizio-card-num">— {s.n}</span>
+                        <span className="servizio-card-tag">{s.tag}</span>
+                      </div>
+                      <div className="servizio-card-name">{s.name}</div>
+                      <p className="servizio-card-desc">{s.desc}</p>
+                      <span className="servizio-card-arrow" aria-hidden="true">→</span>
+                    </a>
+                  ))}
                 </div>
-                <span className="servizio-desc">{s.desc}</span>
-                <span className="servizio-arrow" aria-hidden="true">→</span>
-              </a>
+              </div>
             </FadeUp>
           ))}
         </div>
@@ -661,12 +941,14 @@ function Portfolio() {
   const lang = React.useContext(LangCtx);
   const Tp = (((window.VERTI_LANG || {})[lang] || {}).home || {}).portfolio || {};
   const cases = Tp.cases || [
-    { sector: 'Ristorazione · Bolzano', title: 'Da brochure online a strumento di prenotazione.', problem: 'Menù in PDF, nessun contatto sotto i sessanta secondi. Le prenotazioni arrivavano solo per telefono.', result: '+218%', label: 'prenotazioni dirette' },
-    { sector: 'Artigianato · Val Gardena', title: "Un atelier che vende all'estero.", problem: 'Sito vetrina solo in italiano. Prodotto eccezionale, zero richieste internazionali nonostante il valore reale.', result: '14', label: 'paesi raggiunti in 4 mesi' },
-    { sector: 'Studio professionale · Trento', title: 'Da curriculum digitale a generatore di lead.', problem: 'About autocelebrativa, nessuna call-to-action, nessun tracciamento. Tre anni online, zero contatti misurabili.', result: '×2', label: 'tasso di contatto' },
+    { caseN: '01', year: '2025', type: 'Restaurant Site', sector: 'Ristorazione · Bolzano', title: 'Da brochure online a strumento di prenotazione.', problem: 'Menù in PDF, nessun contatto sotto i sessanta secondi. Le prenotazioni arrivavano solo per telefono.', result: '+218%', label: 'prenotazioni dirette' },
+    { caseN: '02', year: '2025', type: 'Atelier Site', sector: 'Artigianato · Val Gardena', title: "Un atelier che vende all'estero.", problem: 'Sito vetrina solo in italiano. Prodotto eccezionale, zero richieste internazionali nonostante il valore reale.', result: '14', label: 'paesi raggiunti in 4 mesi' },
+    { caseN: '03', year: '2025', type: 'Studio Site', sector: 'Studio professionale · Trento', title: 'Da curriculum digitale a generatore di lead.', problem: 'About autocelebrativa, nessuna call-to-action, nessun tracciamento. Tre anni online, zero contatti misurabili.', result: '×2', label: 'tasso di contatto' },
   ];
   const labelBefore = Tp.labelBefore || 'Prima';
   const labelAfter = Tp.labelAfter || 'Dopo';
+  const titleParts = (Tp.title || 'Tre casi.\nStessa diagnosi.').split('\n');
+
   return (
     <section className="section portfolio" id="lavori">
       <div className="container">
@@ -674,20 +956,21 @@ function Portfolio() {
           <div>
             <FadeUp><span className="eyebrow">{Tp.eyebrow || 'Sezione 04 · Lavori'}</span></FadeUp>
             <div style={{ marginTop: 24 }}>
-              <LineReveal delay={120} tag="h2" className="h2">{Tp.title || 'Tre casi. Settori diversi. Stessa diagnosi.'}</LineReveal>
+              <LineReveal delay={120} tag="h2" className="h2">{titleParts[0]}</LineReveal>
+              <LineReveal delay={240} tag="h2" className="h2 h2--italic h2--gold">{titleParts[1] || 'Stessa diagnosi.'}</LineReveal>
             </div>
           </div>
           <div className="portfolio-intro">
             <FadeUp delay={200}>
-              <p className="body-text">{Tp.lead || 'Non una galleria estetica. Per ogni caso: settore, problema iniziale, soluzione, risultato misurabile. Passa il cursore sulle card per vedere il prima e il dopo.'}</p>
+              <p className="body-text">{Tp.lead || 'Non una galleria estetica. Per ogni caso: settore, problema iniziale, soluzione, risultato misurabile. I numeri citati sono al lordo della stagionalità.'}</p>
             </FadeUp>
           </div>
         </div>
 
         <div className="portfolio-grid">
           {cases.map((c, i) => (
-            <FadeUp key={i} delay={i * 100}>
-              <CaseCard data={c} labelBefore={labelBefore} labelAfter={labelAfter} />
+            <FadeUp key={i} delay={i * 180}>
+              <CaseCard data={c} labelBefore={labelBefore} labelAfter={labelAfter} index={i} />
             </FadeUp>
           ))}
         </div>
@@ -696,10 +979,14 @@ function Portfolio() {
   );
 }
 
-function CaseCard({ data, labelBefore = 'Prima', labelAfter = 'Dopo' }) {
-  const tiltRef = useTilt(2);
+function CaseCard({ data, labelBefore = 'Prima', labelAfter = 'Dopo', index = 0 }) {
+  const tiltRef = useTilt(5);
   return (
     <article ref={tiltRef} className="case">
+      <div className="case-header">
+        <span className="case-num">CASO {data.caseN || String(index + 1).padStart(2, '0')}</span>
+        <span className="case-year">{data.year || '2025'}</span>
+      </div>
       <div className="case-visual">
         <div className="case-before">
           <span className="case-label">{labelBefore}</span>
@@ -710,6 +997,9 @@ function CaseCard({ data, labelBefore = 'Prima', labelAfter = 'Dopo' }) {
           <div className="case-mock-tile"></div>
         </div>
         <div className="case-divider"></div>
+        <div className="case-visual-tag">
+          <span>SCREENSHOT · {(data.type || '').toUpperCase()}</span>
+        </div>
       </div>
       <div className="case-body">
         <span className="case-sector">{data.sector}</span>
@@ -718,9 +1008,73 @@ function CaseCard({ data, labelBefore = 'Prima', labelAfter = 'Dopo' }) {
         <div className="case-result">
           <span className="case-result-num">{data.result}</span>
           <span className="case-result-label">{data.label}</span>
+          <span className="case-result-arrow" aria-hidden="true">→</span>
         </div>
       </div>
     </article>
+  );
+}
+
+// ── CuraAccordion: Fluid Typographic Accordion (Framer Motion) ──
+function CuraAccordion({ breaks }) {
+  const M = window.Motion || {};
+  const motionComp = M.motion;
+  const LayoutGroup = M.LayoutGroup || React.Fragment;
+  const [hovered, setHovered] = React.useState(null);
+
+  if (!motionComp) return null;
+
+  return (
+    <LayoutGroup>
+      <div className="cura-fluid-container" role="list">
+        {breaks.map((b, i) => {
+          const isActive = hovered === i;
+
+          return (
+            <motionComp.div
+              layout
+              key={i}
+              className={`cura-fluid-item ${isActive ? 'active' : ''}`}
+              onHoverStart={() => setHovered(i)}
+              onHoverEnd={() => setHovered(null)}
+              onClick={() => setHovered(isActive ? null : i)}
+              role="listitem"
+              initial={{ borderRadius: '12px' }}
+              animate={{
+                flex: isActive ? '3' : '1',
+                backgroundColor: isActive ? 'rgba(20,20,20,1)' : 'rgba(10,10,10,0.5)'
+              }}
+              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
+            >
+              <motionComp.div layout className="cura-fluid-inner">
+                <motionComp.h3
+                  layout
+                  className="cura-massive-num"
+                  animate={{
+                    color: isActive ? '#c8b89a' : '#3a3a3a',
+                    scale: isActive ? 1 : 0.85
+                  }}
+                >
+                  {b.num}<span className="cura-unit">{b.unit}</span>
+                </motionComp.h3>
+
+                <motionComp.div layout className="cura-fluid-content">
+                  <motionComp.span layout className="cura-fluid-label">{b.label}</motionComp.span>
+                  <motionComp.p
+                    className="cura-fluid-body"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: isActive ? 1 : 0 }}
+                    transition={{ duration: 0.3, delay: isActive ? 0.2 : 0 }}
+                  >
+                    {b.body}
+                  </motionComp.p>
+                </motionComp.div>
+              </motionComp.div>
+            </motionComp.div>
+          );
+        })}
+      </div>
+    </LayoutGroup>
   );
 }
 
@@ -764,17 +1118,7 @@ function Mantenimento() {
           </div>
         </FadeUp>
 
-        <div className="silent-breaks">
-          {breaks.map((b, i) => (
-            <FadeUp key={i} delay={i * 80}>
-              <div className="break">
-                <span className="break-num">{b.num}{b.unit && <small>{b.unit}</small>}</span>
-                <span className="break-label">{b.label}</span>
-                <p className="break-body">{b.body}</p>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
+        <CuraAccordion breaks={breaks} />
 
         <FadeUp delay={200}>
           <div className="subscription">
@@ -787,7 +1131,7 @@ function Mantenimento() {
                 <span className="subscription-eyebrow">{Tman.subscriptionEyebrow || 'Verti Care'}</span>
               </div>
               <div className="subscription-sublabel">{Tman.subscriptionSublabel || 'Abbonamento mensile'}</div>
-              <h3 className="subscription-title">{(Tman.subscriptionTitle || 'Il sito evolve con la tua azienda.\nMese dopo mese.').split('\n').map((line, i) => i === 0 ? <React.Fragment key={i}>{line}<br/></React.Fragment> : <React.Fragment key={i}>{line}</React.Fragment>)}</h3>
+              <h3 className="subscription-title">{(Tman.subscriptionTitle || 'Il sito evolve con la tua azienda.\nMese dopo mese.').split('\n').map((line, i) => i === 0 ? <React.Fragment key={i}>{line}<br /></React.Fragment> : <React.Fragment key={i}>{line}</React.Fragment>)}</h3>
               <p className="subscription-body">
                 {Tman.subscriptionBody || "Non un contratto di assistenza tecnica. Un partner strategico che mantiene il sito sicuro, veloce, allineato a quello che la tua azienda è oggi, non a quella che era al lancio."}
               </p>
@@ -837,7 +1181,7 @@ function Contact() {
                   <span className="channel-value">info@vertistudio.com</span>
                   <span className="channel-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="#" onClick={(e)=>{e.preventDefault(); setTab('message');}} className="channel">
+                <a href="#" onClick={(e) => { e.preventDefault(); setTab('message'); }} className="channel">
                   <span className="channel-label">{Tc.channelMsg || 'Messaggio'}</span>
                   <span className="channel-value">{Tc.channelMsgValue || 'Scrivi due righe, rispondiamo entro 24h'}</span>
                   <span className="channel-arrow" aria-hidden="true">→</span>
@@ -881,8 +1225,8 @@ function BookingPanel({ tab, setTab }) {
   return (
     <div className={`calendar${tab === 'call' ? ' calendar--calendly' : ''}`}>
       <div className="calendar-tabs">
-        <button className={`calendar-tab ${tab==='call'?'active':''}`} onClick={()=>setTab('call')}>{Tc.tabCall || 'Prenota call'}</button>
-        <button className={`calendar-tab ${tab==='message'?'active':''}`} onClick={()=>setTab('message')}>{Tc.tabMsg || 'Manda messaggio'}</button>
+        <button className={`calendar-tab ${tab === 'call' ? 'active' : ''}`} onClick={() => setTab('call')}>{Tc.tabCall || 'Prenota call'}</button>
+        <button className={`calendar-tab ${tab === 'message' ? 'active' : ''}`} onClick={() => setTab('message')}>{Tc.tabMsg || 'Manda messaggio'}</button>
       </div>
       <div key={tab} className="calendar-content">
         {tab === 'call' ? <CalendlyEmbed /> : <MessageForm />}
@@ -902,12 +1246,12 @@ function CallBooker() {
   const cells = [];
   for (let i = 0; i < monthOffset; i++) cells.push({ empty: true, key: `e${i}` });
   for (let d = 1; d <= daysInMonth; d++) {
-    const dim = d < 5 || [9,10,16,17,23,24,30,31].includes(d);
-    const available = !dim && [6,7,8,12,13,14,15,19,20,21,22,26,27,28,29].includes(d);
+    const dim = d < 5 || [9, 10, 16, 17, 23, 24, 30, 31].includes(d);
+    const available = !dim && [6, 7, 8, 12, 13, 14, 15, 19, 20, 21, 22, 26, 27, 28, 29].includes(d);
     cells.push({ d, dim, available, key: `d${d}` });
   }
   const times = ['09:00', '10:30', '14:30', '16:00', '17:30', '18:30'];
-  const dayLetters = Tc.dayLetters || ['L','M','M','G','V','S','D'];
+  const dayLetters = Tc.dayLetters || ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
   const monthName = Tc.monthName || 'Maggio';
   const year = Tc.year || '2026';
   const dayUnavail = Tc.dayUnavail || ', non disponibile';
@@ -920,7 +1264,7 @@ function CallBooker() {
       <div className="success-state">
         <div className="success-mark">✓</div>
         <div className="success-title">{Tc.successCallTitle || 'Call confermata'}</div>
-        <p className="success-desc">{descLines.map((l, i) => <React.Fragment key={i}>{l}{i < descLines.length - 1 && <br/>}</React.Fragment>)}</p>
+        <p className="success-desc">{descLines.map((l, i) => <React.Fragment key={i}>{l}{i < descLines.length - 1 && <br />}</React.Fragment>)}</p>
       </div>
     );
   }
@@ -938,7 +1282,7 @@ function CallBooker() {
         {dayLetters.map((d, i) => <div key={i} className="calendar-dow" role="columnheader">{d}</div>)}
         {cells.map(c => {
           if (c.empty) return <div key={c.key} className="calendar-day empty" role="gridcell"></div>;
-          const cls = `calendar-day${c.dim?' dim':''}${c.available?' available':''}${c.d===day?' selected':''}`;
+          const cls = `calendar-day${c.dim ? ' dim' : ''}${c.available ? ' available' : ''}${c.d === day ? ' selected' : ''}`;
           return (
             <button
               key={c.key}
@@ -954,10 +1298,10 @@ function CallBooker() {
       </div>
       <div className="calendar-times">
         {times.map(t => (
-          <button key={t} className={`calendar-time ${t===time?'selected':''}`} onClick={()=>setTime(t)}>{t}</button>
+          <button key={t} className={`calendar-time ${t === time ? 'selected' : ''}`} onClick={() => setTime(t)}>{t}</button>
         ))}
       </div>
-      <a href="#" className="btn" style={{ width: '100%', justifyContent: 'space-between' }} onClick={(e)=>{ e.preventDefault(); setSubmitted(true); }}>
+      <a href="#" className="btn" style={{ width: '100%', justifyContent: 'space-between' }} onClick={(e) => { e.preventDefault(); setSubmitted(true); }}>
         <span>{getConfirmBtn(day, time)}</span>
         <span className="btn-arrow">→</span>
       </a>
@@ -1042,9 +1386,9 @@ function Footer() {
         <div className="footer-col">
           <div className="footer-brand-mark">
             <svg viewBox="0 0 64 64" width="28" height="28" fill="none" aria-hidden="true" style={{ color: 'var(--neve)' }}>
-              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round"/>
-              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="1.05" strokeLinejoin="round" strokeLinecap="round" opacity="0.55"/>
-              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.5" strokeLinecap="round"/>
+              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round" />
+              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="1.05" strokeLinejoin="round" strokeLinecap="round" opacity="0.55" />
+              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.5" strokeLinecap="round" />
             </svg>
             <span className="footer-brand-pillar"></span>
             <span className="footer-brand-name">
@@ -1152,7 +1496,7 @@ function App() {
     if (!splashVisible) return;
     const timer = setTimeout(() => {
       setSplashVisible(false);
-      try { sessionStorage.setItem('vs-splash-done', '1'); } catch(e) {}
+      try { sessionStorage.setItem('vs-splash-done', '1'); } catch (e) { }
     }, 2400);
     return () => clearTimeout(timer);
   }, []);
@@ -1254,6 +1598,7 @@ function App() {
       <a href="#facts" className="skip-link">Vai al contenuto</a>
       <SplashScreen visible={splashVisible} />
       <CustomCursor enabled={t.showCursor && t.animLevel === 'full'} />
+      <SpotlightEffect />
       <Nav scrollY={scrollY} setLang={setLang} />
       {/* Layer 1: sfondo fisso — video in loop */}
       <Hero />
