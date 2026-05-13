@@ -29,12 +29,12 @@
 
 .ah-hero {
   position: relative;
-  height: 100vh;
+  height: 100svh;
   min-height: 640px;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: center;
 }
 
 /* Wrapper parallax: JS imposta translateY su questo elemento */

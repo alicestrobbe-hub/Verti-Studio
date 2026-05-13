@@ -310,11 +310,13 @@ function SartorialitaSection() {
 function ServiziBand({ group, items, gi }) {
   const { motion } = window.Motion;
   const [bandRef, bandInView] = useInView({ threshold: 0.1 });
+  // Hover indipendente: ogni service block ha il suo stato isolato
+  const [hoveredService, setHoveredService] = React.useState(null);
   const groupItems = (group.itemIndices || []).map(idx => items[idx]).filter(Boolean);
 
   return (
     <div className="pr-band" ref={bandRef}>
-      {/* Monumental ghost number — slow opacity fade */}
+      {/* Numero ghost monumentale — fade lento al 4% */}
       <motion.span
         className="pr-band-bgnum"
         initial={{ opacity: 0 }}
@@ -323,7 +325,7 @@ function ServiziBand({ group, items, gi }) {
         aria-hidden="true"
       >{group.num}</motion.span>
 
-      {/* Left column: phase identity */}
+      {/* Colonna sinistra: identità di fase */}
       <div className="pr-band-left">
         <span className="pr-mono pr-band-fase">{group.faseLabel}</span>
         <motion.h3
@@ -336,28 +338,60 @@ function ServiziBand({ group, items, gi }) {
         {group.phaseDesc && <p className="pr-band-phase-desc">{group.phaseDesc}</p>}
       </div>
 
-      {/* Vertical divider */}
+      {/* Divisore verticale 1px */}
       <div className="pr-band-vdiv" aria-hidden="true" />
 
-      {/* Right column: 2-col service grid */}
+      {/* Colonna destra: 2 moduli service INDIPENDENTI */}
       <div className="pr-band-right pr-band-right--grid">
-        {groupItems.map((item, ii) => (
-          <motion.div
-            key={ii}
-            className="pr-band-service"
-            initial={{ opacity: 0, y: 28 }}
-            animate={bandInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 28 }}
-            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: 0.28 + ii * 0.14 }}
-          >
-            <div className="pr-band-service-header">
-              <span className="pr-mono pr-band-service-num">{item.n || String(ii + 1).padStart(2, '0')}</span>
-              <span className="pr-band-service-tag">{item.tag}</span>
-            </div>
-            <h4 className="pr-band-item-title">{item.title}</h4>
-            <p className="pr-band-service-rich">{item.richDesc || item.desc}</p>
-            <span className="pr-band-service-arrow" aria-hidden="true">→</span>
-          </motion.div>
-        ))}
+        {groupItems.map((item, ii) => {
+          const isThisHovered = hoveredService === ii;
+          const isSiblingHovered = hoveredService !== null && !isThisHovered;
+          return (
+            <motion.div
+              key={ii}
+              className={`pr-band-service${ii > 0 ? ' pr-band-service--sep' : ''}`}
+              initial={{ opacity: 0, y: 28 }}
+              animate={bandInView ? {
+                opacity: isSiblingHovered ? 0.32 : 1,
+                y: 0,
+              } : { opacity: 0, y: 28 }}
+              transition={{
+                opacity: { duration: isSiblingHovered ? 0.28 : 0.8, ease: [0.16, 1, 0.3, 1] },
+                y: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: bandInView ? 0.28 + ii * 0.14 : 0 },
+              }}
+              onMouseEnter={() => setHoveredService(ii)}
+              onMouseLeave={() => setHoveredService(null)}
+              role="article"
+            >
+              <div className="pr-band-service-header">
+                <span className="pr-mono pr-band-service-num">{item.n || String(ii + 1).padStart(2, '0')}</span>
+                <span className="pr-band-service-tag">{item.tag}</span>
+              </div>
+              {/* Titolo: si illumina da ghiaccio a neve su hover */}
+              <motion.h4
+                className="pr-band-item-title"
+                animate={{
+                  color: isThisHovered ? 'var(--neve)' : 'var(--ghiaccio)',
+                }}
+                initial={false}
+                transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+              >{item.title}</motion.h4>
+              <p className="pr-band-service-rich">{item.richDesc || item.desc}</p>
+              {/* Freccia ambra: si sposta in alto a destra su hover */}
+              <motion.span
+                className="pr-band-service-arrow"
+                aria-hidden="true"
+                animate={{
+                  x: isThisHovered ? 4 : 0,
+                  y: isThisHovered ? -4 : 0,
+                  opacity: isThisHovered ? 1 : 0.55,
+                }}
+                initial={false}
+                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
+              >→</motion.span>
+            </motion.div>
+          );
+        })}
       </div>
     </div>
   );
@@ -715,7 +749,7 @@ function SpotlightEffect() {
     if (!el) return;
     let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(55px circle at ${px}px ${py}px, rgba(200,184,154,0.52) 0%, rgba(200,184,154,0.16) 55%, transparent 100%)`;
+      el.style.background = `radial-gradient(28px circle at ${px}px ${py}px, rgba(200,184,154,0.72) 0%, rgba(200,184,154,0.12) 65%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };

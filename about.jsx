@@ -212,7 +212,7 @@ function AboutHero() {
       {/* Layer 2: gradienti */}
       <div className="ah-hero-gradient" aria-hidden="true" />
       {/* Layer 3: testo */}
-      <div className="ah-hero-content container" style={{ justifyContent: 'center', paddingBottom: 0 }}>
+      <div className="ah-hero-content container" style={{ justifyContent: 'center', paddingBottom: '128px', paddingTop: '73px' }}>
         <div className="ah-hero-text" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
           <AHeroText />
         </div>
@@ -779,7 +779,7 @@ function SpotlightEffect() {
     if (!el) return;
     let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(55px circle at ${px}px ${py}px, rgba(200,184,154,0.52) 0%, rgba(200,184,154,0.16) 55%, transparent 100%)`;
+      el.style.background = `radial-gradient(28px circle at ${px}px ${py}px, rgba(200,184,154,0.72) 0%, rgba(200,184,154,0.12) 65%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };

@@ -1800,17 +1800,33 @@
   align-items: start;
 }
 
-/* Each service card */
+/* Each service card — moduli indipendenti senza box full-height */
 .pr-band-service {
   display: flex;
   flex-direction: column;
   padding: clamp(12px, 1.8vh, 20px) clamp(16px, 2.2vw, 32px);
-  border-right: 1px solid var(--ardesia);
+  position: relative;
   min-height: 200px;
+  cursor: default;
 }
 
-.pr-band-service:last-child {
-  border-right: none;
+/* Separatore parziale: linea verticale a gradiente tra i due moduli service.
+   Appare solo sul secondo blocco (--sep), fades dal 20% all'80% altezza. */
+.pr-band-service--sep::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 15%;
+  height: 70%;
+  width: 1px;
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    var(--granito) 25%,
+    var(--granito) 75%,
+    transparent 100%
+  );
+  pointer-events: none;
 }
 
 .pr-band-service-header {
@@ -1840,6 +1856,7 @@
 .pr-band-service .pr-band-item-title {
   flex-grow: 0;
   margin-bottom: 10px;
+  color: var(--ghiaccio); /* hover porta a --neve via Framer Motion */
 }
 
 .pr-band-service-rich {
@@ -1966,6 +1983,10 @@
   }
   .pr-band-service:last-child {
     border-bottom: none;
+  }
+  /* Su mobile i service si stackano: niente separatore verticale */
+  .pr-band-service--sep::before {
+    display: none;
   }
   .pr-band-phase-desc {
     max-width: none;

@@ -149,7 +149,7 @@ function SpotlightEffect() {
     let px = window.innerWidth / 2;
     let py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(55px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.52) 0%, rgba(200, 184, 154, 0.16) 55%, transparent 100%)`;
+      el.style.background = `radial-gradient(28px circle at ${px}px ${py}px, rgba(200,184,154,0.72) 0%, rgba(200,184,154,0.12) 65%, transparent 100%)`;
       raf = 0;
     };
     const onMove = (e) => {
@@ -457,7 +457,7 @@ function HeroText({ headline }) {
       <div className="hero-founded">
         <span>Founded in the Alps · MMXXVI</span>
       </div>
-      <div className="hero-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
+      <div className="hero-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center', paddingBottom: '128px' }}>
         <FadeUp delay={300} className="hero-eyebrow">
           <span className="eyebrow">{eyebrow}</span>
         </FadeUp>
@@ -509,8 +509,9 @@ function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inVi
       transition={{ duration: 1.1, delay: idx * 0.18, ease: [0.16, 1, 0.3, 1] }}
       onMouseEnter={onHover}
       onMouseLeave={onLeave}
+      style={{ position: 'relative', overflow: 'visible' }}
     >
-      {/* Stable anchor: rank + number — flex-shrink:0 prevents displacement when content reveals */}
+      {/* Stable anchor: rank + number — non si sposta mai, il testo hover emerge sotto in absolute */}
       <div className="fact-mag-anchor" style={{ position: 'relative' }}>
         <span className="fact-mag-rank">— {data.rank}</span>
         <motion.div
@@ -1193,19 +1194,25 @@ function CuraAccordion({ breaks }) {
 }
 
 function AnimatedDivider() {
-  const { motion } = window.Motion;
   const [ref, inView] = useInView({ threshold: 0.5 });
+  const lineStyle = {
+    height: '1px',
+    background: 'rgba(255,255,255,0.05)',
+    transformOrigin: 'left',
+  };
+
+  if (!window.Motion || !window.Motion.motion) {
+    return <div ref={ref} style={{ margin: '80px 0' }}><div style={lineStyle} /></div>;
+  }
+
+  const { motion } = window.Motion;
   return (
     <div ref={ref} style={{ margin: '80px 0', overflow: 'hidden' }}>
       <motion.div
         initial={{ scaleX: 0 }}
         animate={inView ? { scaleX: 1 } : { scaleX: 0 }}
         transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-        style={{
-          height: '1px',
-          background: 'var(--ardesia)',
-          transformOrigin: 'left',
-        }}
+        style={lineStyle}
       />
     </div>
   );
