@@ -22,9 +22,9 @@ const HEADLINES = {
 };
 
 const FONT_PAIRS = {
-  "cormorant-inter": { display: "'Cormorant Garamond', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
-  "playfair-inter": { display: "'Playfair Display', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
-  "cormorant-helvetica": { display: "'Cormorant Garamond', Georgia, serif", body: "'Helvetica Neue', system-ui, sans-serif" }
+  "cormorant-inter":   { display: "'Cormorant Garamond', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
+  "playfair-inter":    { display: "'Playfair Display', Georgia, serif", body: "'Inter', system-ui, sans-serif" },
+  "cormorant-helvetica":{ display: "'Cormorant Garamond', Georgia, serif", body: "'Helvetica Neue', system-ui, sans-serif" }
 };
 
 // ───────── i18n ─────────
@@ -179,7 +179,7 @@ function CustomCursor({ enabled }) {
 
     const dot = document.querySelector('.cursor-dot');
     const ring = document.querySelector('.cursor-ring');
-    let mx = window.innerWidth / 2, my = window.innerHeight / 2;
+    let mx = window.innerWidth/2, my = window.innerHeight/2;
     let rx = mx, ry = my;
     let raf = null;
     let moving = false;
@@ -287,11 +287,11 @@ function SplashScreen({ visible }) {
     <div className={`splash${visible ? '' : ' splash-out'}`} role="status" aria-label="Caricamento Verti Studio">
       <svg className="splash-logo-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 200" aria-hidden="true">
         <g transform="translate(20 56) scale(1.35)">
-          <path className="vs-peak vs-peak-1" d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="#e8e4dc" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round" />
-          <path className="vs-peak vs-peak-2" d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="#e8e4dc" strokeWidth="1.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55" />
-          <path className="vs-peak-tip" d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.4" strokeLinecap="round" />
+          <path className="vs-peak vs-peak-1" d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="#e8e4dc" strokeWidth="1.3" strokeLinejoin="round" strokeLinecap="round"/>
+          <path className="vs-peak vs-peak-2" d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="#e8e4dc" strokeWidth="1.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55"/>
+          <path className="vs-peak-tip" d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.4" strokeLinecap="round"/>
         </g>
-        <line className="vs-asta" x1="138" y1="46" x2="138" y2="154" stroke="#c8b89a" strokeWidth="1" />
+        <line className="vs-asta" x1="138" y1="46" x2="138" y2="154" stroke="#c8b89a" strokeWidth="1"/>
         <text className="vs-splash-verti" x="160" y="118" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight="300" fontSize="78" fill="#e8e4dc" letterSpacing="-1">Verti</text>
         <text className="vs-splash-studio" x="160" y="142" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="13" fill="#e8e4dc" letterSpacing="4.2" opacity="0.78">STUDIO</text>
         <text className="vs-splash-coord" x="160" y="166" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="10" fill="#e8e4dc" letterSpacing="2.8" opacity="0.55">46.4983° N · 11.3548° E</text>
@@ -364,11 +364,11 @@ function Nav({ scrollY, setLang }) {
         <a href="#" className="nav-brand" aria-label="Verti Studio — home">
           <svg className="nav-logo-compact" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" aria-hidden="true">
             <g transform="translate(2 14) scale(0.56)">
-              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round" />
-              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55" />
-              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="2.8" strokeLinecap="round" />
+              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="2.6" strokeLinejoin="round" strokeLinecap="round"/>
+              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="2.0" strokeLinejoin="round" strokeLinecap="round" opacity="0.55"/>
+              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="2.8" strokeLinecap="round"/>
             </g>
-            <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" strokeWidth="1" />
+            <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" strokeWidth="1"/>
             <text x="58" y="44" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight="300" fontSize="34" fill="currentColor" letterSpacing="-0.4">Verti</text>
             <text x="158" y="40" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="11" fill="currentColor" letterSpacing="3.4" opacity="0.78">STUDIO</text>
           </svg>
@@ -498,117 +498,146 @@ function HeroText({ headline }) {
 }
 
 // ── MagneticStat: requires window.Motion — only rendered when available ──
-function MagneticStat({ data, idx, hoveredIdx, setHoveredIdx, inView }) {
-  const M = window.Motion || {};
-  const motionComp = M.motion;
-  const isHovered = hoveredIdx === idx;
-  const isAnyHovered = hoveredIdx !== null;
+function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inView }) {
+  const { motion, AnimatePresence, useMotionValue, useSpring } = window.Motion;
+  const xMv = useMotionValue(0);
+  const yMv = useMotionValue(0);
+  const springX = useSpring(xMv, { stiffness: 240, damping: 28 });
+  const springY = useSpring(yMv, { stiffness: 240, damping: 28 });
+  const ref = React.useRef(null);
 
-  // Posizionamento asimmetrico spaziale per le 3 statistiche
-  const positions = [
-    { top: '5%', left: '5%' },
-    { top: '35%', right: '8%' },
-    { bottom: '5%', left: '30%' }
-  ];
+  const onMouseMove = React.useCallback((e) => {
+    const rect = ref.current?.getBoundingClientRect();
+    if (!rect) return;
+    xMv.set((e.clientX - (rect.left + rect.width / 2)) * 0.2);
+    yMv.set((e.clientY - (rect.top + rect.height / 2)) * 0.2);
+  }, [xMv, yMv]);
+
+  const onMouseLeave = React.useCallback(() => {
+    xMv.set(0); yMv.set(0); onLeave();
+  }, [xMv, yMv, onLeave]);
 
   return (
-    <motionComp.div
-      className="magnetic-stat-wrapper"
-      style={{
-        position: 'absolute',
-        ...positions[idx],
-        zIndex: isHovered ? 10 : 1
-      }}
-      initial={{ opacity: 0, y: 50 }}
-      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-      transition={{ duration: 0.8, delay: idx * 0.2, ease: [0.16, 1, 0.3, 1] }}
-      onMouseEnter={() => setHoveredIdx(idx)}
-      onMouseLeave={() => setHoveredIdx(null)}
+    <motion.div
+      ref={ref}
+      className={`fact-magnetic fact-magnetic--${idx + 1}${isHovered ? ' active' : ''}${anyHovered && !isHovered ? ' dimmed' : ''}`}
+      style={{ x: springX, y: springY }}
+      initial={{ opacity: 0, y: 60 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
+      transition={{ duration: 1.1, delay: idx * 0.18, ease: [0.16, 1, 0.3, 1] }}
+      onMouseMove={onMouseMove}
+      onMouseEnter={onHover}
+      onMouseLeave={onMouseLeave}
     >
-      <div className={`magnetic-stat-content ${isHovered ? 'active' : ''} ${isAnyHovered && !isHovered ? 'dimmed' : ''}`}>
-        <span className="mag-rank">— {data.rank}</span>
-
-        <motionComp.h3
-          className="mag-massive-num"
-          animate={{ scale: isHovered ? 1.05 : 1 }}
-          transition={{ type: "spring", stiffness: 300, damping: 20 }}
-        >
-          {inView && <Counter to={data.big} />}<em>{data.small}</em>
-        </motionComp.h3>
-
-        <motionComp.div
-          className="mag-text-reveal"
-          initial={{ opacity: 0, height: 0, filter: 'blur(10px)' }}
-          animate={{
-            opacity: isHovered ? 1 : 0,
-            height: isHovered ? 'auto' : 0,
-            filter: isHovered ? 'blur(0px)' : 'blur(10px)'
-          }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-        >
-          <h4>{data.title}</h4>
-          <p>{data.body}</p>
-          <span className="mag-source">Fonte · {data.source}</span>
-        </motionComp.div>
+      <span className="fact-mag-rank">— {data.rank}</span>
+      <div className="fact-mag-num">
+        {inView && <Counter to={data.big} />}<em className="fact-mag-small">{data.small}</em>
       </div>
-    </motionComp.div>
+      <AnimatePresence>
+        {isHovered && (
+          <motion.div
+            key="body"
+            initial={{ opacity: 0, y: 14, filter: 'blur(6px)' }}
+            animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+            exit={{ opacity: 0, y: 6, filter: 'blur(4px)' }}
+            transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+            className="fact-mag-content"
+          >
+            <h3 className="fact-mag-title">{data.title}</h3>
+            <p className="fact-mag-body">{data.body}</p>
+            <span className="fact-mag-source">Fonte · {data.source}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   );
 }
 
 function Facts() {
   const lang = React.useContext(LangCtx);
   const Tf = (((window.VERTI_LANG || {})[lang] || {}).home || {}).facts || {};
-  const items = Tf.items || [];
+  const items = Tf.items || [
+    { rank: '01', big: 94, small: '%', title: 'I primi tre secondi decidono tutto.', body: "Il 94% delle prime impressioni di un sito è legato al design. Non al testo, non all'offerta. Al modo in cui appare nei primi istanti.", source: 'Stanford Web Credibility' },
+    { rank: '02', big: 3, small: 'su 4', title: 'Il design è il tuo primo commerciale.', body: "Tre clienti su quattro giudicano la credibilità di un'azienda guardando solo il sito. Prima ancora di sapere chi sei, hanno deciso se fidarsi.", source: 'Studio Northumbria University' },
+    { rank: '03', big: 9900, small: '%', title: 'Cento euro per ogni euro investito in UX.', body: "Ogni euro speso in user experience ne restituisce cento. Non è marketing: è la matematica che separa chi cresce da chi paga advertising per compensare un sito che non converte.", source: 'Forrester Research' },
+  ];
+
   const sectionRef = React.useRef(null);
   const [hoveredIdx, setHoveredIdx] = React.useState(null);
   const [inView, setInView] = React.useState(false);
+  const [showCanvas, setShowCanvas] = React.useState(false);
 
   React.useEffect(() => {
     const el = sectionRef.current;
     if (!el) return;
     const obs = new IntersectionObserver(([entry]) => {
       if (entry.isIntersecting) setInView(true);
-    }, { threshold: 0.2 });
+    }, { threshold: 0.1 });
     obs.observe(el);
     return () => obs.disconnect();
+  }, []);
+
+  React.useEffect(() => {
+    const mqWide = window.matchMedia('(min-width: 769px)');
+    const mqFine = window.matchMedia('(pointer: fine)');
+    const check = () => setShowCanvas(
+      !!(window.Motion && window.Motion.motion) && mqWide.matches && mqFine.matches
+    );
+    check();
+    mqWide.addEventListener('change', check);
+    mqFine.addEventListener('change', check);
+    return () => { mqWide.removeEventListener('change', check); mqFine.removeEventListener('change', check); };
   }, []);
 
   return (
     <section className="section facts" id="facts" ref={sectionRef}>
       <div className="container">
-        <div className="facts-header text-center relative z-10">
+        <div className="facts-header">
           <FadeUp><span className="eyebrow">{Tf.eyebrow || 'Perché il design conta'}</span></FadeUp>
           <FadeUp delay={120}>
-            <p className="facts-quote mt-8">{Tf.quote}</p>
+            <p className="facts-quote">{Tf.quote || '"Le persone non comprano da chi non si fidano. E si fidano in tre secondi."'}</p>
           </FadeUp>
         </div>
 
-        {/* Desktop Canvas */}
-        <div className="facts-canvas-area hidden md:block">
-          {items.map((f, i) => (
-            <MagneticStat
-              key={f.rank}
-              data={f}
-              idx={i}
-              hoveredIdx={hoveredIdx}
-              setHoveredIdx={setHoveredIdx}
-              inView={inView}
+        {showCanvas ? (
+          // ── Desktop: Asymmetric Magnetic Canvas ──
+          <div className="facts-canvas">
+            <div
+              className="facts-canvas-dim"
+              aria-hidden="true"
+              style={{ opacity: hoveredIdx !== null ? 1 : 0 }}
             />
-          ))}
-        </div>
-
-        {/* Mobile Stack Fallback */}
-        <div className="facts-mobile-stack md:hidden mt-16">
-          {items.map((f, i) => (
-            <div key={f.rank} className="py-8 border-t border-white/10">
-              <span className="text-white/40 font-mono text-[10px] tracking-widest uppercase block mb-4">— {f.rank}</span>
-              <h3 className="text-6xl font-serif italic text-[#c8b89a] mb-6">{f.big}{f.small}</h3>
-              <h4 className="text-xl text-white mb-2">{f.title}</h4>
-              <p className="text-white/60 text-sm mb-4">{f.body}</p>
-              <span className="text-white/30 font-mono text-[9px] uppercase tracking-widest">Fonte · {f.source}</span>
-            </div>
-          ))}
-        </div>
+            {items.map((f, i) => (
+              <MagneticStat
+                key={f.rank}
+                data={f}
+                idx={i}
+                isHovered={hoveredIdx === i}
+                anyHovered={hoveredIdx !== null}
+                onHover={() => setHoveredIdx(i)}
+                onLeave={() => setHoveredIdx(null)}
+                inView={inView}
+              />
+            ))}
+          </div>
+        ) : (
+          // ── Mobile / no-motion fallback: clean vertical stack ──
+          <div className="facts-mobile-stack">
+            {items.map((f, i) => (
+              <div key={f.rank} className="fact-mobile-item">
+                <span className="fact-mob-rank">— {f.rank}</span>
+                <div className="fact-mob-num">
+                  {inView && <Counter to={f.big} />}<em>{f.small}</em>
+                </div>
+                <div className="fact-mob-content">
+                  <h3 className="fact-mob-title">{f.title}</h3>
+                  <p className="fact-mob-body">{f.body}</p>
+                  <span className="fact-mob-source">Fonte · {f.source}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
       </div>
     </section>
   );
@@ -683,7 +712,7 @@ function Problema() {
                         <span className="problema-card-num">— {it.n}</span>
                         <span className={`problema-card-check${isSelected ? ' visible' : ''}`} aria-hidden="true">
                           <svg width="12" height="10" viewBox="0 0 12 10" fill="none">
-                            <path d="M1 5L4.5 8.5L11 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M1 5L4.5 8.5L11 1" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" strokeLinejoin="round"/>
                           </svg>
                         </span>
                       </div>
@@ -799,7 +828,7 @@ function Metodo() {
             {!hasInteracted && (
               <div className="metodo-drag-hint" aria-hidden="true">
                 <svg width="28" height="12" viewBox="0 0 28 12" fill="none">
-                  <path d="M1 6H27M1 6L5 2.5M1 6L5 9.5M27 6L23 2.5M27 6L23 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round" />
+                  <path d="M1 6H27M1 6L5 2.5M1 6L5 9.5M27 6L23 2.5M27 6L23 9.5" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
                 <span>trascina</span>
               </div>
@@ -828,7 +857,7 @@ function Metodo() {
                     aria-label={`Passo ${s.n}: ${s.t}`}
                   >
                     <svg width="10" height="10" viewBox="0 0 10 10" className="metodo-diamond">
-                      <path d="M5 0L10 5L5 10L0 5Z" fill="currentColor" />
+                      <path d="M5 0L10 5L5 10L0 5Z" fill="currentColor"/>
                     </svg>
                   </button>
                 );
@@ -1019,55 +1048,94 @@ function CaseCard({ data, labelBefore = 'Prima', labelAfter = 'Dopo', index = 0 
 function CuraAccordion({ breaks }) {
   const M = window.Motion || {};
   const motionComp = M.motion;
+  const AnimatePresence = M.AnimatePresence;
   const LayoutGroup = M.LayoutGroup || React.Fragment;
   const [hovered, setHovered] = React.useState(null);
+  const isTouchRef = React.useRef(window.matchMedia('(pointer: coarse)').matches);
 
-  if (!motionComp) return null;
+  if (!motionComp || !AnimatePresence) {
+    // Fallback: old editorial layout
+    return (
+      <div className="silent-breaks-editorial">
+        {breaks.map((b, i) => (
+          <div key={i} className="break-editorial">
+            <div className="break-editorial-inner">
+              <div className="break-editorial-num-col">
+                <span className="break-editorial-num">{b.num}{b.unit && <small>{b.unit}</small>}</span>
+              </div>
+              <div className="break-editorial-label-col">
+                <span className="break-editorial-label">{b.label}</span>
+                <p className="break-editorial-body">{b.body}</p>
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <LayoutGroup>
-      <div className="cura-fluid-container" role="list">
+      <div className="cura-accordion" role="list">
         {breaks.map((b, i) => {
           const isActive = hovered === i;
-
           return (
             <motionComp.div
-              layout
               key={i}
-              className={`cura-fluid-item ${isActive ? 'active' : ''}`}
-              onHoverStart={() => setHovered(i)}
+              layout
+              className={`cura-row${isActive ? ' cura-row--active' : ''}`}
+              onHoverStart={() => !isTouchRef.current && setHovered(i)}
               onHoverEnd={() => setHovered(null)}
-              onClick={() => setHovered(isActive ? null : i)}
+              onClick={() => isTouchRef.current && setHovered(isActive ? null : i)}
               role="listitem"
-              initial={{ borderRadius: '12px' }}
-              animate={{
-                flex: isActive ? '3' : '1',
-                backgroundColor: isActive ? 'rgba(20,20,20,1)' : 'rgba(10,10,10,0.5)'
-              }}
-              transition={{ type: 'spring', stiffness: 200, damping: 25 }}
             >
-              <motionComp.div layout className="cura-fluid-inner">
-                <motionComp.h3
-                  layout
-                  className="cura-massive-num"
-                  animate={{
-                    color: isActive ? '#c8b89a' : '#3a3a3a',
-                    scale: isActive ? 1 : 0.85
-                  }}
-                >
-                  {b.num}<span className="cura-unit">{b.unit}</span>
-                </motionComp.h3>
-
-                <motionComp.div layout className="cura-fluid-content">
-                  <motionComp.span layout className="cura-fluid-label">{b.label}</motionComp.span>
-                  <motionComp.p
-                    className="cura-fluid-body"
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: isActive ? 1 : 0 }}
-                    transition={{ duration: 0.3, delay: isActive ? 0.2 : 0 }}
+              <motionComp.div layout className="cura-row-inner">
+                <div className="cura-num-wrap">
+                  <motionComp.span
+                    className="cura-num"
+                    animate={{ color: isActive ? '#c8b89a' : '#e8e4dc', textShadow: isActive ? '0 0 40px rgba(200,184,154,0.22)' : '0 0 0px rgba(0,0,0,0)' }}
+                    transition={{ duration: 0.48, ease: [0.16, 1, 0.3, 1] }}
                   >
-                    {b.body}
-                  </motionComp.p>
+                    {b.num}<em className="cura-unit">{b.unit || ''}</em>
+                  </motionComp.span>
+                </div>
+                <div className="cura-content-col">
+                  <div className="cura-header-row">
+                    <span className="cura-rank">— 0{i + 1}</span>
+                    <motionComp.span
+                      className="cura-label"
+                      animate={{ x: isActive ? 8 : 0, color: isActive ? '#c8b89a' : '#c8c4bc' }}
+                      transition={{ duration: 0.42, ease: [0.16, 1, 0.3, 1] }}
+                    >
+                      {b.label}
+                    </motionComp.span>
+                  </div>
+                  <AnimatePresence initial={false}>
+                    {isActive && (
+                      <motionComp.p
+                        key="body"
+                        initial={{ opacity: 0, height: 0, marginTop: 0 }}
+                        animate={{ opacity: 1, height: 'auto', marginTop: 18 }}
+                        exit={{ opacity: 0, height: 0, marginTop: 0 }}
+                        transition={{ duration: 0.52, ease: [0.16, 1, 0.3, 1] }}
+                        style={{ overflow: 'hidden' }}
+                        className="cura-body"
+                      >
+                        {b.body}
+                      </motionComp.p>
+                    )}
+                  </AnimatePresence>
+                </div>
+                <motionComp.div
+                  className="cura-toggle"
+                  animate={{ rotate: isActive ? 45 : 0, color: isActive ? '#c8b89a' : '#3a3a3a' }}
+                  transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+                  aria-hidden="true"
+                >
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                    <line x1="7" y1="0" x2="7" y2="14" stroke="currentColor" strokeWidth="1.2"/>
+                    <line x1="0" y1="7" x2="14" y2="7" stroke="currentColor" strokeWidth="1.2"/>
+                  </svg>
                 </motionComp.div>
               </motionComp.div>
             </motionComp.div>
@@ -1131,7 +1199,7 @@ function Mantenimento() {
                 <span className="subscription-eyebrow">{Tman.subscriptionEyebrow || 'Verti Care'}</span>
               </div>
               <div className="subscription-sublabel">{Tman.subscriptionSublabel || 'Abbonamento mensile'}</div>
-              <h3 className="subscription-title">{(Tman.subscriptionTitle || 'Il sito evolve con la tua azienda.\nMese dopo mese.').split('\n').map((line, i) => i === 0 ? <React.Fragment key={i}>{line}<br /></React.Fragment> : <React.Fragment key={i}>{line}</React.Fragment>)}</h3>
+              <h3 className="subscription-title">{(Tman.subscriptionTitle || 'Il sito evolve con la tua azienda.\nMese dopo mese.').split('\n').map((line, i) => i === 0 ? <React.Fragment key={i}>{line}<br/></React.Fragment> : <React.Fragment key={i}>{line}</React.Fragment>)}</h3>
               <p className="subscription-body">
                 {Tman.subscriptionBody || "Non un contratto di assistenza tecnica. Un partner strategico che mantiene il sito sicuro, veloce, allineato a quello che la tua azienda è oggi, non a quella che era al lancio."}
               </p>
@@ -1181,7 +1249,7 @@ function Contact() {
                   <span className="channel-value">info@vertistudio.com</span>
                   <span className="channel-arrow" aria-hidden="true">→</span>
                 </a>
-                <a href="#" onClick={(e) => { e.preventDefault(); setTab('message'); }} className="channel">
+                <a href="#" onClick={(e)=>{e.preventDefault(); setTab('message');}} className="channel">
                   <span className="channel-label">{Tc.channelMsg || 'Messaggio'}</span>
                   <span className="channel-value">{Tc.channelMsgValue || 'Scrivi due righe, rispondiamo entro 24h'}</span>
                   <span className="channel-arrow" aria-hidden="true">→</span>
@@ -1225,8 +1293,8 @@ function BookingPanel({ tab, setTab }) {
   return (
     <div className={`calendar${tab === 'call' ? ' calendar--calendly' : ''}`}>
       <div className="calendar-tabs">
-        <button className={`calendar-tab ${tab === 'call' ? 'active' : ''}`} onClick={() => setTab('call')}>{Tc.tabCall || 'Prenota call'}</button>
-        <button className={`calendar-tab ${tab === 'message' ? 'active' : ''}`} onClick={() => setTab('message')}>{Tc.tabMsg || 'Manda messaggio'}</button>
+        <button className={`calendar-tab ${tab==='call'?'active':''}`} onClick={()=>setTab('call')}>{Tc.tabCall || 'Prenota call'}</button>
+        <button className={`calendar-tab ${tab==='message'?'active':''}`} onClick={()=>setTab('message')}>{Tc.tabMsg || 'Manda messaggio'}</button>
       </div>
       <div key={tab} className="calendar-content">
         {tab === 'call' ? <CalendlyEmbed /> : <MessageForm />}
@@ -1246,12 +1314,12 @@ function CallBooker() {
   const cells = [];
   for (let i = 0; i < monthOffset; i++) cells.push({ empty: true, key: `e${i}` });
   for (let d = 1; d <= daysInMonth; d++) {
-    const dim = d < 5 || [9, 10, 16, 17, 23, 24, 30, 31].includes(d);
-    const available = !dim && [6, 7, 8, 12, 13, 14, 15, 19, 20, 21, 22, 26, 27, 28, 29].includes(d);
+    const dim = d < 5 || [9,10,16,17,23,24,30,31].includes(d);
+    const available = !dim && [6,7,8,12,13,14,15,19,20,21,22,26,27,28,29].includes(d);
     cells.push({ d, dim, available, key: `d${d}` });
   }
   const times = ['09:00', '10:30', '14:30', '16:00', '17:30', '18:30'];
-  const dayLetters = Tc.dayLetters || ['L', 'M', 'M', 'G', 'V', 'S', 'D'];
+  const dayLetters = Tc.dayLetters || ['L','M','M','G','V','S','D'];
   const monthName = Tc.monthName || 'Maggio';
   const year = Tc.year || '2026';
   const dayUnavail = Tc.dayUnavail || ', non disponibile';
@@ -1264,7 +1332,7 @@ function CallBooker() {
       <div className="success-state">
         <div className="success-mark">✓</div>
         <div className="success-title">{Tc.successCallTitle || 'Call confermata'}</div>
-        <p className="success-desc">{descLines.map((l, i) => <React.Fragment key={i}>{l}{i < descLines.length - 1 && <br />}</React.Fragment>)}</p>
+        <p className="success-desc">{descLines.map((l, i) => <React.Fragment key={i}>{l}{i < descLines.length - 1 && <br/>}</React.Fragment>)}</p>
       </div>
     );
   }
@@ -1282,7 +1350,7 @@ function CallBooker() {
         {dayLetters.map((d, i) => <div key={i} className="calendar-dow" role="columnheader">{d}</div>)}
         {cells.map(c => {
           if (c.empty) return <div key={c.key} className="calendar-day empty" role="gridcell"></div>;
-          const cls = `calendar-day${c.dim ? ' dim' : ''}${c.available ? ' available' : ''}${c.d === day ? ' selected' : ''}`;
+          const cls = `calendar-day${c.dim?' dim':''}${c.available?' available':''}${c.d===day?' selected':''}`;
           return (
             <button
               key={c.key}
@@ -1298,10 +1366,10 @@ function CallBooker() {
       </div>
       <div className="calendar-times">
         {times.map(t => (
-          <button key={t} className={`calendar-time ${t === time ? 'selected' : ''}`} onClick={() => setTime(t)}>{t}</button>
+          <button key={t} className={`calendar-time ${t===time?'selected':''}`} onClick={()=>setTime(t)}>{t}</button>
         ))}
       </div>
-      <a href="#" className="btn" style={{ width: '100%', justifyContent: 'space-between' }} onClick={(e) => { e.preventDefault(); setSubmitted(true); }}>
+      <a href="#" className="btn" style={{ width: '100%', justifyContent: 'space-between' }} onClick={(e)=>{ e.preventDefault(); setSubmitted(true); }}>
         <span>{getConfirmBtn(day, time)}</span>
         <span className="btn-arrow">→</span>
       </a>
@@ -1386,9 +1454,9 @@ function Footer() {
         <div className="footer-col">
           <div className="footer-brand-mark">
             <svg viewBox="0 0 64 64" width="28" height="28" fill="none" aria-hidden="true" style={{ color: 'var(--neve)' }}>
-              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round" />
-              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="1.05" strokeLinejoin="round" strokeLinecap="round" opacity="0.55" />
-              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M4 50 L18 26 L26 36 L40 18 L60 50" fill="none" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" strokeLinecap="round"/>
+              <path d="M4 56 L24 36 L34 44 L48 28 L60 56" fill="none" stroke="currentColor" strokeWidth="1.05" strokeLinejoin="round" strokeLinecap="round" opacity="0.55"/>
+              <path d="M40 18 L42 22" stroke="#c8b89a" strokeWidth="1.5" strokeLinecap="round"/>
             </svg>
             <span className="footer-brand-pillar"></span>
             <span className="footer-brand-name">
@@ -1496,7 +1564,7 @@ function App() {
     if (!splashVisible) return;
     const timer = setTimeout(() => {
       setSplashVisible(false);
-      try { sessionStorage.setItem('vs-splash-done', '1'); } catch (e) { }
+      try { sessionStorage.setItem('vs-splash-done', '1'); } catch(e) {}
     }, 2400);
     return () => clearTimeout(timer);
   }, []);
