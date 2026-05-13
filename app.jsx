@@ -149,7 +149,7 @@ function SpotlightEffect() {
     let px = window.innerWidth / 2;
     let py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(700px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.15) 0%, rgba(200, 184, 154, 0.06) 40%, transparent 65%)`;
+      el.style.background = `radial-gradient(320px circle at ${px}px ${py}px, rgba(200, 184, 154, 0.22) 0%, rgba(200, 184, 154, 0.09) 50%, transparent 72%)`;
       raf = 0;
     };
     const onMove = (e) => {
@@ -499,35 +499,16 @@ function HeroText({ headline }) {
 
 // ── MagneticStat: requires window.Motion — only rendered when available ──
 function MagneticStat({ data, idx, isHovered, anyHovered, onHover, onLeave, inView, sourceLabel }) {
-  const { motion, AnimatePresence, useMotionValue, useSpring } = window.Motion;
-  const xMv = useMotionValue(0);
-  const yMv = useMotionValue(0);
-  const springX = useSpring(xMv, { stiffness: 240, damping: 28 });
-  const springY = useSpring(yMv, { stiffness: 240, damping: 28 });
-  const ref = React.useRef(null);
-
-  const onMouseMove = React.useCallback((e) => {
-    const rect = ref.current?.getBoundingClientRect();
-    if (!rect) return;
-    xMv.set((e.clientX - (rect.left + rect.width / 2)) * 0.2);
-    yMv.set((e.clientY - (rect.top + rect.height / 2)) * 0.2);
-  }, [xMv, yMv]);
-
-  const onMouseLeave = React.useCallback(() => {
-    xMv.set(0); yMv.set(0); onLeave();
-  }, [xMv, yMv, onLeave]);
+  const { motion, AnimatePresence } = window.Motion;
 
   return (
     <motion.div
-      ref={ref}
       className={`fact-magnetic fact-magnetic--${idx + 1}${isHovered ? ' active' : ''}${anyHovered && !isHovered ? ' dimmed' : ''}`}
-      style={{ x: springX, y: springY }}
       initial={{ opacity: 0, y: 60 }}
       animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 60 }}
       transition={{ duration: 1.1, delay: idx * 0.18, ease: [0.16, 1, 0.3, 1] }}
-      onMouseMove={onMouseMove}
       onMouseEnter={onHover}
-      onMouseLeave={onMouseLeave}
+      onMouseLeave={onLeave}
     >
       <span className="fact-mag-rank">— {data.rank}</span>
       <div className="fact-mag-num">
@@ -1096,7 +1077,6 @@ function CuraAccordion({ breaks }) {
 
   const M = window.Motion;
   const motionComp = M.motion;
-  const AnimatePresence = M.AnimatePresence;
   const LayoutGroup = M.LayoutGroup || React.Fragment;
 
   return (
@@ -1109,7 +1089,7 @@ function CuraAccordion({ breaks }) {
               key={i}
               layout
               className={`cura-panel${isActive ? ' cura-panel--active' : ''}`}
-              style={{ flex: isActive ? '3 3 0%' : '1 1 0%' }}
+              style={{ flex: isActive ? '3 3 0%' : '1 1 0%', overflow: 'hidden' }}
               transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
               onHoverStart={() => !isTouchRef.current && setHovered(i)}
               onHoverEnd={() => setHovered(null)}
@@ -1127,20 +1107,20 @@ function CuraAccordion({ breaks }) {
               >
                 {b.num}<em className="cura-panel-unit">{b.unit || ''}</em>
               </motionComp.div>
-              <AnimatePresence>
-                {isActive && (
-                  <motionComp.p
-                    key="body"
-                    className="cura-panel-body"
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: 6 }}
-                    transition={{ duration: 0.38, delay: 0.22, ease: [0.16, 1, 0.3, 1] }}
-                  >
-                    {b.body}
-                  </motionComp.p>
-                )}
-              </AnimatePresence>
+              <motionComp.div
+                animate={{
+                  maxHeight: isActive ? 220 : 0,
+                  opacity: isActive ? 1 : 0,
+                }}
+                initial={false}
+                transition={{
+                  maxHeight: { duration: 0.52, ease: [0.16, 1, 0.3, 1] },
+                  opacity: { duration: 0.3, delay: isActive ? 0.18 : 0 },
+                }}
+                style={{ overflow: 'hidden' }}
+              >
+                <p className="cura-panel-body">{b.body}</p>
+              </motionComp.div>
             </motionComp.div>
           );
         })}

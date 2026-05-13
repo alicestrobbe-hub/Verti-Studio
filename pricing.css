@@ -1564,3 +1564,100 @@
   .pr-sartorial-level-header { flex-direction: column; align-items: flex-start; }
   .pr-sartorial-note { flex-direction: column; gap: 12px; }
 }
+
+/* ═══════════════════════════════════════
+   SERVIZI — Editorial Value List
+   Sezione 002 · Cosa costruiamo (Pricing)
+═══════════════════════════════════════ */
+
+.pr-editorial-list {
+  display: flex;
+  flex-direction: column;
+  padding-top: clamp(8px, 1.5vw, 20px);
+}
+
+.pr-editorial-item {
+  padding: clamp(22px, 3.5vh, 38px) 0;
+  border-top: 1px solid rgba(200, 184, 154, 0.1);
+  cursor: default;
+  transition: opacity 0.42s ease;
+}
+.pr-editorial-item:last-child { border-bottom: 1px solid rgba(200, 184, 154, 0.1); }
+
+.pr-editorial-item.dimmed { opacity: 0.25; }
+
+.pr-editorial-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: 24px;
+}
+
+.pr-editorial-num {
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  color: #c8b89a;
+  opacity: 0.55;
+  flex-shrink: 0;
+  transition: opacity 0.35s ease;
+  min-width: 24px;
+}
+.pr-editorial-item.active .pr-editorial-num { opacity: 1; }
+
+.pr-editorial-title {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  font-weight: 300;
+  font-size: clamp(28px, 3.8vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.022em;
+  color: var(--neve, #e8e4dc);
+  font-kerning: normal;
+  transition:
+    color 0.38s ease,
+    transform 0.48s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.pr-editorial-item.active .pr-editorial-title {
+  color: #c8b89a;
+  transform: translateX(10px);
+}
+
+.pr-editorial-desc-wrap {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  padding-left: calc(24px + 24px); /* num min-width + gap */
+  transition:
+    max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.3s ease 0s;
+}
+.pr-editorial-item.active .pr-editorial-desc-wrap {
+  max-height: 160px;
+  opacity: 1;
+  transition:
+    max-height 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 0.35s ease 0.12s;
+}
+
+.pr-editorial-desc {
+  font-size: clamp(14px, 1.25vw, 17px);
+  font-weight: 300;
+  color: var(--ghiaccio, #c4c0ba);
+  line-height: 1.82;
+  letter-spacing: 0.018em;
+  padding-top: 14px;
+  max-width: 65ch;
+}
+
+/* Mobile: always visible, no dimming, no hover translate */
+@media (max-width: 768px) {
+  .pr-editorial-item.dimmed { opacity: 1; }
+  .pr-editorial-desc-wrap {
+    max-height: 500px !important;
+    opacity: 1 !important;
+    padding-left: 0;
+    transition: none;
+  }
+  .pr-editorial-item.active .pr-editorial-title { transform: none; }
+  .pr-editorial-title { font-size: clamp(24px, 5.5vw, 38px); }
+  .pr-editorial-title-row { gap: 14px; }
+  .pr-editorial-num { min-width: 20px; }
+}

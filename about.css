@@ -459,7 +459,7 @@
   transition: transform 900ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ah-img-frame--tall:hover .ah-img-tall { transform: scale(1.04); }
+/* hover scale rimosso: sostituito da breathing JS animation */
 
 /* Lista editoriale orizzontale: num | titolo | testo */
 .ah-pilastri { border-top: 1px solid var(--granito); }
@@ -1030,4 +1030,130 @@
   .ah-strip-img {
     transition: none !important;
   }
+}
+
+/* ═══════════════════════════════════════
+   SERVIZI — Two-Column Typographic Split Index
+   Sezione 03 · Cosa facciamo (About)
+═══════════════════════════════════════ */
+
+.ah-si-split {
+  display: grid;
+  grid-template-columns: 35% 1fr;
+  gap: 0 clamp(56px, 7vw, 112px);
+  align-items: start;
+  padding-top: clamp(52px, 7vh, 80px);
+}
+
+.ah-si-triggers {
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: calc(80px + 32px);
+}
+
+.ah-si-trigger {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 20px 0;
+  border-top: 1px solid rgba(200, 184, 154, 0.09);
+  cursor: default;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.ah-si-trigger:last-child { border-bottom: 1px solid rgba(200, 184, 154, 0.09); }
+
+.ah-si-bullet {
+  font-size: 7px;
+  color: #c8b89a;
+  flex-shrink: 0;
+  display: inline-block;
+  line-height: 1;
+}
+
+.ah-si-tag-text {
+  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', 'Courier New', monospace);
+  font-size: 10.5px;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  font-weight: 400;
+}
+
+.ah-si-canvas {
+  min-height: 360px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.ah-si-content { width: 100%; }
+
+.ah-si-index {
+  display: block;
+  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  color: #c8b89a;
+  opacity: 0.65;
+  margin-bottom: 22px;
+}
+
+.ah-si-label {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  font-weight: 300;
+  font-size: clamp(34px, 4vw, 56px);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  color: var(--neve, #e8e4dc);
+  margin-bottom: 28px;
+  font-kerning: normal;
+}
+
+.ah-si-desc {
+  font-size: clamp(14px, 1.25vw, 17px);
+  font-weight: 300;
+  color: var(--ghiaccio, #c4c0ba);
+  line-height: 1.84;
+  letter-spacing: 0.018em;
+  max-width: 50ch;
+}
+
+/* Mobile fallback — vertical stack */
+.ah-si-mobile {
+  padding-top: clamp(36px, 6vh, 60px);
+  display: flex;
+  flex-direction: column;
+}
+
+.ah-si-mobile-item {
+  padding: 28px 0;
+  border-top: 1px solid rgba(200, 184, 154, 0.1);
+}
+.ah-si-mobile-item:last-child { border-bottom: 1px solid rgba(200, 184, 154, 0.1); }
+
+.ah-si-mobile-tag {
+  display: block;
+  font-family: var(--font-mono, 'JetBrains Mono', 'Fira Code', monospace);
+  font-size: 10px;
+  letter-spacing: 0.19em;
+  text-transform: uppercase;
+  color: #c8b89a;
+  opacity: 0.75;
+  margin-bottom: 10px;
+}
+
+.ah-si-mobile-label {
+  font-family: var(--font-display, 'Cormorant Garamond', Georgia, serif);
+  font-weight: 300;
+  font-size: clamp(22px, 4vw, 30px);
+  line-height: 1.2;
+  color: var(--neve, #e8e4dc);
+  margin-bottom: 12px;
+}
+
+.ah-si-mobile-desc {
+  font-size: clamp(14px, 1.3vw, 16px);
+  font-weight: 300;
+  color: var(--ghiaccio, #c4c0ba);
+  line-height: 1.78;
 }

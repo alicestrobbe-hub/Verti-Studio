@@ -303,91 +303,25 @@ function SartorialitaSection() {
   );
 }
 
-// ─────── Bento Servizi ───────
-
-function BentoCard({ servizio, index }) {
-  const ref = React.useRef(null);
-  const [visible, setVisible] = React.useState(false);
-
-  React.useEffect(() => {
-    const obs = new IntersectionObserver(
-      ([e]) => { if (e.isIntersecting) { setVisible(true); obs.disconnect(); } },
-      { threshold: 0.08 }
-    );
-    if (ref.current) obs.observe(ref.current);
-    return () => obs.disconnect();
-  }, []);
-
-  // Magnetic hover — throttled via rAF, no elastic easing
-  React.useEffect(() => {
-    if (!ref.current) return;
-    const el = ref.current;
-    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-    let rafId = 0;
-    let mouseX = 0, mouseY = 0;
-    const onMove = (e) => {
-      mouseX = e.clientX; mouseY = e.clientY;
-      if (rafId) return;
-      rafId = requestAnimationFrame(() => {
-        const r = el.getBoundingClientRect();
-        const x = (mouseX - r.left - r.width  / 2) * 0.07;
-        const y = (mouseY - r.top  - r.height / 2) * 0.07;
-        gsap.to(el, { x, y, duration: 0.45, ease: 'power2.out' });
-        rafId = 0;
-      });
-    };
-    const onLeave = () => {
-      if (rafId) { cancelAnimationFrame(rafId); rafId = 0; }
-      gsap.to(el, { x: 0, y: 0, duration: 0.55, ease: 'power3.out' });
-    };
-    el.addEventListener('mousemove', onMove);
-    el.addEventListener('mouseleave', onLeave);
-    return () => {
-      el.removeEventListener('mousemove', onMove);
-      el.removeEventListener('mouseleave', onLeave);
-      if (rafId) cancelAnimationFrame(rafId);
-    };
-  }, []);
-
-  return (
-    <div
-      ref={ref}
-      className={`pr-bento-card${servizio.featured ? ' pr-bento--featured' : ''}${visible ? ' in' : ''}`}
-      style={{ gridArea: servizio.gridArea, transitionDelay: `${index * 80}ms` }}
-    >
-      <div className="pr-bento-num pr-mono">{servizio.num}</div>
-      <h3 className="pr-bento-title">{servizio.title}</h3>
-      <p className="pr-bento-desc">{servizio.desc}</p>
-      {servizio.featured && <div className="pr-bento-featured-mark" aria-hidden="true" />}
-    </div>
-  );
-}
-
-const SERVIZI_GRID = [
-  { id: 'web', gridArea: 'web', num: '01', featured: true },
-  { id: 'ux',  gridArea: 'ux',  num: '02' },
-  { id: 'ai',  gridArea: 'ai',  num: '03' },
-  { id: 'mkt', gridArea: 'mkt', num: '04' },
-  { id: 'ana', gridArea: 'ana', num: '05' },
-];
+// ─────── Servizi — Editorial Value List ───────
 
 function Servizi() {
   const lang = React.useContext(LangCtx);
   const Ts = (((window.VERTI_LANG || {})[lang] || {}).pricing || {}).servizi || {};
   const tItems = Ts.items || [
-    { title: 'Web Design & Sviluppo', desc: "Siti su misura: architettura dell'informazione, visual design, codice preciso." },
+    { title: 'Web Design & Sviluppo', desc: "Siti su misura: architettura dell'informazione, visual design, codice preciso. Ogni scelta ha una ragione, ogni pagina una funzione." },
     { title: 'UX / UI', desc: 'Esperienza utente studiata per convertire. Prima i wireframe, poi i pixel.' },
     { title: 'AI & Automazioni', desc: 'Flussi intelligenti che eliminano il lavoro ripetitivo.' },
-    { title: 'Marketing Digitale', desc: 'Strategia, contenuti, distribuzione. Visibilità che porta clienti.' },
-    { title: 'Analytics & Dati', desc: "Dashboard che raccontano la realtà dell'azienda. Decisioni su evidenze." },
+    { title: 'Marketing Digitale', desc: 'Strategia, contenuti, distribuzione. Visibilità che porta clienti, non sole visite.' },
+    { title: 'Analytics & Dati', desc: "Dashboard che raccontano la realtà dell'azienda. Decisioni su evidenze, non intuizioni." },
   ];
-  const servizi = SERVIZI_GRID.map((s, i) => ({ ...s, title: tItems[i]?.title || '', desc: tItems[i]?.desc || '' }));
+  const [activeIdx, setActiveIdx] = React.useState(null);
 
   return (
     <section className="pr-servizi">
       <div className="pr-servizi-header">
         <FadeUp>
-          <span className="pr-mono pr-section-label">{Ts.label || '002 / COSA INCLUDE IL TUO PROGETTO'}</span>
+          <span className="pr-mono pr-section-label">{Ts.label || '002 / COSA COSTRUIAMO'}</span>
         </FadeUp>
         <LineReveal delay={100} tag="h2" className="pr-section-title">
           <span>{Ts.titleA || 'Competenze su misura,'}</span>
@@ -397,10 +331,29 @@ function Servizi() {
         </LineReveal>
       </div>
 
-      <div className="pr-bento-grid" role="list">
-        {servizi.map((s, i) => (
-          <BentoCard key={s.id} servizio={s} index={i} />
-        ))}
+      <div className="pr-editorial-list" role="list">
+        {tItems.map((item, i) => {
+          const isActive = activeIdx === i;
+          const isDimmed = activeIdx !== null && !isActive;
+          return (
+            <FadeUp key={i} delay={i * 60}>
+              <div
+                role="listitem"
+                className={`pr-editorial-item${isActive ? ' active' : ''}${isDimmed ? ' dimmed' : ''}`}
+                onMouseEnter={() => setActiveIdx(i)}
+                onMouseLeave={() => setActiveIdx(null)}
+              >
+                <div className="pr-editorial-title-row">
+                  <span className="pr-editorial-num pr-mono">{String(i + 1).padStart(2, '0')}</span>
+                  <h3 className="pr-editorial-title">{item.title}</h3>
+                </div>
+                <div className="pr-editorial-desc-wrap">
+                  <p className="pr-editorial-desc">{item.desc}</p>
+                </div>
+              </div>
+            </FadeUp>
+          );
+        })}
       </div>
     </section>
   );
@@ -709,7 +662,7 @@ function SpotlightEffect() {
     if (!el) return;
     let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(700px circle at ${px}px ${py}px, rgba(200,184,154,0.065) 0%, rgba(200,184,154,0.02) 40%, transparent 65%)`;
+      el.style.background = `radial-gradient(320px circle at ${px}px ${py}px, rgba(200,184,154,0.20) 0%, rgba(200,184,154,0.08) 50%, transparent 72%)`;
       raf = 0;
     };
     const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };

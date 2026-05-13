@@ -327,6 +327,26 @@ function Filosofia() {
   ];
   const titleParts = (Tf.title || 'Il digitale\ncome lo vogliamo.').split('\n');
 
+  // Breathing parallax on tall image (slow continuous scale)
+  const breathRef = React.useRef(null);
+  React.useEffect(() => {
+    const el = breathRef.current;
+    if (!el) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let startTime = null;
+    let rafId;
+    const tick = (t) => {
+      if (!startTime) startTime = t;
+      const elapsed = (t - startTime) / 1000;
+      // 10s period, max scale 1.025 — imperceptibly slow "breathing"
+      const scale = 1 + 0.025 * (0.5 - 0.5 * Math.cos(elapsed * Math.PI / 5));
+      el.style.transform = `scale(${scale.toFixed(5)})`;
+      rafId = requestAnimationFrame(tick);
+    };
+    rafId = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(rafId);
+  }, []);
+
   return (
     <section className="section ah-section ah-dark" id="filosofia">
       <div className="container">
@@ -343,7 +363,7 @@ function Filosofia() {
             </div>
             <div className="ah-pilastri">
               {pilastri.map((p, i) => (
-                <FadeUp key={p.n} delay={i * 80}>
+                <FadeUp key={p.n} delay={i * 120}>
                   <div className="ah-pilastro">
                     <span className="ah-pilastro-num">{p.n}</span>
                     <h3 className="ah-pilastro-title">{p.titolo}</h3>
@@ -355,7 +375,7 @@ function Filosofia() {
           </div>
           <FadeUp delay={200} className="ah-filosofia-img-col">
             <div className="ah-img-frame ah-img-frame--tall">
-              <img src="assets/vert4.jpeg" alt="Alto Adige — paesaggio alpino" className="ah-img-tall" loading="lazy" decoding="async" />
+              <img ref={breathRef} src="assets/vert4.jpeg" alt="Alto Adige — paesaggio alpino" className="ah-img-tall" loading="lazy" decoding="async" style={{ transformOrigin: 'center center' }} />
             </div>
           </FadeUp>
         </div>
@@ -401,7 +421,7 @@ function PhotoStrip() {
 }
 
 // ───────── Servizi ─────────
-// Griglia 3 colonne con padding uniforme 40px su tutti i lati.
+// Two-Column Typographic Split Index (desktop) / vertical stack (mobile)
 
 function Servizi() {
   const lang = React.useContext(LangCtx);
@@ -416,6 +436,94 @@ function Servizi() {
     { tag: 'Analytics', label: 'Dati e decisioni', desc: 'Setup analytics, lettura dei dati, report mensili. Capire cosa funziona e cosa no, con numeri reali.' },
   ];
   const titleParts = (Ts.title || 'Tutto ciò\ndi cui hai bisogno\nonline.').split('\n');
+  const [activeIdx, setActiveIdx] = React.useState(0);
+  const [showSplit, setShowSplit] = React.useState(false);
+
+  React.useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)');
+    const mqFine = window.matchMedia('(pointer: fine)');
+    const check = () => setShowSplit(
+      !!(window.Motion && window.Motion.motion && window.Motion.AnimatePresence) && mq.matches && mqFine.matches
+    );
+    check();
+    mq.addEventListener('change', check);
+    mqFine.addEventListener('change', check);
+    return () => { mq.removeEventListener('change', check); mqFine.removeEventListener('change', check); };
+  }, []);
+
+  const activeService = servizi[activeIdx] || servizi[0];
+  const indexStr = String(activeIdx + 1).padStart(2, '0');
+
+  // Pre-build split body to avoid IIFE in JSX
+  let splitBody;
+  if (showSplit) {
+    const M = window.Motion;
+    const { motion: m, AnimatePresence } = M;
+    splitBody = (
+      <div className="ah-si-split">
+        {/* Left — trigger list */}
+        <div className="ah-si-triggers" role="list">
+          {servizi.map((s, i) => {
+            const isActive = activeIdx === i;
+            return (
+              <m.div
+                key={s.tag}
+                role="listitem"
+                className="ah-si-trigger"
+                onMouseEnter={() => setActiveIdx(i)}
+                animate={{
+                  opacity: isActive ? 1 : 0.28,
+                  color: isActive ? '#c8b89a' : '#6e6c66',
+                }}
+                initial={false}
+                transition={{ duration: 0.32, ease: [0.16, 1, 0.3, 1] }}
+              >
+                <m.span
+                  className="ah-si-bullet"
+                  aria-hidden="true"
+                  animate={{ opacity: isActive ? 1 : 0, x: isActive ? 0 : -8 }}
+                  initial={false}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                >●</m.span>
+                <span className="ah-si-tag-text">{s.tag}</span>
+              </m.div>
+            );
+          })}
+        </div>
+        {/* Right — display canvas */}
+        <div className="ah-si-canvas" aria-live="polite" aria-atomic="true">
+          <AnimatePresence mode="wait">
+            <m.div
+              key={activeIdx}
+              initial={{ opacity: 0, y: 28 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="ah-si-content"
+            >
+              <span className="ah-si-index">{indexStr}</span>
+              <h3 className="ah-si-label">{activeService.label}</h3>
+              <p className="ah-si-desc">{activeService.desc}</p>
+            </m.div>
+          </AnimatePresence>
+        </div>
+      </div>
+    );
+  } else {
+    splitBody = (
+      <div className="ah-si-mobile">
+        {servizi.map((s, i) => (
+          <FadeUp key={s.tag} delay={i * 60}>
+            <div className="ah-si-mobile-item">
+              <span className="ah-si-mobile-tag">{s.tag}</span>
+              <h3 className="ah-si-mobile-label">{s.label}</h3>
+              <p className="ah-si-mobile-desc">{s.desc}</p>
+            </div>
+          </FadeUp>
+        ))}
+      </div>
+    );
+  }
 
   return (
     <section className="section ah-section" id="servizi-about">
@@ -431,17 +539,7 @@ function Servizi() {
             </FadeUp>
           </div>
         </div>
-        <div className="ah-servizi-grid">
-          {servizi.map((s, i) => (
-            <FadeUp key={s.tag} delay={i * 60}>
-              <div className="ah-servizio">
-                <span className="ah-servizio-tag">{s.tag}</span>
-                <h3 className="ah-servizio-label">{s.label}</h3>
-                <p className="ah-servizio-desc">{s.desc}</p>
-              </div>
-            </FadeUp>
-          ))}
-        </div>
+        {splitBody}
       </div>
     </section>
   );
@@ -658,7 +756,7 @@ function SpotlightEffect() {
     if (!el) return;
     let raf = 0, px = window.innerWidth / 2, py = window.innerHeight / 2;
     const paint = () => {
-      el.style.background = `radial-gradient(700px circle at ${px}px ${py}px, rgba(200,184,154,0.065) 0%, rgba(200,184,154,0.02) 40%, transparent 65%)`;
+      el.style.background = `radial-gradient(320px circle at ${px}px ${py}px, rgba(200,184,154,0.20) 0%, rgba(200,184,154,0.08) 50%, transparent 72%)`;
       raf = 0;
     };
     const onMove = (e) => { px = e.clientX; py = e.clientY; if (!raf) raf = requestAnimationFrame(paint); };
