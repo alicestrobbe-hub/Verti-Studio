@@ -284,8 +284,8 @@
   font-weight: 300;
   letter-spacing: 0.26em;
   text-transform: uppercase;
-  color: var(--pietra);
-  opacity: 0.5;
+  color: var(--ghiaccio);
+  opacity: 0.35;
   white-space: nowrap;
   pointer-events: none;
   user-select: none;

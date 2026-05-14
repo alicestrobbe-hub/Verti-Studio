@@ -50,6 +50,7 @@
   position: relative;
   overflow: hidden;
   background: var(--abisso);
+  contain: paint; /* isola blur orbs: repaint non si propaga fuori sezione */
 }
 
 /* Container stays above visual BG */
@@ -408,7 +409,8 @@
   font-family: var(--font-mono);
   font-size: clamp(10px, 0.88vw, 13px);
   letter-spacing: 0.18em;
-  color: var(--pietra);
+  color: var(--ghiaccio);
+  opacity: 0.45;
   text-transform: uppercase;
 }
 .problema-footer-msg {
@@ -823,7 +825,8 @@
   font-size: clamp(9px, 0.82vw, 11px);
   font-weight: 300;
   letter-spacing: 0.09em;
-  color: var(--pietra);
+  color: var(--ghiaccio);
+  opacity: 0.4;
 }
 .servizio-card-tag {
   font-family: var(--font-body);

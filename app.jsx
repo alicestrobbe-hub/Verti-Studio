@@ -293,8 +293,8 @@ function SplashScreen({ visible }) {
         </g>
         <line className="vs-asta" x1="138" y1="46" x2="138" y2="154" stroke="#c8b89a" strokeWidth="1"/>
         <text className="vs-splash-verti" x="160" y="118" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight="300" fontSize="78" fill="#e8e4dc" letterSpacing="-1">Verti</text>
-        <text className="vs-splash-studio" x="160" y="142" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="13" fill="#e8e4dc" letterSpacing="4.2" opacity="0.78">STUDIO</text>
-        <text className="vs-splash-coord" x="160" y="166" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="10" fill="#e8e4dc" letterSpacing="2.8" opacity="0.55">46.4983° N · 11.3548° E</text>
+        <text className="vs-splash-studio" x="160" y="142" fontFamily="'JetBrains Mono', 'Courier New', monospace" fontWeight="300" fontSize="13" fill="#e8e4dc" letterSpacing="4.2" opacity="0.78">STUDIO</text>
+        <text className="vs-splash-coord" x="160" y="166" fontFamily="'JetBrains Mono', 'Courier New', monospace" fontWeight="300" fontSize="10" fill="#e8e4dc" letterSpacing="2.8" opacity="0.55">46.4983° N · 11.3548° E</text>
       </svg>
       <div className="splash-progress" aria-hidden="true">
         <div className="splash-progress-fill"></div>
@@ -370,7 +370,7 @@ function Nav({ scrollY, setLang }) {
             </g>
             <line x1="44" y1="14" x2="44" y2="50" stroke="#c8b89a" strokeWidth="1"/>
             <text x="58" y="44" fontFamily="'Cormorant Garamond', Georgia, serif" fontWeight="300" fontSize="34" fill="currentColor" letterSpacing="-0.4">Verti</text>
-            <text x="158" y="40" fontFamily="'Inter', system-ui, sans-serif" fontWeight="300" fontSize="11" fill="currentColor" letterSpacing="3.4" opacity="0.78">STUDIO</text>
+            <text x="158" y="40" fontFamily="'JetBrains Mono', 'Courier New', monospace" fontWeight="300" fontSize="11" fill="currentColor" letterSpacing="3.4" opacity="0.78">STUDIO</text>
           </svg>
         </a>
         <ul className="nav-links">
@@ -737,7 +737,7 @@ function Problema() {
                 <span className="problema-footer-num" key={`n-${animKey}`}>{count}</span>
                 <span className="problema-footer-total">/ 4 {Tp.footerLabel || 'sintomi'}</span>
               </div>
-              <div className="problema-footer-msg">
+              <div className="problema-footer-msg" aria-live="polite" aria-atomic="true">
                 <span className="problema-footer-text" key={`m-${animKey}`}>
                   {footerMessages[count]}
                 </span>
@@ -1484,7 +1484,7 @@ function CallBooker() {
   if (submitted) {
     const descLines = (Tc.successCallDesc || '12 maggio · 14:30 · 20 minuti.\nRiceverai un\'email con il link Meet entro pochi secondi.').split('\n');
     return (
-      <div className="success-state">
+      <div className="success-state" role="status">
         <div className="success-mark">✓</div>
         <div className="success-title">{Tc.successCallTitle || 'Call confermata'}</div>
         <p className="success-desc">{descLines.map((l, i) => <React.Fragment key={i}>{l}{i < descLines.length - 1 && <br/>}</React.Fragment>)}</p>
@@ -1497,8 +1497,8 @@ function CallBooker() {
       <div className="calendar-header">
         <div className="calendar-month">{monthName} <em>{year}</em></div>
         <div className="calendar-nav">
-          <button aria-label={Tc.prevMonth || 'Mese precedente'}>‹</button>
-          <button aria-label={Tc.nextMonth || 'Mese successivo'}>›</button>
+          <button aria-label={Tc.prevMonth || 'Mese precedente'} disabled>‹</button>
+          <button aria-label={Tc.nextMonth || 'Mese successivo'} disabled>›</button>
         </div>
       </div>
       <div className="calendar-grid" role="grid" aria-label={`${monthName} ${year}`}>
@@ -1521,13 +1521,13 @@ function CallBooker() {
       </div>
       <div className="calendar-times">
         {times.map(t => (
-          <button key={t} className={`calendar-time ${t===time?'selected':''}`} onClick={()=>setTime(t)}>{t}</button>
+          <button key={t} className={`calendar-time ${t===time?'selected':''}`} onClick={()=>setTime(t)} aria-pressed={t === time}>{t}</button>
         ))}
       </div>
-      <a href="#" className="btn" style={{ width: '100%', justifyContent: 'space-between' }} onClick={(e)=>{ e.preventDefault(); setSubmitted(true); }}>
+      <button type="button" className="btn" style={{ width: '100%', justifyContent: 'space-between' }} onClick={() => setSubmitted(true)}>
         <span>{getConfirmBtn(day, time)}</span>
-        <span className="btn-arrow">→</span>
-      </a>
+        <span className="btn-arrow" aria-hidden="true">→</span>
+      </button>
       <div className="calendar-footer" style={{ marginTop: 16 }}>
         <span>{Tc.calFooter1 || '20 minuti · Google Meet'}</span>
         <span>{Tc.calFooter2 || 'Fuso · Europe/Rome'}</span>
@@ -1544,7 +1544,7 @@ function MessageForm() {
 
   if (sent) {
     return (
-      <div className="success-state">
+      <div className="success-state" role="status">
         <div className="success-mark">✓</div>
         <div className="success-title">{Tc.successMsgTitle || 'Messaggio ricevuto'}</div>
         <p className="success-desc">{Tc.successMsgDesc || 'Risponderemo entro ventiquattro ore, di solito molto prima. Nel frattempo, se vuoi, prenota una call sopra.'}</p>
@@ -1572,7 +1572,7 @@ function MessageForm() {
       </div>
       <div className="field">
         <label htmlFor="f-sito">{fl.siteLabel || 'Sito attuale'}</label>
-        <input id="f-sito" type="url" placeholder="https://..." />
+        <input id="f-sito" type="text" placeholder="https://..." autoComplete="url" />
       </div>
       <div className="field">
         <label htmlFor="f-problema">{fl.problemLabel || 'Cosa non funziona'}</label>
