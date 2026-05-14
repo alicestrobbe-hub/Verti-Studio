@@ -310,7 +310,7 @@ function SartorialitaSection() {
 function ServiceDetailModal({ item, onClose }) {
   const lang = React.useContext(LangCtx);
   const Ts = (((window.VERTI_LANG || {})[lang] || {}).pricing || {}).servizi || {};
-  const labels = Ts.modalLabels || { process: 'Come lavoriamo', timeline: 'Tempi', outcome: 'Risultato', close: 'Chiudi' };
+  const labels = Ts.modalLabels || { process: 'Come lavoriamo', onboarding: 'Come iniziare', timeline: 'Tempi', outcome: 'Risultato', close: 'Chiudi' };
   const details = item.details || {};
   const { motion } = window.Motion;
 
@@ -325,11 +325,11 @@ function ServiceDetailModal({ item, onClose }) {
     return () => window.removeEventListener('keydown', handler);
   }, [onClose]);
 
-  const fields = [
-    { key: 'process', label: labels.process },
-    { key: 'timeline', label: labels.timeline },
-    { key: 'outcome', label: labels.outcome },
-  ].filter(f => details[f.key]);
+  // Timeline display: extract a prominent number + unit from the timeline text
+  // Matches patterns like "7 giorni", "14 Wochen", "3 weeks", etc.
+  const timelineMatch = details.timeline && details.timeline.match(/\b(\d+)\s*(giorni|settimane|settimana|Wochen|Woche|Tage|Tagen|days|weeks|mesi|Monate|months)\b/i);
+  const timelineNum = timelineMatch ? timelineMatch[1] : null;
+  const timelineUnit = timelineMatch ? timelineMatch[2] : null;
 
   return (
     <motion.div
@@ -337,66 +337,125 @@ function ServiceDetailModal({ item, onClose }) {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      transition={{ duration: 0.28 }}
+      transition={{ duration: 0.3 }}
       onClick={onClose}
     >
       <motion.div
         className="svc-modal-container"
-        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        initial={{ opacity: 0, scale: 0.97, y: 24 }}
         animate={{ opacity: 1, scale: 1, y: 0 }}
-        exit={{ opacity: 0, scale: 0.95, y: 20 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        exit={{ opacity: 0, scale: 0.97, y: 24 }}
+        transition={{ duration: 0.65, ease: [0.16, 1, 0.3, 1] }}
         onClick={(e) => e.stopPropagation()}
         role="dialog"
         aria-modal="true"
         aria-label={item.title}
       >
-        {/* Header */}
-        <div className="svc-modal-header">
-          <span className="pr-mono svc-modal-num">{item.n}</span>
-          <span className="svc-modal-tag-badge">{item.tag}</span>
-          <button className="svc-modal-close pr-mono" onClick={onClose} aria-label={labels.close}>×</button>
+        {/* ── LEFT COLUMN ── */}
+        <div className="svc-modal-left">
+          {/* Top label */}
+          <div className="svc-modal-left-top">
+            <span className="svc-modal-svc-label pr-mono">
+              SVC // {item.n} — {item.title && item.title.toUpperCase()}
+            </span>
+          </div>
+
+          {/* Middle: title + hook */}
+          <div className="svc-modal-left-mid">
+            <motion.h2
+              className="svc-modal-title"
+              initial={{ opacity: 0, y: 18 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.14, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+            >
+              {item.title && item.title.split(/(\s+)/).map((word, i) => {
+                // Last word gets italic treatment
+                const words = item.title.split(' ');
+                const isLast = word.trim() === words[words.length - 1] && word.trim() !== '';
+                return isLast
+                  ? <em key={i}>{word}</em>
+                  : <React.Fragment key={i}>{word}</React.Fragment>;
+              })}
+            </motion.h2>
+
+            {details.hook && (
+              <motion.p
+                className="svc-modal-hook-text"
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.24, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {details.hook}
+              </motion.p>
+            )}
+          </div>
+
+          {/* Bottom: coordinates + close */}
+          <div className="svc-modal-left-bottom">
+            <span className="svc-modal-coords pr-mono" aria-hidden="true">◯ 46.4983° N, 11.3548° E</span>
+            <button className="svc-modal-close pr-mono" onClick={onClose} aria-label={labels.close}>×</button>
+          </div>
         </div>
 
-        <div className="svc-modal-hdiv" aria-hidden="true" />
+        {/* ── RIGHT COLUMN ── */}
+        <div className="svc-modal-right">
+          {/* Ghost background index number */}
+          <span className="svc-modal-bgnum" aria-hidden="true">{item.n}</span>
 
-        {/* Titolo */}
-        <motion.h2
-          className="svc-modal-title"
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-        >{item.title}</motion.h2>
-
-        {/* Hook — full width, serif italic ambra */}
-        {details.hook && (
-          <motion.div
-            className="svc-modal-hook"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-          >
-            <span className="pr-mono svc-modal-field-label">—</span>
-            <p className="svc-modal-hook-text">{details.hook}</p>
-          </motion.div>
-        )}
-
-        <div className="svc-modal-hdiv" aria-hidden="true" />
-
-        {/* Grid: process / timeline / outcome */}
-        <div className="svc-modal-grid">
-          {fields.map((field, i) => (
+          {/* Row 1: PROCESS */}
+          {details.process && (
             <motion.div
-              key={field.key}
-              className={`svc-modal-field svc-modal-field--${field.key}`}
-              initial={{ opacity: 0, y: 12 }}
+              className="svc-modal-row svc-modal-row--process"
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.28 + i * 0.09, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              transition={{ delay: 0.18, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
-              <span className="pr-mono svc-modal-field-label">{field.label}</span>
-              <p className="svc-modal-field-text">{details[field.key]}</p>
+              <span className="svc-modal-row-label pr-mono">{(labels.process || 'PROCESS').toUpperCase()}</span>
+              <p className="svc-modal-row-text">{details.process}</p>
             </motion.div>
-          ))}
+          )}
+
+          {/* Row 2: ONBOARDING */}
+          {details.onboarding && (
+            <motion.div
+              className="svc-modal-row svc-modal-row--onboarding"
+              initial={{ opacity: 0, y: 16 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.27, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="svc-modal-row-label pr-mono">{(labels.onboarding || 'ONBOARDING').toUpperCase()}</span>
+              <p className="svc-modal-row-text">{details.onboarding}</p>
+            </motion.div>
+          )}
+
+          {/* Row 3: TIMELINE + OUTCOME side by side */}
+          <motion.div
+            className="svc-modal-row svc-modal-row--bottom"
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.36, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
+          >
+            {details.timeline && (
+              <div className="svc-modal-cell svc-modal-cell--timeline">
+                <span className="svc-modal-row-label pr-mono">{(labels.timeline || 'TIMELINE').toUpperCase()}</span>
+                {timelineNum && (
+                  <div className="svc-modal-timeline-big" aria-hidden="true">
+                    <span className="svc-modal-timeline-num">{timelineNum}</span>
+                    {timelineUnit && <span className="svc-modal-timeline-unit"> {timelineUnit}</span>}
+                  </div>
+                )}
+                <p className="svc-modal-row-text">{details.timeline}</p>
+              </div>
+            )}
+            {details.outcome && (
+              <div className="svc-modal-cell svc-modal-cell--outcome">
+                <span className="svc-modal-row-label pr-mono">{(labels.outcome || 'OUTCOME').toUpperCase()}</span>
+                <h3 className="svc-modal-outcome-title">{labels.outcomeTitle || 'Documento Strategico'}</h3>
+                <p className="svc-modal-row-text">{details.outcome}</p>
+                <button className="svc-modal-outcome-arrow" onClick={onClose} aria-label={labels.close}>→</button>
+              </div>
+            )}
+          </motion.div>
         </div>
       </motion.div>
     </motion.div>
