@@ -10,6 +10,7 @@ window.VERTI_LANG = {
       home: 'Home', metodo: 'Metodo', servizi: 'Servizi', lavori: 'Lavori',
       cura: 'Cura', chiSiamo: 'Chi siamo', contatti: 'Contatti',
       investimento: 'Investimento', apriMenu: 'Apri menu', chiudiMenu: 'Chiudi menu',
+      skipLink: 'Vai al contenuto', menuLabel: 'Menu di navigazione', navAriaLabel: 'Navigazione principale',
     },
     home: {
       headlines: {
@@ -26,6 +27,7 @@ window.VERTI_LANG = {
       },
       heroCta: 'Analizza il mio sito',
       heroServices: ['Web design', 'UX / UI', 'Marketing', 'AI & Automazioni', 'Analytics'],
+      heroServicesLabel: 'Servizi principali',
       scrollHint: 'scorri',
       facts: {
         eyebrow: 'Perché il design conta',
@@ -58,6 +60,7 @@ window.VERTI_LANG = {
           { n: '03', t: 'Sviluppo', d: 'Design e build in iterazioni con feedback continuo. Vedi il sito crescere ogni settimana: il tuo input guida le decisioni, non un mockup statico.', time: '1 settimana' },
           { n: '04', t: 'Lancio', d: "Pubblicazione, monitoraggio analytics, affiancamento iniziale. Il sito esce in meno di due settimane dall'avvio reale.", time: '< 14 giorni totali' },
         ],
+        stepsLabel: 'Seleziona fase del processo',
         testimonial: '"Il tasso di contatto è raddoppiato in sei settimane. Non avevamo cambiato l\'offerta, solo come la presentavamo."',
         testimonialCite: 'Direttore · Studio Notarile Tomasi',
         tickerItems: [
@@ -236,7 +239,7 @@ window.VERTI_LANG = {
           { num: '03', faseLabel: 'FASE 03', tag: 'AVANZATO', title: 'Automazione & Scala', itemIndices: [4, 5], phaseTitle: 'Estensioni', phaseMeta: 'AVANZATO', phaseDesc: 'Automazione, AI e distribuzione per chi vuole scalare senza moltiplicare il lavoro.' },
         ],
       },
-      evolution: { label: '003 / VERTI CARE', titleA: 'Il sito che cresce.', titleEm: 'Ogni mese.', subtitle: 'Verti Care', price: '79', pricePeriod: '/mese', priceNote: 'IVA esclusa · disdetta mensile', features: ['Aggiornamenti contenuto illimitati', 'Monitoraggio performance mensile', 'Ottimizzazione SEO continua', 'Backup e sicurezza garantiti', 'Supporto prioritario entro 24h', 'Report analytics mensile', 'Test UX e ottimizzazioni progressive', 'Consulenza strategica trimestrale'], ctaLabel: 'Parliamo del tuo progetto', continuity: 'Continuità · Evoluzione · Risultati', investLabel: 'Investimento', customValue: 'Su misura', customNote: 'Costruito sul tuo progetto' },
+      evolution: { label: '003 / VERTI CARE', titleA: 'Il sito che cresce.', titleEm: 'Ogni mese.', subtitle: 'Verti Care', price: '79', pricePeriod: '/mese', priceNote: 'IVA esclusa · disdetta mensile', featuresLabel: 'Cosa è incluso', features: ['Aggiornamenti contenuto illimitati', 'Monitoraggio performance mensile', 'Ottimizzazione SEO continua', 'Backup e sicurezza garantiti', 'Supporto prioritario entro 24h', 'Report analytics mensile', 'Test UX e ottimizzazioni progressive', 'Consulenza strategica trimestrale'], ctaLabel: 'Parliamo del tuo progetto', continuity: 'Continuità · Evoluzione · Risultati', investLabel: 'Investimento', customValue: 'Su misura', customNote: 'Costruito sul tuo progetto' },
       processo: { label: '004 / COME LAVORIAMO', titleA: 'Un metodo chiaro,', titleEm: 'senza sorprese.', steps: [{ num: '01', title: 'Ascolto', desc: 'Prima conversazione gratuita. Capire il business, gli obiettivi, i vincoli. Nessun modulo da compilare.' }, { num: '02', title: 'Proposta', desc: 'Un documento scritto: cosa facciamo, perché, entro quando, per quanto. Niente sorprese.' }, { num: '03', title: 'Progetto', desc: 'Prima i wireframe, poi il design, poi il codice. Revisioni incluse in ogni fase.' }, { num: '04', title: 'Lancio', desc: 'Test su tutti i dispositivi, ottimizzazione finale, consegna. E poi non scompariamo.' }] },
       faq: { label: '005 / DOMANDE FREQUENTI', titleA: 'Le domande', titleEm: 'che sappiamo già.', items: [{ q: 'Quanto costa un sito web?', a: 'Dipende dalla complessità del progetto: i contenuti, le funzionalità, i tempi. Un sito vetrina per una PMI locale ha un costo molto diverso da un portale con integrazioni personalizzate. Per questo il primo passo è sempre una conversazione, non un preventivo al buio.' }, { q: 'Quanto tempo ci vuole?', a: 'Lavoriamo su ritmi precisi, non su stime vaghe. Setup iniziali e task piccoli: 24 ore. Revisioni e interventi medi: 3 giorni. Progetti completi standard: meno di 14 giorni dal brief al lancio. I tempi definitivi dipendono dalla complessità delle richieste e dalla reattività del cliente — ma questo è il nostro standard di riferimento.' }, { q: "L'Evolution Plan è obbligatorio?", a: "No. Consegniamo sempre il sito completo e funzionante. L'Evolution Plan è una scelta: per chi vuole che il sito continui a crescere senza doversi preoccupare di nulla." }, { q: "Lavorate solo con aziende dell'Alto Adige?", a: 'Verti Studio nasce in Alto Adige e ha un legame profondo con il territorio e il suo tessuto imprenditoriale. Non abbiamo, però, limiti geografici. Siamo aperti a collaborazioni in tutta Italia e, dove il progetto lo richiede, anche in Europa.' }, { q: 'Cosa succede se il risultato non mi soddisfa?', a: 'Lavoriamo con cicli di revisione strutturati. Prima di produrre qualsiasi pagina, wireframe e design vengono approvati insieme. Non iniziamo a costruire finché non siamo allineati sul risultato atteso.' }] },
       cta: { label: '006 / INIZIAMO', titleA: 'Pronto a costruire', titleEm: 'qualcosa che dura?', sub: 'Due modi per iniziare. Scegli quello che si avvicina di più al tuo punto di partenza.', btn1Label: 'Hai un progetto in mente?', btn1Main: 'Richiedi un Preventivo Sartoriale', btn2Label: 'Non sai da dove partire?', btn2Main: 'Prenota una Consulenza Strategica', reassurance: 'Nessun impegno. Solo una conversazione.' },
@@ -250,6 +253,7 @@ window.VERTI_LANG = {
       home: 'Start', metodo: 'Methode', servizi: 'Leistungen', lavori: 'Referenzen',
       cura: 'Pflege', chiSiamo: 'Über uns', contatti: 'Kontakt',
       investimento: 'Investition', apriMenu: 'Menü öffnen', chiudiMenu: 'Menü schließen',
+      skipLink: 'Zum Inhalt springen', menuLabel: 'Navigationsmenü', navAriaLabel: 'Hauptnavigation',
     },
     home: {
       headlines: {
@@ -266,6 +270,7 @@ window.VERTI_LANG = {
       },
       heroCta: 'Meine Website analysieren',
       heroServices: ['Webdesign', 'UX / UI', 'Marketing', 'KI & Automatisierung', 'Analytics'],
+      heroServicesLabel: 'Hauptleistungen',
       scrollHint: 'scrollen',
       facts: {
         eyebrow: 'Warum Design zählt',
@@ -298,6 +303,7 @@ window.VERTI_LANG = {
           { n: '03', t: 'Entwicklung', d: 'Design und Build in Iterationen mit kontinuierlichem Feedback. Du siehst die Website jede Woche wachsen.', time: '1 Woche' },
           { n: '04', t: 'Start', d: 'Veröffentlichung, Analytics-Monitoring, anfängliche Begleitung. Die Website geht in weniger als zwei Wochen live.', time: '< 14 Tage gesamt' },
         ],
+        stepsLabel: 'Prozessphase auswählen',
         testimonial: '"Die Kontaktrate hat sich in sechs Wochen verdoppelt. Wir hatten das Angebot nicht geändert, nur wie wir es präsentierten."',
         testimonialCite: 'Direktor · Studio Notarile Tomasi',
         tickerItems: [
@@ -476,7 +482,7 @@ window.VERTI_LANG = {
           { num: '03', faseLabel: 'PHASE 03', tag: 'FORTGESCHRITTEN', title: 'Automatisierung & Skalierung', itemIndices: [4, 5], phaseTitle: 'Erweiterungen', phaseMeta: 'FORTGESCHRITTEN', phaseDesc: 'Automatisierung, KI und Verteilung für alle, die skalieren möchten, ohne die Arbeit zu vervielfachen.' },
         ],
       },
-      evolution: { label: '003 / VERTI CARE', titleA: 'Die Website, die wächst.', titleEm: 'Jeden Monat.', subtitle: 'Verti Care', price: '79', pricePeriod: '/Monat', priceNote: 'Zzgl. MwSt. · Jederzeit kündbar', features: ['Unbegrenzte Inhaltsaktualisierungen', 'Monatliches Performance-Monitoring', 'Kontinuierliche SEO-Optimierung', 'Backup und Sicherheit garantiert', 'Prioritätssupport innerhalb 24h', 'Monatlicher Analytics-Bericht', 'UX-Tests und schrittweise Optimierungen', 'Vierteljährliche Strategieberatung'], ctaLabel: 'Sprich mit uns über dein Projekt', continuity: 'Kontinuität · Entwicklung · Ergebnisse', investLabel: 'Investition', customValue: 'Maßgeschneidert', customNote: 'Auf dein Projekt zugeschnitten' },
+      evolution: { label: '003 / VERTI CARE', titleA: 'Die Website, die wächst.', titleEm: 'Jeden Monat.', subtitle: 'Verti Care', price: '79', pricePeriod: '/Monat', priceNote: 'Zzgl. MwSt. · Jederzeit kündbar', featuresLabel: 'Was enthalten ist', features: ['Unbegrenzte Inhaltsaktualisierungen', 'Monatliches Performance-Monitoring', 'Kontinuierliche SEO-Optimierung', 'Backup und Sicherheit garantiert', 'Prioritätssupport innerhalb 24h', 'Monatlicher Analytics-Bericht', 'UX-Tests und schrittweise Optimierungen', 'Vierteljährliche Strategieberatung'], ctaLabel: 'Sprich mit uns über dein Projekt', continuity: 'Kontinuität · Entwicklung · Ergebnisse', investLabel: 'Investition', customValue: 'Maßgeschneidert', customNote: 'Auf dein Projekt zugeschnitten' },
       processo: { label: '004 / WIE WIR ARBEITEN', titleA: 'Eine klare Methode,', titleEm: 'keine Überraschungen.', steps: [{ num: '01', title: 'Zuhören', desc: 'Erstes Gespräch kostenlos. Das Unternehmen, die Ziele, die Einschränkungen verstehen. Kein Formular.' }, { num: '02', title: 'Angebot', desc: 'Ein schriftliches Dokument: was wir tun, warum, bis wann, für wie viel. Keine Überraschungen.' }, { num: '03', title: 'Projekt', desc: 'Erst Wireframes, dann Design, dann Code. Revisionen in jeder Phase inklusive.' }, { num: '04', title: 'Start', desc: 'Tests auf allen Geräten, finale Optimierung, Übergabe. Und dann verschwinden wir nicht.' }] },
       faq: { label: '005 / HÄUFIGE FRAGEN', titleA: 'Die Fragen,', titleEm: 'die wir schon kennen.', items: [{ q: 'Was kostet eine Website?', a: 'Das hängt von der Komplexität des Projekts ab: Inhalte, Funktionen, Zeitplan. Eine Visitenkarten-Website für ein lokales KMU kostet sehr anders als ein Portal mit individuellen Integrationen. Deshalb ist der erste Schritt immer ein Gespräch.' }, { q: 'Wie lange dauert es?', a: 'Wir arbeiten nach klaren Richtwerten, nicht nach vagen Schätzungen. Erste Einrichtungen und kleine Aufgaben: 24 Stunden. Mittlere Aufgaben und Überarbeitungen: 3 Tage. Vollständige Standardprojekte: weniger als 14 Tage vom Briefing bis zum Launch. Die endgültigen Zeiten hängen von der Komplexität und der Reaktionsgeschwindigkeit des Kunden ab — aber das sind unsere Referenzwerte.' }, { q: 'Ist der Evolution Plan Pflicht?', a: 'Nein. Wir liefern immer die vollständige und funktionierende Website. Der Evolution Plan ist eine Wahl: für wer möchte, dass die Website weiter wächst.' }, { q: 'Arbeitet ihr nur mit Südtiroler Unternehmen?', a: 'Verti Studio ist in Südtirol entstanden und hat eine tiefe Verbindung zum Territorium und seinem Unternehmertum. Wir haben jedoch keine geografischen Grenzen. Wir sind offen für Kooperationen in ganz Italien und, wo das Projekt es erfordert, auch in Europa.' }, { q: 'Was passiert, wenn ich mit dem Ergebnis nicht zufrieden bin?', a: 'Wir arbeiten mit strukturierten Revisionszyklen. Bevor wir eine Seite erstellen, werden Wireframes und Design gemeinsam genehmigt.' }] },
       cta: { label: '006 / STARTEN WIR', titleA: 'Bereit, etwas', titleEm: 'Dauerhaftes zu bauen?', sub: 'Zwei Wege zum Start. Wähle den, der deinem Ausgangspunkt am nächsten kommt.', btn1Label: 'Hast du ein Projekt im Sinn?', btn1Main: 'Ein maßgeschneidertes Angebot anfragen', btn2Label: 'Weißt du nicht, wo du anfangen sollst?', btn2Main: 'Eine strategische Beratung buchen', reassurance: 'Keine Verpflichtung. Nur ein Gespräch.' },
@@ -490,6 +496,7 @@ window.VERTI_LANG = {
       home: 'Home', metodo: 'Method', servizi: 'Services', lavori: 'Work',
       cura: 'Care', chiSiamo: 'About', contatti: 'Contact',
       investimento: 'Investment', apriMenu: 'Open menu', chiudiMenu: 'Close menu',
+      skipLink: 'Skip to content', menuLabel: 'Navigation menu', navAriaLabel: 'Main navigation',
     },
     home: {
       headlines: {
@@ -506,6 +513,7 @@ window.VERTI_LANG = {
       },
       heroCta: 'Analyse my website',
       heroServices: ['Web design', 'UX / UI', 'Marketing', 'AI & Automation', 'Analytics'],
+      heroServicesLabel: 'Main services',
       scrollHint: 'scroll',
       facts: {
         eyebrow: 'Why design matters',
@@ -538,6 +546,7 @@ window.VERTI_LANG = {
           { n: '03', t: 'Build', d: 'Design and build in iterations with continuous feedback. You see the website grow each week: your input guides decisions.', time: '1 week' },
           { n: '04', t: 'Launch', d: 'Publishing, analytics monitoring, initial support. The website goes live in less than two weeks from kickoff.', time: '< 14 days total' },
         ],
+        stepsLabel: 'Select process phase',
         testimonial: '"The contact rate doubled in six weeks. We hadn\'t changed the offer, only how we presented it."',
         testimonialCite: 'Director · Studio Notarile Tomasi',
         tickerItems: [
@@ -716,7 +725,7 @@ window.VERTI_LANG = {
           { num: '03', faseLabel: 'PHASE 03', tag: 'ADVANCED', title: 'Automation & Scale', itemIndices: [4, 5], phaseTitle: 'Extensions', phaseMeta: 'ADVANCED', phaseDesc: 'Automation, AI and distribution for those who want to scale without multiplying the work.' },
         ],
       },
-      evolution: { label: '003 / VERTI CARE', titleA: 'The website that grows.', titleEm: 'Every month.', subtitle: 'Verti Care', price: '79', pricePeriod: '/month', priceNote: 'Excl. VAT · Cancel anytime', features: ['Unlimited content updates', 'Monthly performance monitoring', 'Ongoing SEO optimisation', 'Backup and security guaranteed', 'Priority support within 24h', 'Monthly analytics report', 'UX testing and progressive optimisations', 'Quarterly strategic consultation'], ctaLabel: "Let's talk about your project", continuity: 'Continuity · Evolution · Results', investLabel: 'Investment', customValue: 'Bespoke', customNote: 'Built around your project' },
+      evolution: { label: '003 / VERTI CARE', titleA: 'The website that grows.', titleEm: 'Every month.', subtitle: 'Verti Care', price: '79', pricePeriod: '/month', priceNote: 'Excl. VAT · Cancel anytime', featuresLabel: "What's included", features: ['Unlimited content updates', 'Monthly performance monitoring', 'Ongoing SEO optimisation', 'Backup and security guaranteed', 'Priority support within 24h', 'Monthly analytics report', 'UX testing and progressive optimisations', 'Quarterly strategic consultation'], ctaLabel: "Let's talk about your project", continuity: 'Continuity · Evolution · Results', investLabel: 'Investment', customValue: 'Bespoke', customNote: 'Built around your project' },
       processo: { label: '004 / HOW WE WORK', titleA: 'A clear method,', titleEm: 'no surprises.', steps: [{ num: '01', title: 'Listening', desc: 'First conversation free. Understanding the business, the goals, the constraints. No forms to fill.' }, { num: '02', title: 'Proposal', desc: 'A written document: what we do, why, by when, for how much. No surprises.' }, { num: '03', title: 'Project', desc: 'Wireframes first, then design, then code. Revisions included at every stage.' }, { num: '04', title: 'Launch', desc: "Tests on all devices, final optimisation, delivery. And then we don't disappear." }] },
       faq: { label: '005 / FAQ', titleA: 'The questions', titleEm: 'we already know.', items: [{ q: 'How much does a website cost?', a: "It depends on the complexity of the project: content, features, timeline. That's why the first step is always a conversation, not a blind quote." }, { q: 'How long does it take?', a: 'We work to precise benchmarks, not vague estimates. Initial setups and small tasks: 24 hours. Medium tasks and revisions: 3 days. Full standard projects: less than 14 days from brief to launch. Final timelines depend on the complexity of requests and client responsiveness — but these are our reference standards.' }, { q: 'Is the Evolution Plan mandatory?', a: "No. We always deliver the complete, functional website. The Evolution Plan is a choice: for those who want the website to keep growing." }, { q: 'Do you only work with South Tyrol businesses?', a: "Verti Studio was born in South Tyrol and has a deep connection to the territory and its entrepreneurial community. We have no geographical limits, however. We are open to collaborations across Italy and, where the project calls for it, across Europe." }, { q: "What happens if I'm not satisfied with the result?", a: "We work with structured revision cycles. Before producing any page, wireframes and design are approved together." }] },
       cta: { label: "006 / LET'S START", titleA: 'Ready to build', titleEm: 'something that lasts?', sub: 'Two ways to begin. Choose the one closest to your starting point.', btn1Label: 'Have a project in mind?', btn1Main: 'Request a Tailored Quote', btn2Label: "Not sure where to start?", btn2Main: 'Book a Strategic Consultation', reassurance: 'No commitment. Just a conversation.' },

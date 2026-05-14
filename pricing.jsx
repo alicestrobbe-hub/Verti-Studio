@@ -122,7 +122,7 @@ function Nav({ setLang }) {
 
   return (
     <>
-      <nav className={`nav${scrolled ? ' scrolled' : ''}`} role="navigation" aria-label="Navigazione principale">
+      <nav className={`nav${scrolled ? ' scrolled' : ''}`} role="navigation" aria-label={tn.navAriaLabel || 'Navigazione principale'}>
         <a href="index.html" className="nav-brand" aria-label="Verti Studio — Home">
           <svg className="nav-logo-compact" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 280 64" aria-hidden="true">
             <g transform="translate(2 14) scale(0.56)">
@@ -159,7 +159,7 @@ function Nav({ setLang }) {
         className={`nav-overlay${open ? ' open' : ''}`}
         aria-hidden={!open}
         role="dialog"
-        aria-label="Menu di navigazione"
+        aria-label={tn.menuLabel || 'Menu di navigazione'}
         onClick={close}
       >
         <nav className="nav-overlay-inner" onClick={(e) => e.stopPropagation()}>
@@ -661,7 +661,7 @@ function EvolutionPlan() {
             </svg>
           </div>
 
-          <ul className="pr-evo-features" aria-label="Cosa è incluso">
+          <ul className="pr-evo-features" aria-label={Te.featuresLabel || 'Cosa è incluso'}>
             {features.map((f, i) => (
               <li
                 key={i}

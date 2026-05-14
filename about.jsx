@@ -148,7 +148,7 @@ function Nav({ scrollY, setLang }) {
           <span></span><span></span><span></span>
         </button>
       </nav>
-      <div id="nav-overlay-about" className={`nav-overlay${open ? ' open' : ''}`} aria-hidden={!open} role="dialog" aria-label="Menu di navigazione" onClick={close}>
+      <div id="nav-overlay-about" className={`nav-overlay${open ? ' open' : ''}`} aria-hidden={!open} role="dialog" aria-label={tn.menuLabel || 'Menu di navigazione'} onClick={close}>
         <nav className="nav-overlay-inner" onClick={(e) => e.stopPropagation()}>
           {links.map(([href, label], i) => (<a key={href} href={href} className="nav-overlay-link" style={{ '--i': i }} onClick={close} {...(href === 'about.html' ? { 'aria-current': 'page' } : {})}>{label}</a>))}
           <LangSwitcher setLang={setLang} />
@@ -421,7 +421,7 @@ function PhotoStrip() {
         const shouldRaise = isWide && (i === 0 || i === 2);
         return (
           <FadeUp key={p.src} delay={i * 120} className="ah-strip-item-wrap">
-            <div style={shouldRaise ? { position: 'relative', top: '-100px' } : undefined}>
+            <div style={shouldRaise ? { position: 'relative', top: '-100px', height: 'calc(100% + 100px)' } : { height: '100%' }}>
               <div className="ah-strip-item">
                 {/* img 0 (vert3): soggetto nella parte bassa → 88%
                     img 1 (vert5): centrale, va bene così → center
@@ -836,6 +836,7 @@ function CustomCursor() {
 function AboutApp() {
   const scrollY = useScrollY();
   const [lang, setLang] = useLang();
+  const tn = ((window.VERTI_LANG || {})[lang] || {}).nav || {};
 
   React.useEffect(() => {
     const progressBar = document.querySelector('.scroll-progress');
@@ -864,7 +865,7 @@ function AboutApp() {
       <CustomCursor />
       <SpotlightEffect />
       <div className="scroll-progress" aria-hidden="true" />
-      <a href="#origine" className="skip-link">Vai al contenuto</a>
+      <a href="#origine" className="skip-link">{tn.skipLink || 'Vai al contenuto'}</a>
       <Nav scrollY={scrollY} setLang={setLang} />
       <AboutHero />
       <Statement />

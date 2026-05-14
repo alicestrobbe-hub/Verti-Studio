@@ -404,7 +404,7 @@ function Nav({ scrollY, setLang }) {
         className={`nav-overlay${open ? ' open' : ''}`}
         aria-hidden={!open}
         role="dialog"
-        aria-label="Menu di navigazione"
+        aria-label={tn.menuLabel || 'Menu di navigazione'}
         onClick={close}
       >
         <nav className="nav-overlay-inner" onClick={(e) => e.stopPropagation()}>
@@ -468,7 +468,7 @@ function HeroText({ headline }) {
           <p className="subtitle">{sub}</p>
         </FadeUp>
         <FadeUp delay={1150}>
-          <div className="hero-services" aria-label="Servizi principali" style={{ justifyContent: 'center' }}>
+          <div className="hero-services" aria-label={T.heroServicesLabel || 'Servizi principali'} style={{ justifyContent: 'center' }}>
             {(T.heroServices || ['Web design', 'UX / UI', 'Marketing', 'AI & Automazioni', 'Analytics']).map((s) => (
               <span key={s} className="hero-service-tag">{s}</span>
             ))}
@@ -848,7 +848,7 @@ function Metodo() {
               onMouseDown={(e) => { if (!hasInteracted) setHasInteracted(true); setIsDragging(true); setActiveStep(getStepFromX(e.clientX)); }}
               onTouchStart={(e) => { if (!hasInteracted) setHasInteracted(true); setIsDragging(true); setActiveStep(getStepFromX(e.touches[0].clientX)); }}
               role="slider"
-              aria-label="Seleziona fase del processo"
+              aria-label={Tm.stepsLabel || 'Seleziona fase del processo'}
               aria-valuemin={0}
               aria-valuemax={steps.length - 1}
               aria-valuenow={activeStep}
@@ -1713,6 +1713,7 @@ function App() {
   const [t, setTweak] = useTweaks(TWEAK_DEFAULTS);
   const scrollY = useScrollY();
   const [lang, setLang] = useLang();
+  const tn = ((window.VERTI_LANG || {})[lang] || {}).nav || {};
   const [splashVisible, setSplashVisible] = React.useState(() => shouldShowSplash());
 
   React.useEffect(() => {
@@ -1818,7 +1819,7 @@ function App() {
   return (
     <LangCtx.Provider value={lang}>
       <div className="scroll-progress" aria-hidden="true" />
-      <a href="#facts" className="skip-link">Vai al contenuto</a>
+      <a href="#facts" className="skip-link">{tn.skipLink || 'Vai al contenuto'}</a>
       <SplashScreen visible={splashVisible} />
       <CustomCursor enabled={t.showCursor && t.animLevel === 'full'} />
       <SpotlightEffect />
