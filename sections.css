@@ -91,7 +91,7 @@
   height: 680px;
   top: -220px;
   left: -280px;
-  background: radial-gradient(circle, rgba(72, 16, 132, 0.50) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(45, 90, 50, 0.55) 0%, transparent 70%);
   animation: cura-orb1 24s ease-in-out infinite;
 }
 .cura-orb--2 {
@@ -99,7 +99,7 @@
   height: 580px;
   top: 25%;
   right: -200px;
-  background: radial-gradient(circle, rgba(18, 36, 120, 0.44) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(25, 58, 38, 0.50) 0%, transparent 70%);
   animation: cura-orb2 30s ease-in-out infinite;
 }
 .cura-orb--3 {
@@ -107,7 +107,7 @@
   height: 500px;
   bottom: -120px;
   left: 28%;
-  background: radial-gradient(circle, rgba(108, 14, 86, 0.34) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(55, 105, 60, 0.40) 0%, transparent 70%);
   animation: cura-orb3 20s ease-in-out infinite;
 }
 .cura-orb--4 {
@@ -115,7 +115,7 @@
   height: 420px;
   top: 52%;
   left: 54%;
-  background: radial-gradient(circle, rgba(28, 58, 145, 0.26) 0%, transparent 70%);
+  background: radial-gradient(circle, rgba(35, 72, 48, 0.32) 0%, transparent 70%);
   animation: cura-orb4 27s ease-in-out infinite reverse;
   transform: translate(-50%, -50%);
 }
@@ -151,32 +151,32 @@
   stroke-width: 0.5;
 }
 .cura-cell--1 {
-  fill: rgba(95, 25, 155, 0.07);
-  stroke: rgba(140, 75, 210, 0.09);
+  fill: rgba(45, 90, 52, 0.08);
+  stroke: rgba(72, 135, 78, 0.11);
   animation: cura-cdrift1 32s ease-in-out infinite;
   transform-origin: 320px 280px;
 }
 .cura-cell--2 {
-  fill: rgba(18, 48, 140, 0.08);
-  stroke: rgba(55, 95, 205, 0.11);
+  fill: rgba(30, 68, 44, 0.09);
+  stroke: rgba(56, 112, 66, 0.13);
   animation: cura-cdrift2 38s ease-in-out infinite reverse;
   transform-origin: 950px 580px;
 }
 .cura-cell--3 {
-  fill: rgba(88, 18, 118, 0.06);
-  stroke: rgba(128, 58, 178, 0.09);
+  fill: rgba(40, 82, 48, 0.07);
+  stroke: rgba(65, 122, 72, 0.10);
   animation: cura-cdrift3 29s ease-in-out infinite;
   transform-origin: 1220px 180px;
 }
 .cura-cell--4 {
-  fill: rgba(38, 78, 162, 0.07);
-  stroke: rgba(75, 118, 202, 0.10);
+  fill: rgba(35, 72, 44, 0.08);
+  stroke: rgba(60, 116, 68, 0.12);
   animation: cura-cdrift4 34s ease-in-out infinite reverse;
   transform-origin: 310px 610px;
 }
 .cura-cell--5 {
-  fill: rgba(75, 15, 105, 0.05);
-  stroke: rgba(115, 55, 165, 0.08);
+  fill: rgba(38, 76, 46, 0.06);
+  stroke: rgba(62, 110, 70, 0.09);
   animation: cura-cdrift1 41s ease-in-out infinite;
   transform-origin: 680px 820px;
 }
@@ -398,7 +398,7 @@
   font-family: var(--font-display);
   font-style: italic;
   font-weight: 300;
-  font-size: clamp(28px, 3.2vw, 44px);
+  font-size: clamp(38px, 4.8vw, 62px);
   line-height: 1;
   color: var(--ambra);
   letter-spacing: -0.03em;
@@ -406,7 +406,7 @@
 }
 .problema-footer-total {
   font-family: var(--font-mono);
-  font-size: 9px;
+  font-size: clamp(10px, 0.88vw, 13px);
   letter-spacing: 0.18em;
   color: var(--pietra);
   text-transform: uppercase;
@@ -418,10 +418,11 @@
 .problema-footer-text {
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(13px, 1.25vw, 16px);
+  font-size: clamp(16px, 1.65vw, 22px);
   color: var(--ghiaccio);
   animation: footerMsgIn 440ms var(--ease-expo-out) both;
   display: block;
+  line-height: 1.45;
 }
 .problema-footer-cta {
   flex-shrink: 0;

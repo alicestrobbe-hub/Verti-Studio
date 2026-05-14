@@ -450,12 +450,20 @@ function ServiziBand({ group, items, gi, onOpenModal }) {
               className={`pr-band-service${ii > 0 ? ' pr-band-service--sep' : ''}${item.details ? ' pr-band-service--clickable' : ''}`}
               initial={{ opacity: 0, y: 28 }}
               animate={bandInView ? {
-                opacity: isSiblingHovered ? 0.32 : 1,
+                opacity: !bandInView ? 0 : isSiblingHovered ? 0.30 : 1,
                 y: 0,
+                scale: isThisHovered ? 1.018 : 1,
+                backgroundColor: isThisHovered ? 'rgba(22, 22, 22, 1)' : 'rgba(0, 0, 0, 0)',
+                boxShadow: isThisHovered
+                  ? '0 0 0 1px rgba(200, 184, 154, 0.20), inset 0 1px 0 rgba(200, 184, 154, 0.06), 0 12px 48px rgba(0, 0, 0, 0.55)'
+                  : '0 0 0 1px rgba(0, 0, 0, 0), inset 0 0 0 rgba(0, 0, 0, 0), 0 0 0 rgba(0, 0, 0, 0)',
               } : { opacity: 0, y: 28 }}
               transition={{
-                opacity: { duration: isSiblingHovered ? 0.28 : 0.8, ease: [0.16, 1, 0.3, 1] },
+                opacity: { duration: isSiblingHovered ? 0.25 : 0.8, ease: [0.16, 1, 0.3, 1] },
                 y: { duration: 0.8, ease: [0.16, 1, 0.3, 1], delay: bandInView ? 0.28 + ii * 0.14 : 0 },
+                scale: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
+                backgroundColor: { duration: 0.35, ease: [0.16, 1, 0.3, 1] },
+                boxShadow: { duration: 0.5, ease: [0.16, 1, 0.3, 1] },
               }}
               onMouseEnter={() => setHoveredService(ii)}
               onMouseLeave={() => setHoveredService(null)}
@@ -465,32 +473,56 @@ function ServiziBand({ group, items, gi, onOpenModal }) {
               onKeyDown={(e) => { if (item.details && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onOpenModal && onOpenModal(item); } }}
               aria-haspopup={item.details ? 'dialog' : undefined}
             >
+              {/* Header: numero mono + badge tag */}
               <div className="pr-band-service-header">
-                <span className="pr-mono pr-band-service-num">{item.n || String(ii + 1).padStart(2, '0')}</span>
-                <span className="pr-band-service-tag">{item.tag}</span>
+                <motion.span
+                  className="pr-mono pr-band-service-num"
+                  animate={{ color: isThisHovered ? 'var(--ambra)' : 'var(--pietra)' }}
+                  initial={false}
+                  transition={{ duration: 0.28, ease: [0.16, 1, 0.3, 1] }}
+                >{item.n || String(ii + 1).padStart(2, '0')}</motion.span>
+                <motion.span
+                  className="pr-band-service-tag"
+                  animate={{
+                    borderColor: isThisHovered ? 'rgba(200, 184, 154, 0.50)' : 'rgba(200, 184, 154, 0.22)',
+                    color: isThisHovered ? 'var(--ambra)' : 'rgba(200, 184, 154, 0.70)',
+                  }}
+                  initial={false}
+                  transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                >{item.tag}</motion.span>
               </div>
-              {/* Titolo: si illumina da ghiaccio a neve su hover */}
+
+              {/* Titolo display: si illumina da ghiaccio a neve su hover */}
               <motion.h4
                 className="pr-band-item-title"
-                animate={{
-                  color: isThisHovered ? 'var(--neve)' : 'var(--ghiaccio)',
-                }}
+                animate={{ color: isThisHovered ? 'var(--neve)' : 'var(--ghiaccio)' }}
                 initial={false}
                 transition={{ duration: 0.3, ease: [0.16, 1, 0.3, 1] }}
               >{item.title}</motion.h4>
+
               <p className="pr-band-service-rich">{item.richDesc || item.desc}</p>
-              {/* Freccia ambra: si sposta in alto a destra su hover */}
-              <motion.span
-                className="pr-band-service-arrow"
-                aria-hidden="true"
-                animate={{
-                  x: isThisHovered ? 4 : 0,
-                  y: isThisHovered ? -4 : 0,
-                  opacity: isThisHovered ? 1 : 0.55,
-                }}
-                initial={false}
-                transition={{ duration: 0.35, ease: [0.16, 1, 0.3, 1] }}
-              >→</motion.span>
+
+              {/* Footer: linea ambra + freccia micro-animata */}
+              <div className="pr-band-service-footer">
+                <motion.div
+                  className="pr-band-service-underline"
+                  animate={{ scaleX: isThisHovered ? 1 : 0, opacity: isThisHovered ? 1 : 0 }}
+                  initial={false}
+                  transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                />
+                <motion.span
+                  className="pr-band-service-arrow"
+                  aria-hidden="true"
+                  animate={{
+                    x: isThisHovered ? 5 : 0,
+                    y: isThisHovered ? -5 : 0,
+                    opacity: isThisHovered ? 1 : 0.45,
+                    scale: isThisHovered ? 1.15 : 1,
+                  }}
+                  initial={false}
+                  transition={{ duration: 0.38, ease: [0.16, 1, 0.3, 1] }}
+                >→</motion.span>
+              </div>
             </motion.div>
           );
         })}

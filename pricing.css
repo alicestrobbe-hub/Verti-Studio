@@ -1800,14 +1800,16 @@
   align-items: start;
 }
 
-/* Each service card — moduli indipendenti senza box full-height */
+/* Each service card — moduli indipendenti, hover premium con Framer Motion */
 .pr-band-service {
   display: flex;
   flex-direction: column;
-  padding: clamp(12px, 1.8vh, 20px) clamp(16px, 2.2vw, 32px);
+  padding: clamp(20px, 2.6vh, 32px) clamp(20px, 2.8vw, 40px);
   position: relative;
-  min-height: 200px;
+  min-height: 220px;
   cursor: default;
+  border-radius: 2px;
+  /* background / box-shadow controllati da Framer Motion */
 }
 
 /* Separatore parziale: linea verticale a gradiente tra i due moduli service.
@@ -1833,48 +1835,82 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: 16px;
+  margin-bottom: clamp(18px, 2.2vh, 28px);
 }
 
 .pr-band-service-num {
-  font-size: 10px;
+  font-family: var(--font-mono);
+  font-size: clamp(9px, 0.78vw, 11px);
   letter-spacing: 0.22em;
   color: var(--pietra);
+  /* colore animato via Framer Motion */
 }
 
 .pr-band-service-tag {
   font-family: var(--font-mono);
-  font-size: 8px;
-  letter-spacing: 0.2em;
+  font-size: clamp(7px, 0.62vw, 9px);
+  letter-spacing: 0.22em;
   text-transform: uppercase;
-  color: var(--ambra);
-  border: 1px solid rgba(200, 184, 154, 0.28);
-  padding: 3px 7px;
+  color: rgba(200, 184, 154, 0.70);
+  border: 1px solid rgba(200, 184, 154, 0.22);
+  padding: 4px 9px;
   border-radius: 2px;
+  /* colore/bordo animati via Framer Motion */
 }
 
 .pr-band-service .pr-band-item-title {
+  font-family: var(--font-display);
+  font-weight: 300;
+  font-size: clamp(20px, 2.1vw, 30px);
+  line-height: 1.1;
+  letter-spacing: -0.018em;
   flex-grow: 0;
-  margin-bottom: 10px;
-  color: var(--ghiaccio); /* hover porta a --neve via Framer Motion */
+  margin-bottom: clamp(10px, 1.4vh, 16px);
+  color: var(--ghiaccio);
+  font-kerning: normal;
+  /* colore animato via Framer Motion */
 }
 
 .pr-band-service-rich {
-  font-size: clamp(12px, 0.95vw, 14px);
-  line-height: 1.82;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(13px, 1.1vw, 16px);
+  line-height: 1.72;
   color: var(--ghiaccio);
   font-weight: 300;
-  letter-spacing: 0.012em;
+  letter-spacing: 0.008em;
   flex-grow: 1;
+  opacity: 0.72;
+}
+
+/* Footer row: linea ambra + freccia */
+.pr-band-service-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: clamp(18px, 2.4vh, 28px);
+  position: relative;
+}
+
+/* Linea ambra draw-on-hover — scaleX da Framer Motion */
+.pr-band-service-underline {
+  position: absolute;
+  bottom: -12px;
+  left: 0;
+  right: 32px;
+  height: 1px;
+  background: linear-gradient(to right, var(--ambra), transparent);
+  transform-origin: left;
+  opacity: 0;
 }
 
 .pr-band-service-arrow {
   display: block;
-  margin-top: 20px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--ambra);
-  align-self: flex-end;
-  opacity: 0.65;
+  opacity: 0.45;
+  margin-left: auto;
+  /* trasformazioni animate via Framer Motion */
 }
 
 /* Vertical column divider — 1px thin dark line */
@@ -1980,12 +2016,17 @@
     border-right: none;
     border-bottom: 1px solid var(--ardesia);
     min-height: 0;
+    padding: 20px 16px;
   }
   .pr-band-service:last-child {
     border-bottom: none;
   }
   /* Su mobile i service si stackano: niente separatore verticale */
   .pr-band-service--sep::before {
+    display: none;
+  }
+  /* Su mobile la linea draw-on-hover non serve */
+  .pr-band-service-underline {
     display: none;
   }
   .pr-band-phase-desc {

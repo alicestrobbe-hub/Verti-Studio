@@ -157,6 +157,8 @@ svg {
 
 .h2--italic {
   font-style: italic;
+  color: var(--ambra);
+  opacity: calc(0.9 * var(--accent-strength) + 0.1);
 }
 
 .h2--gold {
@@ -485,6 +487,15 @@ body.hero-zooming .nav.scrolled {
   .hero-title--de {
     font-size: clamp(52px, 7vw, 88px);
   }
+}
+
+/* Hero eyebrow — ambra invece di alpino per contrasto editoriale caldo */
+.hero-text-section .eyebrow {
+  color: var(--ambra);
+  opacity: calc(0.82 * var(--accent-strength) + 0.1);
+}
+.hero-text-section .eyebrow::before {
+  background: var(--ambra);
 }
 
 .hero-sub {
