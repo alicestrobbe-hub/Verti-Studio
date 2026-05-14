@@ -47,6 +47,158 @@
 .mantenimento.section {
   padding-top: clamp(96px, 14vh, 192px);
   padding-bottom: clamp(80px, 12vh, 160px);
+  position: relative;
+  overflow: hidden;
+  background: var(--abisso);
+}
+
+/* Container stays above visual BG */
+.mantenimento.section > .container {
+  position: relative;
+  z-index: 2;
+}
+
+/* ── Cura Visual Background ── */
+
+.cura-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.cura-particles-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Orb glows */
+.cura-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(110px);
+  pointer-events: none;
+  will-change: transform, opacity;
+}
+
+.cura-orb--1 {
+  width: 680px;
+  height: 680px;
+  top: -220px;
+  left: -280px;
+  background: radial-gradient(circle, rgba(72, 16, 132, 0.50) 0%, transparent 70%);
+  animation: cura-orb1 24s ease-in-out infinite;
+}
+.cura-orb--2 {
+  width: 580px;
+  height: 580px;
+  top: 25%;
+  right: -200px;
+  background: radial-gradient(circle, rgba(18, 36, 120, 0.44) 0%, transparent 70%);
+  animation: cura-orb2 30s ease-in-out infinite;
+}
+.cura-orb--3 {
+  width: 500px;
+  height: 500px;
+  bottom: -120px;
+  left: 28%;
+  background: radial-gradient(circle, rgba(108, 14, 86, 0.34) 0%, transparent 70%);
+  animation: cura-orb3 20s ease-in-out infinite;
+}
+.cura-orb--4 {
+  width: 420px;
+  height: 420px;
+  top: 52%;
+  left: 54%;
+  background: radial-gradient(circle, rgba(28, 58, 145, 0.26) 0%, transparent 70%);
+  animation: cura-orb4 27s ease-in-out infinite reverse;
+  transform: translate(-50%, -50%);
+}
+
+@keyframes cura-orb1 {
+  0%, 100% { transform: translate(0, 0) scale(1);    opacity: 0.75; }
+  33%       { transform: translate(90px, 130px) scale(1.18); opacity: 0.50; }
+  66%       { transform: translate(170px, 30px) scale(0.88); opacity: 0.82; }
+}
+@keyframes cura-orb2 {
+  0%, 100% { transform: translate(0, 0) scale(1);      opacity: 0.65; }
+  50%       { transform: translate(-110px, 160px) scale(1.20); opacity: 0.42; }
+}
+@keyframes cura-orb3 {
+  0%, 100% { transform: translate(0, 0) scale(1);      opacity: 0.58; }
+  40%       { transform: translate(-130px, -90px) scale(1.12); opacity: 0.72; }
+  80%       { transform: translate(70px, -50px) scale(0.92);   opacity: 0.48; }
+}
+@keyframes cura-orb4 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1);    opacity: 0.42; }
+  50%       { transform: translate(-50%, -50%) scale(1.35); opacity: 0.24; }
+}
+
+/* Organic cell shapes */
+.cura-cells {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+.cura-cell {
+  fill: none;
+  stroke-width: 0.5;
+}
+.cura-cell--1 {
+  fill: rgba(95, 25, 155, 0.07);
+  stroke: rgba(140, 75, 210, 0.09);
+  animation: cura-cdrift1 32s ease-in-out infinite;
+  transform-origin: 320px 280px;
+}
+.cura-cell--2 {
+  fill: rgba(18, 48, 140, 0.08);
+  stroke: rgba(55, 95, 205, 0.11);
+  animation: cura-cdrift2 38s ease-in-out infinite reverse;
+  transform-origin: 950px 580px;
+}
+.cura-cell--3 {
+  fill: rgba(88, 18, 118, 0.06);
+  stroke: rgba(128, 58, 178, 0.09);
+  animation: cura-cdrift3 29s ease-in-out infinite;
+  transform-origin: 1220px 180px;
+}
+.cura-cell--4 {
+  fill: rgba(38, 78, 162, 0.07);
+  stroke: rgba(75, 118, 202, 0.10);
+  animation: cura-cdrift4 34s ease-in-out infinite reverse;
+  transform-origin: 310px 610px;
+}
+.cura-cell--5 {
+  fill: rgba(75, 15, 105, 0.05);
+  stroke: rgba(115, 55, 165, 0.08);
+  animation: cura-cdrift1 41s ease-in-out infinite;
+  transform-origin: 680px 820px;
+}
+
+@keyframes cura-cdrift1 {
+  0%, 100% { transform: translate(0, 0)   scale(1)    rotate(0deg); }
+  33%       { transform: translate(28px, -22px) scale(1.08) rotate(5deg);  }
+  66%       { transform: translate(-18px, 30px) scale(0.93) rotate(-3deg); }
+}
+@keyframes cura-cdrift2 {
+  0%, 100% { transform: translate(0, 0)    scale(1)    rotate(0deg);  }
+  50%       { transform: translate(-38px, 28px) scale(1.10) rotate(-6deg); }
+}
+@keyframes cura-cdrift3 {
+  0%, 100% { transform: translate(0, 0)    scale(1)    rotate(0deg);  }
+  40%       { transform: translate(22px, 38px)  scale(0.90) rotate(8deg);  }
+  80%       { transform: translate(-14px, -14px) scale(1.06) rotate(-4deg); }
+}
+@keyframes cura-cdrift4 {
+  0%, 100% { transform: translate(0, 0)    scale(1)    rotate(0deg);  }
+  35%       { transform: translate(36px, -28px) scale(1.14) rotate(4deg);  }
+  70%       { transform: translate(-22px, 18px) scale(0.87) rotate(-7deg); }
 }
 
 /* ───────── Problema / Sintomi (2×2 interactive grid) ───────── */

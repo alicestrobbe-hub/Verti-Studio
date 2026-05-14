@@ -186,7 +186,7 @@ function PricingHero() {
   return (
     <section className="pr-hero" ref={ref}>
       <div className="pr-hero-bg" aria-hidden="true">
-        <img src="assets/investmentsBG.jpg" alt="" className="pr-hero-img" fetchpriority="high" decoding="async" />
+        <img src="assets/investmentsBG.webp?v=2" alt="" className="pr-hero-img" fetchpriority="high" decoding="async" />
         <div className="pr-hero-veil" />
       </div>
 
@@ -305,9 +305,107 @@ function SartorialitaSection() {
   );
 }
 
+// ─────── ServiceDetailModal ───────
+
+function ServiceDetailModal({ item, onClose }) {
+  const lang = React.useContext(LangCtx);
+  const Ts = (((window.VERTI_LANG || {})[lang] || {}).pricing || {}).servizi || {};
+  const labels = Ts.modalLabels || { process: 'Come lavoriamo', timeline: 'Tempi', outcome: 'Risultato', close: 'Chiudi' };
+  const details = item.details || {};
+  const { motion } = window.Motion;
+
+  React.useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    return () => { document.body.style.overflow = ''; };
+  }, []);
+
+  React.useEffect(() => {
+    const handler = (e) => { if (e.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', handler);
+    return () => window.removeEventListener('keydown', handler);
+  }, [onClose]);
+
+  const fields = [
+    { key: 'process', label: labels.process },
+    { key: 'timeline', label: labels.timeline },
+    { key: 'outcome', label: labels.outcome },
+  ].filter(f => details[f.key]);
+
+  return (
+    <motion.div
+      className="svc-modal-backdrop"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.28 }}
+      onClick={onClose}
+    >
+      <motion.div
+        className="svc-modal-container"
+        initial={{ opacity: 0, scale: 0.95, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        exit={{ opacity: 0, scale: 0.95, y: 20 }}
+        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
+        onClick={(e) => e.stopPropagation()}
+        role="dialog"
+        aria-modal="true"
+        aria-label={item.title}
+      >
+        {/* Header */}
+        <div className="svc-modal-header">
+          <span className="pr-mono svc-modal-num">{item.n}</span>
+          <span className="svc-modal-tag-badge">{item.tag}</span>
+          <button className="svc-modal-close pr-mono" onClick={onClose} aria-label={labels.close}>×</button>
+        </div>
+
+        <div className="svc-modal-hdiv" aria-hidden="true" />
+
+        {/* Titolo */}
+        <motion.h2
+          className="svc-modal-title"
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.12, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+        >{item.title}</motion.h2>
+
+        {/* Hook — full width, serif italic ambra */}
+        {details.hook && (
+          <motion.div
+            className="svc-modal-hook"
+            initial={{ opacity: 0, y: 12 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+          >
+            <span className="pr-mono svc-modal-field-label">—</span>
+            <p className="svc-modal-hook-text">{details.hook}</p>
+          </motion.div>
+        )}
+
+        <div className="svc-modal-hdiv" aria-hidden="true" />
+
+        {/* Grid: process / timeline / outcome */}
+        <div className="svc-modal-grid">
+          {fields.map((field, i) => (
+            <motion.div
+              key={field.key}
+              className={`svc-modal-field svc-modal-field--${field.key}`}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.28 + i * 0.09, duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+            >
+              <span className="pr-mono svc-modal-field-label">{field.label}</span>
+              <p className="svc-modal-field-text">{details[field.key]}</p>
+            </motion.div>
+          ))}
+        </div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
 // ─────── ServiziBand — sub-component (hook rules: useInView per band) ───────
 
-function ServiziBand({ group, items, gi }) {
+function ServiziBand({ group, items, gi, onOpenModal }) {
   const { motion } = window.Motion;
   const [bandRef, bandInView] = useInView({ threshold: 0.1 });
   // Hover indipendente: ogni service block ha il suo stato isolato
@@ -349,7 +447,7 @@ function ServiziBand({ group, items, gi }) {
           return (
             <motion.div
               key={ii}
-              className={`pr-band-service${ii > 0 ? ' pr-band-service--sep' : ''}`}
+              className={`pr-band-service${ii > 0 ? ' pr-band-service--sep' : ''}${item.details ? ' pr-band-service--clickable' : ''}`}
               initial={{ opacity: 0, y: 28 }}
               animate={bandInView ? {
                 opacity: isSiblingHovered ? 0.32 : 1,
@@ -361,7 +459,11 @@ function ServiziBand({ group, items, gi }) {
               }}
               onMouseEnter={() => setHoveredService(ii)}
               onMouseLeave={() => setHoveredService(null)}
-              role="article"
+              onClick={() => item.details && onOpenModal && onOpenModal(item)}
+              role={item.details ? 'button' : 'article'}
+              tabIndex={item.details ? 0 : undefined}
+              onKeyDown={(e) => { if (item.details && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); onOpenModal && onOpenModal(item); } }}
+              aria-haspopup={item.details ? 'dialog' : undefined}
             >
               <div className="pr-band-service-header">
                 <span className="pr-mono pr-band-service-num">{item.n || String(ii + 1).padStart(2, '0')}</span>
@@ -402,6 +504,8 @@ function ServiziBand({ group, items, gi }) {
 function Servizi() {
   const lang = React.useContext(LangCtx);
   const Ts = (((window.VERTI_LANG || {})[lang] || {}).pricing || {}).servizi || {};
+  const [activeItem, setActiveItem] = React.useState(null);
+
   const items = Ts.items || [
     { n: '01', title: 'Analisi sito', desc: 'Diagnosi su UX, comunicazione, conversione.', richDesc: "Prima di costruire, capiamo. Diagnosi completa su UX, frizione, copy e velocità.", tag: 'Standalone' },
     { n: '02', title: 'Web design & sviluppo', desc: 'Dal concept al lancio.', richDesc: 'Strategia, wireframe, visual design e sviluppo in cicli brevi.', tag: 'Core' },
@@ -415,6 +519,8 @@ function Servizi() {
     { num: '02', faseLabel: 'FASE 02', tag: 'CRESCITA', title: 'Dati & Continuità', itemIndices: [2, 3], phaseTitle: 'Crescita', phaseMeta: 'DOPO IL LANCIO', phaseDesc: 'Il sito evolve.' },
     { num: '03', faseLabel: 'FASE 03', tag: 'AVANZATO', title: 'Automazione & Scala', itemIndices: [4, 5], phaseTitle: 'Estensioni', phaseMeta: 'AVANZATO', phaseDesc: 'Per chi vuole scalare.' },
   ];
+
+  const { AnimatePresence } = window.Motion || {};
 
   return (
     <section className="pr-servizi">
@@ -439,9 +545,21 @@ function Servizi() {
 
       <div className="pr-bands">
         {groups.map((group, gi) => (
-          <ServiziBand key={gi} group={group} items={items} gi={gi} />
+          <ServiziBand key={gi} group={group} items={items} gi={gi} onOpenModal={setActiveItem} />
         ))}
       </div>
+
+      {AnimatePresence && (
+        <AnimatePresence>
+          {activeItem && (
+            <ServiceDetailModal
+              key="svc-modal"
+              item={activeItem}
+              onClose={() => setActiveItem(null)}
+            />
+          )}
+        </AnimatePresence>
+      )}
     </section>
   );
 }
@@ -620,7 +738,7 @@ function CTAFinale() {
   return (
     <section className="pr-cta" id="contatti" ref={ref}>
       <div className="pr-cta-bg" aria-hidden="true">
-        <img src="assets/investmentsBG.jpg" alt="" className="pr-cta-bg-img" loading="lazy" decoding="async" />
+        <img src="assets/investmentsBG.webp?v=2" alt="" className="pr-cta-bg-img" loading="lazy" decoding="async" />
         <div className="pr-cta-bg-veil" />
       </div>
 

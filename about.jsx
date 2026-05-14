@@ -208,7 +208,7 @@ function AboutHero() {
     <section className="ah-hero">
       {/* Layer 1: immagine con Ken Burns + parallax */}
       <div className="ah-hero-img-outer" ref={parallaxRef}>
-        <img src="assets/orizz1.jpeg" alt="" className="ah-hero-img" aria-hidden="true" fetchpriority="high" decoding="async" />
+        <img src="assets/orizz1.jpg?v=2" alt="" className="ah-hero-img" aria-hidden="true" fetchpriority="high" decoding="async" />
       </div>
       {/* Layer 2: gradienti */}
       <div className="ah-hero-gradient" aria-hidden="true" />
@@ -310,7 +310,7 @@ function Origine() {
           </div>
           <FadeUp delay={120} className="ah-img-text-right">
             <div className="ah-img-frame">
-              <img src="assets/vert1.jpg" alt="Centro storico di Bolzano" className="ah-img-vertical" loading="lazy" decoding="async" />
+              <img src="assets/vert1.jpg?v=2" alt="Centro storico di Bolzano" className="ah-img-vertical" loading="lazy" decoding="async" />
               <div className="ah-img-caption">{To.imgCaption || 'Bolzano · centro storico'}</div>
             </div>
           </FadeUp>
@@ -384,7 +384,7 @@ function Filosofia() {
           </div>
           <FadeUp delay={200} className="ah-filosofia-img-col">
             <div className="ah-img-frame ah-img-frame--tall">
-              <img ref={breathRef} src="assets/vert4.jpeg" alt="Alto Adige — paesaggio alpino" className="ah-img-tall" loading="lazy" decoding="async" style={{ transformOrigin: 'center center' }} />
+              <img ref={breathRef} src="assets/vert4.jpg?v=2" alt="Alto Adige — paesaggio alpino" className="ah-img-tall" loading="lazy" decoding="async" style={{ transformOrigin: 'center center' }} />
             </div>
           </FadeUp>
         </div>
@@ -401,9 +401,9 @@ function PhotoStrip() {
   const lang = React.useContext(LangCtx);
   const stripLabels = ((((window.VERTI_LANG || {})[lang] || {}).about || {}).photostrip || {}).labels || ['Dolomiti', 'Val Venosta', 'Sud Tirolo'];
   const photos = [
-    { src: 'assets/vert3.jpeg', alt: 'Alto Adige · veduta alpina', label: stripLabels[0] },
-    { src: 'assets/vert5.jpeg', alt: 'Alto Adige · paesaggio', label: stripLabels[1] },
-    { src: 'assets/orizz2.jpeg', alt: 'Alto Adige · panorama', label: stripLabels[2] },
+    { src: 'assets/vert3.jpg?v=2', alt: 'Alto Adige · veduta alpina', label: stripLabels[0] },
+    { src: 'assets/vert5.jpg?v=2', alt: 'Alto Adige · paesaggio', label: stripLabels[1] },
+    { src: 'assets/orizz2.jpg?v=2', alt: 'Alto Adige · panorama', label: stripLabels[2] },
   ];
 
   const mq = typeof window !== 'undefined' ? window.matchMedia('(min-width: 641px)') : null;
@@ -605,7 +605,7 @@ function ImageMountain() {
   return (
     <div ref={sectionRef} className="ah-fullbleed">
       <div className="ah-fullbleed-img-wrap">
-        <img ref={imgRef} src="assets/orizz4.jpeg" alt="Alto Adige — paesaggio alpino" className="ah-fullbleed-img" loading="lazy" decoding="async" />
+        <img ref={imgRef} src="assets/orizz4.jpg?v=2" alt="Alto Adige — paesaggio alpino" className="ah-fullbleed-img" loading="lazy" decoding="async" />
         <div className="ah-fullbleed-overlay" aria-hidden="true" />
       </div>
       <div className="ah-fullbleed-content container">

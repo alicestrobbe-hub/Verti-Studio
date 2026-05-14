@@ -1218,6 +1218,82 @@ function AnimatedDivider() {
   );
 }
 
+// ── CuraVisualBG: deep-space gradient orbs + organic SVG cells + micro-particle canvas ──
+function CuraVisualBG() {
+  const canvasRef = React.useRef(null);
+
+  React.useEffect(() => {
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const parent = canvas.parentElement;
+    const setSize = () => {
+      canvas.width = parent.offsetWidth;
+      canvas.height = parent.offsetHeight;
+    };
+    setSize();
+    const ctx = canvas.getContext('2d');
+
+    const palette = ['200,184,154', '120,80,190', '60,100,200', '160,60,140'];
+    const particles = Array.from({ length: 45 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height,
+      vx: (Math.random() - 0.5) * 0.22,
+      vy: (Math.random() - 0.5) * 0.22,
+      r: Math.random() * 1.6 + 0.3,
+      opacity: Math.random() * 0.13 + 0.04,
+      color: palette[Math.floor(Math.random() * palette.length)],
+    }));
+
+    let animId;
+    function draw() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      particles.forEach(p => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < -8) p.x = canvas.width + 8;
+        if (p.x > canvas.width + 8) p.x = -8;
+        if (p.y < -8) p.y = canvas.height + 8;
+        if (p.y > canvas.height + 8) p.y = -8;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(${p.color},${p.opacity})`;
+        ctx.fill();
+      });
+      animId = requestAnimationFrame(draw);
+    }
+    draw();
+
+    const ro = new ResizeObserver(() => {
+      setSize();
+      particles.forEach(p => {
+        p.x = Math.random() * canvas.width;
+        p.y = Math.random() * canvas.height;
+      });
+    });
+    ro.observe(parent);
+    return () => { cancelAnimationFrame(animId); ro.disconnect(); };
+  }, []);
+
+  return (
+    <React.Fragment>
+      <div className="cura-bg" aria-hidden="true">
+        <div className="cura-orb cura-orb--1" />
+        <div className="cura-orb cura-orb--2" />
+        <div className="cura-orb cura-orb--3" />
+        <div className="cura-orb cura-orb--4" />
+        <svg className="cura-cells" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <ellipse className="cura-cell cura-cell--1" cx="320" cy="280" rx="200" ry="140" />
+          <ellipse className="cura-cell cura-cell--2" cx="950" cy="580" rx="240" ry="170" />
+          <ellipse className="cura-cell cura-cell--3" cx="1220" cy="180" rx="170" ry="210" />
+          <path className="cura-cell cura-cell--4" d="M180,520 Q290,400 420,510 Q550,620 410,720 Q270,820 170,700 Q70,580 180,520Z" />
+          <ellipse className="cura-cell cura-cell--5" cx="680" cy="820" rx="180" ry="110" />
+        </svg>
+      </div>
+      <canvas ref={canvasRef} className="cura-particles-canvas" aria-hidden="true" />
+    </React.Fragment>
+  );
+}
+
 function Mantenimento() {
   const lang = React.useContext(LangCtx);
   const Tman = (((window.VERTI_LANG || {})[lang] || {}).home || {}).mantenimento || {};
@@ -1238,6 +1314,7 @@ function Mantenimento() {
   const titleParts = (Tman.title || 'Un sito non è un prodotto.\nÈ un asset.').split('\n');
   return (
     <section className="section mantenimento" id="mantenimento">
+      <CuraVisualBG />
       <div className="container">
         <div className="mantenimento-intro">
           <div>

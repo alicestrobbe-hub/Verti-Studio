@@ -1992,3 +1992,172 @@
     max-width: none;
   }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   SERVICE DETAIL MODAL
+   ═══════════════════════════════════════════════════════════ */
+
+/* Clickable service block */
+.pr-band-service--clickable {
+  cursor: pointer;
+}
+
+/* Backdrop */
+.svc-modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  z-index: 9100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: clamp(16px, 4vw, 40px);
+}
+
+/* Container */
+.svc-modal-container {
+  background: var(--abisso);
+  border: 1px solid rgba(232, 228, 220, 0.07);
+  width: 100%;
+  max-width: 800px;
+  max-height: 88vh;
+  overflow-y: auto;
+  padding: clamp(28px, 5vw, 64px);
+  position: relative;
+  border-radius: 2px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--ardesia) transparent;
+}
+.svc-modal-container::-webkit-scrollbar { width: 4px; }
+.svc-modal-container::-webkit-scrollbar-track { background: transparent; }
+.svc-modal-container::-webkit-scrollbar-thumb { background: var(--ardesia); border-radius: 2px; }
+
+/* Header row */
+.svc-modal-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+.svc-modal-num {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--ardesia);
+  opacity: 0.7;
+}
+.svc-modal-tag-badge {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ardesia);
+  border: 1px solid rgba(232, 228, 220, 0.12);
+  padding: 3px 9px;
+  opacity: 0.55;
+  flex: 1;
+}
+.svc-modal-close {
+  background: none;
+  border: none;
+  color: var(--ardesia);
+  font-size: 22px;
+  cursor: pointer;
+  padding: 2px 6px;
+  line-height: 1;
+  transition: color 0.2s ease;
+  margin-left: auto;
+}
+.svc-modal-close:hover { color: var(--ambra); }
+
+/* 1px separator */
+.svc-modal-hdiv {
+  height: 1px;
+  background: rgba(232, 228, 220, 0.07);
+  margin: 0 0 28px;
+}
+
+/* Title */
+.svc-modal-title {
+  font-family: var(--font-serif);
+  font-size: clamp(26px, 4.5vw, 46px);
+  font-weight: 300;
+  color: var(--neve);
+  line-height: 1.08;
+  letter-spacing: -0.025em;
+  margin: 0 0 28px;
+}
+
+/* Hook block */
+.svc-modal-hook {
+  margin-bottom: 28px;
+}
+.svc-modal-hook-text {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: clamp(15px, 2.2vw, 20px);
+  color: var(--ambra);
+  line-height: 1.55;
+  margin: 8px 0 0;
+}
+
+/* Field label */
+.svc-modal-field-label {
+  display: block;
+  font-size: 9px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ardesia);
+  opacity: 0.7;
+  margin-bottom: 10px;
+}
+
+/* Grid: process / timeline / outcome */
+.svc-modal-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+}
+
+.svc-modal-field {
+  padding: 24px 0;
+  border-top: 1px solid rgba(232, 228, 220, 0.07);
+}
+.svc-modal-field:nth-child(odd) {
+  padding-right: clamp(16px, 3vw, 36px);
+  border-right: 1px solid rgba(232, 228, 220, 0.07);
+}
+.svc-modal-field:nth-child(even) {
+  padding-left: clamp(16px, 3vw, 36px);
+}
+/* outcome: full width if alone (last item, odd position) */
+.svc-modal-field--outcome:only-child,
+.svc-modal-field--outcome:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+  border-right: none;
+  padding-right: 0;
+}
+
+.svc-modal-field-text {
+  font-size: clamp(13px, 1.4vw, 14px);
+  color: rgba(232, 228, 220, 0.68);
+  line-height: 1.7;
+  margin: 0;
+}
+
+@media (max-width: 600px) {
+  .svc-modal-grid {
+    grid-template-columns: 1fr;
+  }
+  .svc-modal-field:nth-child(odd) {
+    padding-right: 0;
+    border-right: none;
+  }
+  .svc-modal-field:nth-child(even) {
+    padding-left: 0;
+  }
+  .svc-modal-field--outcome:last-child:nth-child(odd) {
+    grid-column: 1;
+  }
+}
