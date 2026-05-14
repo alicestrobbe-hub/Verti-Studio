@@ -341,7 +341,7 @@
   position: relative;
   z-index: 2;
 }
-.mantenimento-intro .h2 { margin-top: 24px; }
+.mantenimento-intro .h2 { margin-top: 24px; color: var(--ambra); }
 .mantenimento-lead {
   font-family: var(--font-display);
   font-weight: 300;

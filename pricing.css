@@ -2115,14 +2115,14 @@
 /* 1px separator */
 .svc-modal-hdiv {
   height: 1px;
-  background: rgba(232, 228, 220, 0.07);
+  background: var(--ardesia);
   margin: 0 0 28px;
 }
 
 /* Title */
 .svc-modal-title {
-  font-family: var(--font-serif);
-  font-size: clamp(26px, 4.5vw, 46px);
+  font-family: var(--font-display);
+  font-size: clamp(30px, 5.5vw, 56px);
   font-weight: 300;
   color: var(--neve);
   line-height: 1.08;
@@ -2135,9 +2135,9 @@
   margin-bottom: 28px;
 }
 .svc-modal-hook-text {
-  font-family: var(--font-serif);
+  font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(15px, 2.2vw, 20px);
+  font-size: clamp(16px, 2.4vw, 22px);
   color: var(--ambra);
   line-height: 1.55;
   margin: 8px 0 0;
@@ -2146,11 +2146,11 @@
 /* Field label */
 .svc-modal-field-label {
   display: block;
+  font-family: var(--font-mono);
   font-size: 9px;
-  letter-spacing: 0.22em;
+  letter-spacing: 0.28em;
   text-transform: uppercase;
-  color: var(--ardesia);
-  opacity: 0.7;
+  color: var(--ambra);
   margin-bottom: 10px;
 }
 
@@ -2163,11 +2163,11 @@
 
 .svc-modal-field {
   padding: 24px 0;
-  border-top: 1px solid rgba(232, 228, 220, 0.07);
+  border-top: 1px solid var(--ardesia);
 }
 .svc-modal-field:nth-child(odd) {
   padding-right: clamp(16px, 3vw, 36px);
-  border-right: 1px solid rgba(232, 228, 220, 0.07);
+  border-right: 1px solid var(--ardesia);
 }
 .svc-modal-field:nth-child(even) {
   padding-left: clamp(16px, 3vw, 36px);
@@ -2182,7 +2182,7 @@
 
 .svc-modal-field-text {
   font-size: clamp(13px, 1.4vw, 14px);
-  color: rgba(232, 228, 220, 0.68);
+  color: var(--ghiaccio);
   line-height: 1.7;
   margin: 0;
 }
