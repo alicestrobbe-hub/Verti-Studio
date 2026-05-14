@@ -2232,6 +2232,29 @@
   margin: 0;
 }
 
+/* ── Premium inline highlights ──────────────────────────────────────────────
+   <strong> → amber, font-weight 400 (never browser bold). class="mono"
+   adds monospace for metrics / tool names. */
+.svc-modal-row-text strong,
+.svc-modal-hook-text strong {
+  font-weight: 400;
+  font-style: normal;
+  color: var(--ambra);
+  opacity: 1;
+}
+.svc-modal-hook-text strong {
+  font-style: italic;
+}
+.svc-modal-row-text strong.mono,
+.svc-modal-hook-text strong.mono {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  letter-spacing: 0.04em;
+  font-weight: 400;
+  color: var(--ambra);
+  font-style: normal;
+}
+
 /* Bottom row: timeline + outcome side by side */
 .svc-modal-row--bottom {
   display: grid;

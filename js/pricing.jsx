@@ -384,9 +384,8 @@ function ServiceDetailModal({ item, onClose }) {
                 initial={{ opacity: 0, y: 12 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.24, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              >
-                {details.hook}
-              </motion.p>
+                dangerouslySetInnerHTML={{ __html: details.hook }}
+              />
             )}
           </div>
 
@@ -411,7 +410,7 @@ function ServiceDetailModal({ item, onClose }) {
               transition={{ delay: 0.18, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="svc-modal-row-label pr-mono">{(labels.process || 'PROCESS').toUpperCase()}</span>
-              <p className="svc-modal-row-text">{details.process}</p>
+              <p className="svc-modal-row-text" dangerouslySetInnerHTML={{ __html: details.process }} />
             </motion.div>
           )}
 
@@ -424,7 +423,7 @@ function ServiceDetailModal({ item, onClose }) {
               transition={{ delay: 0.27, duration: 0.55, ease: [0.16, 1, 0.3, 1] }}
             >
               <span className="svc-modal-row-label pr-mono">{(labels.onboarding || 'ONBOARDING').toUpperCase()}</span>
-              <p className="svc-modal-row-text">{details.onboarding}</p>
+              <p className="svc-modal-row-text" dangerouslySetInnerHTML={{ __html: details.onboarding }} />
             </motion.div>
           )}
 
@@ -444,14 +443,14 @@ function ServiceDetailModal({ item, onClose }) {
                     {timelineUnit && <span className="svc-modal-timeline-unit"> {timelineUnit}</span>}
                   </div>
                 )}
-                <p className="svc-modal-row-text">{details.timeline}</p>
+                <p className="svc-modal-row-text" dangerouslySetInnerHTML={{ __html: details.timeline }} />
               </div>
             )}
             {details.outcome && (
               <div className="svc-modal-cell svc-modal-cell--outcome">
                 <span className="svc-modal-row-label pr-mono">{(labels.outcome || 'OUTCOME').toUpperCase()}</span>
                 <h3 className="svc-modal-outcome-title">{labels.outcomeTitle || 'Documento Strategico'}</h3>
-                <p className="svc-modal-row-text">{details.outcome}</p>
+                <p className="svc-modal-row-text" dangerouslySetInnerHTML={{ __html: details.outcome }} />
                 <button className="svc-modal-outcome-arrow" onClick={onClose} aria-label={labels.close}>→</button>
               </div>
             )}
